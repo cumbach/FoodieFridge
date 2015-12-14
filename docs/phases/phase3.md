@@ -2,43 +2,29 @@
 
 ## Rails
 ### Models
-* Notebook
-* Tag
-* Tagging
 
 ### Controllers
 * Api::NotebooksController (create, destroy, index, show, update)
 
 ### Views
-* notebooks/index.json.jbuilder
-* notebooks/show.json.jbuilder
-* tags/show.json.jbuilder
 
 ## Flux
 ### Views (React Components)
-* NotebooksIndex
-  - NotebookIndexItem
-* NotebookForm
-* SearchIndex
+* FridgeIndex
+  - FridgeIndexItems
 
 ### Stores
-* Notebook
-
-### Actions
-* ApiActions.receiveAllNotebooks -> triggered by ApiUtil
-* ApiActions.receiveSingleNotebook
-* ApiActions.deleteNotebook
-* NotebookActions.fetchAllNotebooks -> triggers ApiUtil
-* NotebookActions.fetchSingleNotebook
-* NotebookActions.createNotebook
-* NotebookActions.editNotebook
-* NotebookActions.destroyNotebook
+* Fridge
 
 ### ApiUtil
-* ApiUtil.fetchAllNotebooks
-* ApiUtil.fetchSingleNotebook
-* ApiUtil.createNotebook
-* ApiUtil.editNotebook
-* ApiUtil.destroyNotebook
+* ApiUtil.fetchAllFridgeItems -> triggers FridgeItemActions
+* ApiUtil.createFridgeItem -> triggers FridgeItemActions
+* ApiUtil.destroyFridgeItem -> triggers FridgeItemActions
+
+### Actions
+* FridgeActions.receiveAllFridgeItems -> triggered by ApiUtil
+* FridgeActions.createFridgeItem -> triggered by ApiUtil
+* FridgeActions.destroyFridgeItem -> triggered by ApiUtil
+
 
 ## Gems/Libraries

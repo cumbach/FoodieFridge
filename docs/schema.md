@@ -15,19 +15,14 @@ id          | integer   | not null, primary key
 name        | string    | not null
 category    | string    | not null
 
-##fridges
-column name | data type | details
-------------|-----------|-----------------------
-id          | integer   | not null, primary key
-user_id     | integer   | not null, foreign key (references users), indexed
+## fridge_items
+column name   | data type | details
+--------------|-----------|-----------------------
+id            | integer   | not null, primary key
+user_id       | integer   | not null, foreign key (references users),
+ingredient_id | integer   | not null, foreign key (references ingredients),
 
-## fridgeitems
-column name | data type | details
-------------|-----------|-----------------------
-id          | integer   | not null, primary key
-fridge_id   | integer   | not null, foreign key (references fridges), indexed
-name        | string    | not null
-category    | string    | not null
+
 
 ## reminders
 column name | data type | details

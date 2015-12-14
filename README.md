@@ -18,7 +18,6 @@ and React.js. FoodieFridge allows users to:
 - [ ] Add and remove ingredients from their virtual fridge
 - [ ] View recipes that use items contained in their fridge
 - [ ] Save favorite recipes
-- [ ]
 
 ## Design Docs
 * [View Wireframes][view]
@@ -39,40 +38,48 @@ the database with ingredient data. I will also set up a full JSON API for Fridge
 
 [Details][phase-one]
 
-### Phase 2: Flux Architecture, Ingredient CRUD and FridgeItem CRUD (2.5 days)
+### Phase 2: Flux Architecture, Ingredients CRUD (2.5 days)
 
 Phase 2 is focused on setting up Flux, the React Router, and the React view
 structure for the main application. After the basic Flux architecture has been
-set up, an Ingredient store will be implemented and a set of actions corresponding to the needed CRUD functionality created. Once this is done, I will create
+set up, an Ingredient store will be implemented and a set of actions to update the store
+will be created (only read, no changes to ingredients DB). Once this is done, I will create
 `Index` and `IndexItem` React views for the Ingredients.
-I will also set up a FridgeItems store and CRUD functionality. FridgeItems can be created, read, edited and destroyed in the browser. FridgeItems should
-save to the database when a user clicks on the Ingredient, and should be destroyed
-when a user clicks on the FridgeItem.
+
 Lastly, while constructing the views I will start using basic bootstrap for
 styling.
 
 [Details][phase-two]
 
-### Phase 3: Notebooks and Tags (2 days)
+### Phase 3:  FridgeIndexItem CRUD, and Ingredients (2 days)
 
-At the end of Phase 2,
-FridgeItems can be created, read, edited and destroyed in the browser. Notes should
-save to the database when the form loses focus or is left idle after editing.
-Lastly, while constructing the views I will start using basic bootstrap for
-styling.
+Phase 3 adds organization to the Fridge and Ingredients.
 
-Phase 3 adds organization to the Notes. Notes belong to a Notebook, which has
-its own `Index` view. Create JSON API for Notebooks. Notes can also now be
-tagged with multiple tags. Users can bring up notes in a separate `SearchIndex`
-view by searching for their tags. Once the tag search is implemented, I will
-extend this to a fuzzy search through every Note's content.
+Once I have my Ingredients React components working correctly, I will set up a Fridge store and FridgeItem CRUD functionality. The Fridge will have `Index` and `IndexItem` React views. FridgeItems can be created, read, edited and destroyed in the browser.
+
+Ingredients have many FridgeItems.
+FridgeItems belongs to User and Ingredient.
+
+When a user clicks on an IngredientIndexItem:
+-It saves that Ingredient to the FridgeItems database.
+-It removes that Ingredient from the Ingredients store.
+
+When a user clicks on a FridgeIndexItem:
+-It deletes that Ingredient from the FridgeItems database.
+-It adds that Ingredient back to the Ingredients store.
 
 [Details][phase-three]
 
-### Phase 4: Allow Complex Styling in Notes (1 day)
+### Phase 4: Set up Yummly API (1 day)
 
-Using the react-quill library (based on Quill.js), allow for complex styling of
-notes.
+Phase 4 sets up functionality with the Yummly API to retrieve recipes.
+
+I will set up a Recipes store with `Index` and `IndexItem` React views.
+
+When a user creates a FridgeItem, a new request will be made to the
+Yummly API for recipes that contain that ingredient. Those recipes will be
+added to the Recipe store.
+
 
 [Details][phase-four]
 

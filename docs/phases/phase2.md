@@ -9,29 +9,29 @@
 
 ## Flux
 ### Views (React Components)
-* NotesIndex
-  - NotesIndexItem
-* NoteForm
+* IngredientsIndex
+* FridgeIndex
+  - FridgeIndexItems
 
 ### Stores
-* Note
-
-### Actions
-* ApiActions.receiveAllNotes -> triggered by ApiUtil
-* ApiActions.receiveSingleNote
-* ApiActions.deleteNote
-* NoteActions.fetchAllNotes -> triggers ApiUtil
-* NoteActions.fetchSingleNote 
-* NoteActions.createNote
-* NoteActions.editNote 
-* NoteActions.destroyNote
+* Ingredient
+* Fridge
 
 ### ApiUtil
-* ApiUtil.fetchAllNotes
-* ApiUtil.fetchSingleNote
-* ApiUtil.createNote
-* ApiUtil.editNote
-* ApiUtil.destroyNote
+* ApiUtil.fetchAllIngredients -> triggers IngredientActions
+
+* ApiUtil.fetchAllFridgeItems -> triggers FridgeItemActions
+* ApiUtil.createFridgeItem -> triggers FridgeItemActions
+* ApiUtil.destroyFridgeItem -> triggers FridgeItemActions
+
+### Actions
+* IngredientActions.receiveAllIngredients -> triggered by ApiUtil
+* IngredientActions.createIngredient
+* IngredientActions.destroyIngredient
+
+* FridgeActions.receiveAllFridgeItems -> triggered by ApiUtil
+* FridgeActions.createFridgeItem -> triggered by ApiUtil
+* FridgeActions.destroyFridgeItem -> triggered by ApiUtil
 
 ## Gems/Libraries
 * Flux Dispatcher (npm)

@@ -4,17 +4,19 @@
 ### Models
 * User
 * Ingredient
+* FridgeItem
 
 ### Controllers
 * UsersController (create, new)
 * SessionsController (create, new, destroy)
-* Api::IngredientsController (index, show)
+* Api::IngredientsController (index)
+* Api::FridgeItemsController (create, new, destroy, index)
 
 ### Views
 * users/new.html.erb
 * session/new.html.erb
 * ingredients/index.json.jbuilder
-* ingredients/show.json.jbuilder
+* fridgeitems/index.json.jbuilder
 
 ## Flux
 ### Views (React Components)
