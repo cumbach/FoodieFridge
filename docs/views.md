@@ -6,21 +6,35 @@
 ## New Session
 ![new-session]
 
-## NotesIndex / NoteIndexItem / NoteForm
-![notes]
+## App Root
+![App]
 
-## NotebooksIndex / NotebookIndexItem
-![notebooks]
+## FridgeIndex / FridgeIndexItem
+![FridgeIndex]
 
-## NoteBookForm
-![notebook-form]
+## IngredientsIndex / IngredientsIndexItem
+![IngredientsIndex]
+
+## RecipeIndex / RecipeIndexItem
+![RecipeIndex]
+![RecipeIndexItem]
+
+## RecipeIndexItem(show)
+![RecipeIndexItem(show)]
+
+## Header
+![Header]
 
 ## Component Heirarchy
-![component-heirarchy]
+![ComponentHierarchy]
 
 [new-user]: ./wireframes/new_user.png
 [new-session]: ./wireframes/new_session.png
-[notes]: ./wireframes/root_notes.png
-[notebooks]: ./wireframes/root_notebooks.png
-[notebook-form]: ./wireframes/notebook_form.png
-[component-heirarchy]: ./wireframes/component_heirarchy.png
+[app]: ./wireframes/App.png
+[FridgeIndex]: ./wireframes/FridgeIndex.png
+[IngredientsIndex]: ./wireframes/IngredientsIndex.png
+[RecipeIndex]: ./wireframes/RecipeIndex.png
+[RecipeIndexItem]: ./wireframes/RecipeIndexItem.png
+[RecipeIndexItem(show)]: ./wireframes/RecipeIndexItem(show).png
+[Header]: ./wireframes/HeaderView.png
+[ComponentHierarchy]: ./wireframes/ComponentHierarchy.png

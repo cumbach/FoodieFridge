@@ -9,10 +9,17 @@
 
 ## Flux
 ### Views (React Components)
+RecipeIndex
+RecipeIndexItem
 
 ### Stores
+Recipe
+
+### ApiUtil
 
 ### Actions
+* RecipeActions.createRecipes
+* RecipeActions.destroyRecipes
+* RecipeActions.receiveAllRecipes
 
 ## Gems/Libraries
-* react-quill (npm)
