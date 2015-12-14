@@ -17,7 +17,6 @@ and React.js. FoodieFridge allows users to:
 - [ ] Search for ingredients
 - [ ] Add and remove ingredients from their virtual fridge
 - [ ] View recipes that use items contained in their fridge
-- [ ] Save favorite recipes
 
 ## Design Docs
 * [View Wireframes][view]
