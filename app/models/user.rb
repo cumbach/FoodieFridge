@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
 
     after_initialize :ensure_session_token
 
-    # has_many :fridgeitems
+    has_many :fridge_items
 
     def self.find_by_credentials(username, password)
       user = User.find_by(username: username)

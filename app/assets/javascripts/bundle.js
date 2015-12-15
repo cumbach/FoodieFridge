@@ -19647,6 +19647,7 @@
 
 	var React = __webpack_require__(147);
 	var IngredientsIndex = __webpack_require__(161);
+	var FridgeIndex = __webpack_require__(189);
 	
 	var App = React.createClass({
 	  displayName: 'App',
@@ -19655,6 +19656,14 @@
 	    return React.createElement(
 	      'div',
 	      { id: 'foodiefridge' },
+	      React.createElement(
+	        'div',
+	        { className: 'fridge_items-index-pane' },
+	        'Your Fridge:',
+	        React.createElement(FridgeIndex, null)
+	      ),
+	      React.createElement('br', null),
+	      React.createElement('br', null),
 	      React.createElement(
 	        'div',
 	        { className: 'ingredients-index-pane' },
@@ -20077,6 +20086,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var IngredientActions = __webpack_require__(163);
+	var FridgeActions = __webpack_require__(187);
 	
 	module.exports = {
 	  fetchAllIngredients: function () {
@@ -20084,6 +20094,14 @@
 	      url: "api/ingredients",
 	      success: function (ingredients) {
 	        IngredientActions.receiveAllIngredients(ingredients);
+	      }
+	    });
+	  },
+	  fetchAllFridgeItems: function () {
+	    $.ajax({
+	      url: "api/fridge_items",
+	      success: function (fridgeItems) {
+	        FridgeActions.receiveAllFridgeItems(fridgeItems);
 	      }
 	    });
 	  }
@@ -26504,6 +26522,144 @@
 	
 	module.exports = FluxMixinLegacy;
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+
+/***/ },
+/* 187 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Dispatcher = __webpack_require__(164);
+	var FridgeConstants = __webpack_require__(188);
+	
+	var FridgeActions = {
+	  receiveAllFridgeItems: function (fridgeItems) {
+	    Dispatcher.dispatch({
+	      actionType: FridgeConstants.FRIDGE_ITEMS_RECEIVED,
+	      fridgeItems: fridgeItems
+	    });
+	  }
+	};
+	
+	module.exports = FridgeActions;
+
+/***/ },
+/* 188 */
+/***/ function(module, exports) {
+
+	module.exports = {
+	  FRIDGE_ITEMS_RECEIVED: "FRIDGE_ITEMS_RECEIVED"
+	};
+
+/***/ },
+/* 189 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(147);
+	var IngredientActions = __webpack_require__(187);
+	var ApiUtil = __webpack_require__(169);
+	var FridgeStore = __webpack_require__(190);
+	var FridgeIndexItem = __webpack_require__(191);
+	
+	var FridgeIndex = React.createClass({
+	  displayName: 'FridgeIndex',
+	
+	  getInitialState: function () {
+	    return { fridgeItems: [] };
+	  },
+	
+	  _onChange: function () {
+	    this.setState({ fridgeItems: FridgeStore.all() });
+	  },
+	
+	  componentDidMount: function () {
+	    this.fridgeListener = FridgeStore.addListener(this._onChange);
+	    ApiUtil.fetchAllFridgeItems();
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.ingredientListener.remove();
+	  },
+	
+	  render: function () {
+	    return React.createElement(
+	      'ul',
+	      null,
+	      this.state.fridgeItems.map(function (fridgeItem) {
+	        return React.createElement(FridgeIndexItem, { key: fridgeItem.id, fridgeitem: fridgeItem });
+	      })
+	    );
+	  }
+	});
+	
+	module.exports = FridgeIndex;
+
+/***/ },
+/* 190 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Store = __webpack_require__(171).Store;
+	var Dispatcher = __webpack_require__(164);
+	var FridgeConstants = __webpack_require__(188);
+	var FridgeStore = new Store(Dispatcher);
+	
+	var _fridgeItems = {};
+	
+	var resetFridgeItems = function (fridgeItems) {
+	  _fridgeItems = {};
+	  fridgeItems.forEach(function (fridgeItem) {
+	    _fridgeItems[fridgeItem.id] = fridgeItem;
+	  });
+	};
+	
+	// var resetPokemon = function (pokemon) {
+	//   _pokemons[pokemon.id] = pokemon;
+	// };
+	
+	FridgeStore.all = function () {
+	  var fridgeItems = [];
+	  for (var id in _fridgeItems) {
+	    fridgeItems.push(_fridgeItems[id]);
+	  }
+	  return fridgeItems;
+	};
+	
+	// PokemonStore.find = function (id) {
+	//   return _pokemons[id];
+	// }
+	
+	FridgeStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case FridgeConstants.FRIDGE_ITEMS_RECEIVED:
+	      resetFridgeItems(payload.fridgeItems);
+	      break;
+	    // case PokemonConstants.POKEMON_RECEIVED:
+	    //   resetPokemon(payload.pokemon);
+	    //   break;
+	  }
+	
+	  FridgeStore.__emitChange();
+	};
+	
+	module.exports = FridgeStore;
+
+/***/ },
+/* 191 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(147);
+	
+	var FridgeIndexItem = React.createClass({
+	  displayName: "FridgeIndexItem",
+	
+	  render: function () {
+	    return React.createElement(
+	      "div",
+	      { id: "fridge-index-item" },
+	      this.props.fridgeitem.user_id + " " + this.props.fridgeitem.ingredient_id
+	    );
+	  }
+	});
+	
+	module.exports = FridgeIndexItem;
 
 /***/ }
 /******/ ]);

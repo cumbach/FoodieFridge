@@ -1,4 +1,4 @@
 class Ingredient < ActiveRecord::Base
 
-  # has_many :fridgeitems
+  has_many :fridge_items
 end
