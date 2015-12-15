@@ -1,0 +1,3 @@
+module.exports = {
+  INGREDIENTS_RECEIVED: "INGREDIENTS_RECEIVED"
+};
