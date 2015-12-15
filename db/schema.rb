@@ -24,4 +24,6 @@ ActiveRecord::Schema.define(version: 20151215173056) do
     t.datetime "updated_at",      null: false
   end
 
+  add_index "users", ["session_token"], name: "index_users_on_session_token", unique: true, using: :btree
+
 end
