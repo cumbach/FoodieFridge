@@ -21,13 +21,14 @@ var IngredientsIndex = React.createClass({
   componentWillUnmount: function(){
     this.ingredientListener.remove();
   },
-
   render: function() {
     return(
       <ul>
         {this.state.ingredients.map(function(ingredient){
-          return <IngredientIndexItem key={ingredient.id} ingredient={ingredient}/>;
-        })}
+          return <IngredientIndexItem
+                  key={ingredient.id}
+                  ingredient={ingredient}/>;
+              })}
       </ul>
     );
   }

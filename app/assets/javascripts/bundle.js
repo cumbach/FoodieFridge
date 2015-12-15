@@ -19706,13 +19706,14 @@
 	  componentWillUnmount: function () {
 	    this.ingredientListener.remove();
 	  },
-	
 	  render: function () {
 	    return React.createElement(
 	      'ul',
 	      null,
 	      this.state.ingredients.map(function (ingredient) {
-	        return React.createElement(IngredientIndexItem, { key: ingredient.id, ingredient: ingredient });
+	        return React.createElement(IngredientIndexItem, {
+	          key: ingredient.id,
+	          ingredient: ingredient });
 	      })
 	    );
 	  }
@@ -19725,14 +19726,19 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(147);
+	var apiUtil = __webpack_require__(169);
 	
 	var IngredientIndexItem = React.createClass({
-	  displayName: "IngredientIndexItem",
+	  displayName: 'IngredientIndexItem',
 	
+	  moveToFridge: function () {
+	    console.log(this.props.ingredient.id);
+	    apiUtil.createFridgeItem(this.props.ingredient.id);
+	  },
 	  render: function () {
 	    return React.createElement(
-	      "div",
-	      { id: "ingredients-index-item" },
+	      'div',
+	      { id: 'ingredients-index-item', onClick: this.moveToFridge },
 	      this.props.ingredient.name
 	    );
 	  }
@@ -20099,9 +20105,21 @@
 	  },
 	  fetchAllFridgeItems: function () {
 	    $.ajax({
-	      url: "api/fridge_items",
+	      url: "api/ingredients",
+	      data: { query: "fridge" },
 	      success: function (fridgeItems) {
 	        FridgeActions.receiveAllFridgeItems(fridgeItems);
+	      }
+	    });
+	  },
+	  createFridgeItem: function (ingredient_id) {
+	    debugger;
+	    $.ajax({
+	      url: "api/fridge_items",
+	      data: { params: ingredient_id },
+	      method: "POST",
+	      success: function (fridgeItem) {
+	        FridgeActions.addedFridgeItem(fridgeItem);
 	      }
 	    });
 	  }
@@ -20146,9 +20164,6 @@
 	    case IngredientConstants.INGREDIENTS_RECEIVED:
 	      resetIngredients(payload.ingredients);
 	      break;
-	    // case PokemonConstants.POKEMON_RECEIVED:
-	    //   resetPokemon(payload.pokemon);
-	    //   break;
 	  }
 	
 	  IngredientStore.__emitChange();
@@ -26536,6 +26551,12 @@
 	      actionType: FridgeConstants.FRIDGE_ITEMS_RECEIVED,
 	      fridgeItems: fridgeItems
 	    });
+	  },
+	  addedFridgeItem: function (fridgeItem) {
+	    Dispatcher.dispatch({
+	      actionType: FridgeConstants.FRIDGE_ITEM_CREATED,
+	      fridgeItem: fridgeItem
+	    });
 	  }
 	};
 	
@@ -26546,7 +26567,8 @@
 /***/ function(module, exports) {
 
 	module.exports = {
-	  FRIDGE_ITEMS_RECEIVED: "FRIDGE_ITEMS_RECEIVED"
+	  FRIDGE_ITEMS_RECEIVED: "FRIDGE_ITEMS_RECEIVED",
+	  FRIDGE_ITEM_CREATED: "FRIDGE_ITEM_CREATED"
 	};
 
 /***/ },
@@ -26610,6 +26632,10 @@
 	  });
 	};
 	
+	var addFridgeItem = function (fridgeItem) {
+	  _fridgeItems['fridgeItem.id'] = fridgeItem;
+	};
+	
 	// var resetPokemon = function (pokemon) {
 	//   _pokemons[pokemon.id] = pokemon;
 	// };
@@ -26631,9 +26657,9 @@
 	    case FridgeConstants.FRIDGE_ITEMS_RECEIVED:
 	      resetFridgeItems(payload.fridgeItems);
 	      break;
-	    // case PokemonConstants.POKEMON_RECEIVED:
-	    //   resetPokemon(payload.pokemon);
-	    //   break;
+	    case FridgeConstants.FRIDGE_ITEM_CREATED:
+	      addFridgeItem(payload.fridgeItems);
+	      break;
 	  }
 	
 	  FridgeStore.__emitChange();
@@ -26646,15 +26672,16 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(147);
+	var IngredientStore = __webpack_require__(170);
 	
 	var FridgeIndexItem = React.createClass({
-	  displayName: "FridgeIndexItem",
+	  displayName: 'FridgeIndexItem',
 	
 	  render: function () {
 	    return React.createElement(
-	      "div",
-	      { id: "fridge-index-item" },
-	      this.props.fridgeitem.user_id + " " + this.props.fridgeitem.ingredient_id
+	      'div',
+	      { id: 'fridge-index-item' },
+	      this.props.fridgeitem.name + " " + this.props.fridgeitem.category
 	    );
 	  }
 	});

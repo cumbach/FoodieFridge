@@ -7,6 +7,12 @@ var FridgeActions = {
       actionType: FridgeConstants.FRIDGE_ITEMS_RECEIVED,
       fridgeItems: fridgeItems
     });
+  },
+  addedFridgeItem: function (fridgeItem) {
+    Dispatcher.dispatch({
+      actionType: FridgeConstants.FRIDGE_ITEM_CREATED,
+      fridgeItem: fridgeItem
+    });
   }
 };
 

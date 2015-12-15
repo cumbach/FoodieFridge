@@ -12,6 +12,10 @@ var resetFridgeItems = function (fridgeItems) {
   });
 };
 
+var addFridgeItem = function (fridgeItem) {
+  _fridgeItems['fridgeItem.id'] = fridgeItem;
+};
+
 // var resetPokemon = function (pokemon) {
 //   _pokemons[pokemon.id] = pokemon;
 // };
@@ -33,9 +37,9 @@ FridgeStore.__onDispatch = function (payload) {
     case FridgeConstants.FRIDGE_ITEMS_RECEIVED:
       resetFridgeItems(payload.fridgeItems);
       break;
-    // case PokemonConstants.POKEMON_RECEIVED:
-    //   resetPokemon(payload.pokemon);
-    //   break;
+    case FridgeConstants.FRIDGE_ITEM_CREATED:
+      addFridgeItem(payload.fridgeItems);
+      break;
   }
 
   FridgeStore.__emitChange();

@@ -33,9 +33,6 @@ IngredientStore.__onDispatch = function (payload) {
     case IngredientConstants.INGREDIENTS_RECEIVED:
       resetIngredients(payload.ingredients);
       break;
-    // case PokemonConstants.POKEMON_RECEIVED:
-    //   resetPokemon(payload.pokemon);
-    //   break;
   }
 
   IngredientStore.__emitChange();
