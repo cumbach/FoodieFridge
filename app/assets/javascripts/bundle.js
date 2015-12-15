@@ -53,7 +53,7 @@
 	  ReactDOM.render(React.createElement(
 	    'div',
 	    null,
-	    'Welcome'
+	    'Welcome to FoodieFridge!'
 	  ), root);
 	});
 
