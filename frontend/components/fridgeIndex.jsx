@@ -11,7 +11,6 @@ var FridgeIndex = React.createClass({
 
   _onChange: function() {
     this.setState({fridgeItems: FridgeStore.all()});
-    // ApiUtil.fetchAllIngredients();
   },
 
   componentDidMount: function() {

@@ -19646,7 +19646,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(147);
-	var IngredientsIndex = __webpack_require__(161);
+	var IngredientsIndex = __webpack_require__(160);
 	var FridgeIndex = __webpack_require__(189);
 	
 	var App = React.createClass({
@@ -19677,16 +19677,15 @@
 	module.exports = App;
 
 /***/ },
-/* 160 */,
-/* 161 */
+/* 160 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(147);
-	var IngredientActions = __webpack_require__(163);
-	var ApiUtil = __webpack_require__(169);
+	var IngredientActions = __webpack_require__(161);
+	var ApiUtil = __webpack_require__(167);
 	var IngredientStore = __webpack_require__(170);
-	var IngredientIndexItem = __webpack_require__(162);
-	var FridgeStore = __webpack_require__(190);
+	var IngredientIndexItem = __webpack_require__(187);
+	var FridgeStore = __webpack_require__(188);
 	
 	var IngredientsIndex = React.createClass({
 	  displayName: 'IngredientsIndex',
@@ -19720,37 +19719,11 @@
 	module.exports = IngredientsIndex;
 
 /***/ },
-/* 162 */
+/* 161 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var React = __webpack_require__(147);
-	var apiUtil = __webpack_require__(169);
-	var IngredientActions = __webpack_require__(163);
-	
-	var IngredientIndexItem = React.createClass({
-	  displayName: 'IngredientIndexItem',
-	
-	  moveToFridge: function () {
-	    apiUtil.createFridgeItem(this.props.ingredient.id);
-	    IngredientActions.ingredientRemoved(this.props.ingredient);
-	  },
-	  render: function () {
-	    return React.createElement(
-	      'div',
-	      { id: 'ingredients-index-item', onClick: this.moveToFridge },
-	      this.props.ingredient.name
-	    );
-	  }
-	});
-	
-	module.exports = IngredientIndexItem;
-
-/***/ },
-/* 163 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Dispatcher = __webpack_require__(164);
-	var IngredientConstants = __webpack_require__(168);
+	var Dispatcher = __webpack_require__(162);
+	var IngredientConstants = __webpack_require__(166);
 	
 	var IngredientActions = {
 	  receiveAllIngredients: function (ingredients) {
@@ -19770,14 +19743,14 @@
 	module.exports = IngredientActions;
 
 /***/ },
-/* 164 */
+/* 162 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Dispatcher = __webpack_require__(165).Dispatcher;
+	var Dispatcher = __webpack_require__(163).Dispatcher;
 	module.exports = new Dispatcher();
 
 /***/ },
-/* 165 */
+/* 163 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -19789,11 +19762,11 @@
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 */
 	
-	module.exports.Dispatcher = __webpack_require__(166);
+	module.exports.Dispatcher = __webpack_require__(164);
 
 
 /***/ },
-/* 166 */
+/* 164 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -19815,7 +19788,7 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 	
-	var invariant = __webpack_require__(167);
+	var invariant = __webpack_require__(165);
 	
 	var _prefix = 'ID_';
 	
@@ -20030,7 +20003,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 167 */
+/* 165 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -20085,7 +20058,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 168 */
+/* 166 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -20094,11 +20067,11 @@
 	};
 
 /***/ },
-/* 169 */
+/* 167 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var IngredientActions = __webpack_require__(163);
-	var FridgeActions = __webpack_require__(187);
+	var IngredientActions = __webpack_require__(161);
+	var FridgeActions = __webpack_require__(168);
 	
 	module.exports = {
 	  fetchAllIngredients: function () {
@@ -20141,12 +20114,52 @@
 	};
 
 /***/ },
+/* 168 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Dispatcher = __webpack_require__(162);
+	var FridgeConstants = __webpack_require__(169);
+	
+	var FridgeActions = {
+	  receiveAllFridgeItems: function (fridgeItems) {
+	    Dispatcher.dispatch({
+	      actionType: FridgeConstants.FRIDGE_ITEMS_RECEIVED,
+	      fridgeItems: fridgeItems
+	    });
+	  },
+	  addedFridgeItem: function (fridgeItem) {
+	    Dispatcher.dispatch({
+	      actionType: FridgeConstants.FRIDGE_ITEM_CREATED,
+	      fridgeItem: fridgeItem
+	    });
+	  },
+	  removedFridgeItem: function (fridgeItem) {
+	    Dispatcher.dispatch({
+	      actionType: FridgeConstants.FRIDGE_ITEM_REMOVED,
+	      fridgeItem: fridgeItem
+	    });
+	  }
+	};
+	
+	module.exports = FridgeActions;
+
+/***/ },
+/* 169 */
+/***/ function(module, exports) {
+
+	module.exports = {
+	  FRIDGE_ITEMS_RECEIVED: "FRIDGE_ITEMS_RECEIVED",
+	  FRIDGE_ITEM_CREATED: "FRIDGE_ITEM_CREATED",
+	  FRIDGE_ITEM_REMOVED: "FRIDGE_ITEM_REMOVED"
+	};
+
+/***/ },
 /* 170 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Store = __webpack_require__(171).Store;
-	var Dispatcher = __webpack_require__(164);
-	var IngredientConstants = __webpack_require__(168);
+	var Dispatcher = __webpack_require__(162);
+	var IngredientConstants = __webpack_require__(166);
 	var IngredientStore = new Store(Dispatcher);
 	
 	var _ingredients = {};
@@ -20230,7 +20243,7 @@
 	
 	var FluxStoreGroup = __webpack_require__(173);
 	
-	var invariant = __webpack_require__(167);
+	var invariant = __webpack_require__(165);
 	var shallowEqual = __webpack_require__(174);
 	
 	var DEFAULT_OPTIONS = {
@@ -20408,7 +20421,7 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 	
-	var invariant = __webpack_require__(167);
+	var invariant = __webpack_require__(165);
 	
 	/**
 	 * FluxStoreGroup allows you to execute a callback on every dispatch after
@@ -20549,7 +20562,7 @@
 	var FluxReduceStore = __webpack_require__(176);
 	var Immutable = __webpack_require__(185);
 	
-	var invariant = __webpack_require__(167);
+	var invariant = __webpack_require__(165);
 	
 	/**
 	 * This is a simple store. It allows caching key value pairs. An implementation
@@ -20699,7 +20712,7 @@
 	var FluxStore = __webpack_require__(177);
 	
 	var abstractMethod = __webpack_require__(184);
-	var invariant = __webpack_require__(167);
+	var invariant = __webpack_require__(165);
 	
 	var FluxReduceStore = (function (_FluxStore) {
 	  _inherits(FluxReduceStore, _FluxStore);
@@ -20805,7 +20818,7 @@
 	
 	var EventEmitter = _require.EventEmitter;
 	
-	var invariant = __webpack_require__(167);
+	var invariant = __webpack_require__(165);
 	
 	/**
 	 * This class should be extended by the stores in your application, like so:
@@ -21008,7 +21021,7 @@
 	var EventSubscriptionVendor = __webpack_require__(182);
 	
 	var emptyFunction = __webpack_require__(183);
-	var invariant = __webpack_require__(167);
+	var invariant = __webpack_require__(165);
 	
 	/**
 	 * @class BaseEventEmitter
@@ -21305,7 +21318,7 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 	
-	var invariant = __webpack_require__(167);
+	var invariant = __webpack_require__(165);
 	
 	/**
 	 * EventSubscriptionVendor stores a set of EventSubscriptions that are
@@ -21455,7 +21468,7 @@
 	
 	'use strict';
 	
-	var invariant = __webpack_require__(167);
+	var invariant = __webpack_require__(165);
 	
 	function abstractMethod(className, methodName) {
 	   true ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Subclasses of %s must override %s() with their own implementation.', className, methodName) : invariant(false) : undefined;
@@ -26449,7 +26462,7 @@
 	
 	var FluxStoreGroup = __webpack_require__(173);
 	
-	var invariant = __webpack_require__(167);
+	var invariant = __webpack_require__(165);
 	
 	/**
 	 * `FluxContainer` should be preferred over this mixin, but it requires using
@@ -26556,103 +26569,35 @@
 /* 187 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Dispatcher = __webpack_require__(164);
-	var FridgeConstants = __webpack_require__(188);
-	
-	var FridgeActions = {
-	  receiveAllFridgeItems: function (fridgeItems) {
-	    Dispatcher.dispatch({
-	      actionType: FridgeConstants.FRIDGE_ITEMS_RECEIVED,
-	      fridgeItems: fridgeItems
-	    });
-	  },
-	  addedFridgeItem: function (fridgeItem) {
-	    Dispatcher.dispatch({
-	      actionType: FridgeConstants.FRIDGE_ITEM_CREATED,
-	      fridgeItem: fridgeItem
-	    });
-	  },
-	  removedFridgeItem: function (fridgeItem) {
-	    Dispatcher.dispatch({
-	      actionType: FridgeConstants.FRIDGE_ITEM_REMOVED,
-	      fridgeItem: fridgeItem
-	    });
-	  }
-	};
-	
-	module.exports = FridgeActions;
-
-/***/ },
-/* 188 */
-/***/ function(module, exports) {
-
-	module.exports = {
-	  FRIDGE_ITEMS_RECEIVED: "FRIDGE_ITEMS_RECEIVED",
-	  FRIDGE_ITEM_CREATED: "FRIDGE_ITEM_CREATED",
-	  FRIDGE_ITEM_REMOVED: "FRIDGE_ITEM_REMOVED"
-	};
-
-/***/ },
-/* 189 */
-/***/ function(module, exports, __webpack_require__) {
-
 	var React = __webpack_require__(147);
-	var IngredientActions = __webpack_require__(187);
-	var ApiUtil = __webpack_require__(169);
-	var FridgeStore = __webpack_require__(190);
-	var FridgeIndexItem = __webpack_require__(191);
+	var apiUtil = __webpack_require__(167);
+	var IngredientActions = __webpack_require__(161);
 	
-	var FridgeIndex = React.createClass({
-	  displayName: 'FridgeIndex',
+	var IngredientIndexItem = React.createClass({
+	  displayName: 'IngredientIndexItem',
 	
-	  getInitialState: function () {
-	    return { fridgeItems: [] };
-	  },
-	
-	  _onChange: function () {
-	    this.setState({ fridgeItems: FridgeStore.all() });
-	    // ApiUtil.fetchAllIngredients();
-	  },
-	
-	  componentDidMount: function () {
-	    this.fridgeListener = FridgeStore.addListener(this._onChange);
-	    ApiUtil.fetchAllFridgeItems();
-	  },
-	
-	  componentWillUnmount: function () {
-	    this.ingredientListener.remove();
-	  },
-	  ingredientMap: function () {
-	    var map = [];
-	    if (typeof this.state.fridgeItems !== 'undefined') {
-	      map = this.state.fridgeItems.map(function (fridgeItem) {
-	        if (typeof fridgeItem !== 'undefined') {
-	          return React.createElement(FridgeIndexItem, {
-	            key: fridgeItem.id,
-	            fridgeitem: fridgeItem });
-	        }
-	      });
-	    }
-	    return map;
+	  moveToFridge: function () {
+	    apiUtil.createFridgeItem(this.props.ingredient.id);
+	    IngredientActions.ingredientRemoved(this.props.ingredient);
 	  },
 	  render: function () {
 	    return React.createElement(
-	      'ul',
-	      null,
-	      this.ingredientMap()
+	      'div',
+	      { id: 'ingredients-index-item', onClick: this.moveToFridge },
+	      this.props.ingredient.name
 	    );
 	  }
 	});
 	
-	module.exports = FridgeIndex;
+	module.exports = IngredientIndexItem;
 
 /***/ },
-/* 190 */
+/* 188 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Store = __webpack_require__(171).Store;
-	var Dispatcher = __webpack_require__(164);
-	var FridgeConstants = __webpack_require__(188);
+	var Dispatcher = __webpack_require__(162);
+	var FridgeConstants = __webpack_require__(169);
 	var FridgeStore = new Store(Dispatcher);
 	
 	var _fridgeItems = {};
@@ -26700,13 +26645,66 @@
 	module.exports = FridgeStore;
 
 /***/ },
-/* 191 */
+/* 189 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(147);
+	var IngredientActions = __webpack_require__(168);
+	var ApiUtil = __webpack_require__(167);
+	var FridgeStore = __webpack_require__(188);
+	var FridgeIndexItem = __webpack_require__(190);
+	
+	var FridgeIndex = React.createClass({
+	  displayName: 'FridgeIndex',
+	
+	  getInitialState: function () {
+	    return { fridgeItems: [] };
+	  },
+	
+	  _onChange: function () {
+	    this.setState({ fridgeItems: FridgeStore.all() });
+	  },
+	
+	  componentDidMount: function () {
+	    this.fridgeListener = FridgeStore.addListener(this._onChange);
+	    ApiUtil.fetchAllFridgeItems();
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.ingredientListener.remove();
+	  },
+	  ingredientMap: function () {
+	    var map = [];
+	    if (typeof this.state.fridgeItems !== 'undefined') {
+	      map = this.state.fridgeItems.map(function (fridgeItem) {
+	        if (typeof fridgeItem !== 'undefined') {
+	          return React.createElement(FridgeIndexItem, {
+	            key: fridgeItem.id,
+	            fridgeitem: fridgeItem });
+	        }
+	      });
+	    }
+	    return map;
+	  },
+	  render: function () {
+	    return React.createElement(
+	      'ul',
+	      null,
+	      this.ingredientMap()
+	    );
+	  }
+	});
+	
+	module.exports = FridgeIndex;
+
+/***/ },
+/* 190 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(147);
 	var IngredientStore = __webpack_require__(170);
-	var ApiUtil = __webpack_require__(169);
-	var IngredientsIndex = __webpack_require__(161);
+	var ApiUtil = __webpack_require__(167);
+	var IngredientsIndex = __webpack_require__(160);
 	
 	var FridgeIndexItem = React.createClass({
 	  displayName: 'FridgeIndexItem',
