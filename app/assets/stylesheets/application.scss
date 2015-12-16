@@ -16,6 +16,67 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+html, body, section, article,
+h1, h2, p, strong, em, a, div {
+  margin: 0;
+  border: 0;
+  padding: 0;
+  outline: 0;
+  box-sizing: inherit;
+  font: inherit;
+  text-decoration: inherit;
+  text-align: inherit;
+  color: inherit;
+  background: transparent;
+}
+
 .jumbotron {
   padding: 40px
+}
+
+.btn {
+  background: green;
+  width: 120px;
+  font-weight: bold;
+  margin: 10px;
+  border: 1px solid black;
+}
+
+.foodiefridge-app {
+  min-width: 1400px;
+}
+
+.fridge_items-index-pane {
+  border: 2px solid black;
+  height: 600px;
+  width: 200px;
+  overflow: auto;
+  float: left;
+}
+
+.ingredients-index-pane {
+  margin-left: 5px;
+  margin-right: 5px;
+  height: 600px;
+  width: 400px;
+  overflow: auto;
+  float: left;
+}
+
+.recipes_items-index-pane {
+  height: 600px;
+  width: 600px;
+  overflow: auto;
+  float: left;
+}
+
+.recipes-index-item {
+  width: 210px;
+  float: left
+}
+
+.foodiefridge-app:after {
+  content: "";
+  display: block;
+  clear: both;
 }

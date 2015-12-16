@@ -19656,28 +19656,24 @@
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      { id: 'foodiefridge' },
-	      React.createElement(
-	        'div',
-	        { className: 'recipes_items-index-pane' },
-	        'Recipes:',
-	        React.createElement(RecipesIndex, null)
-	      ),
-	      React.createElement('br', null),
-	      React.createElement('br', null),
+	      { className: 'foodiefridge-app' },
 	      React.createElement(
 	        'div',
 	        { className: 'fridge_items-index-pane' },
 	        'Your Fridge:',
 	        React.createElement(FridgeIndex, null)
 	      ),
-	      React.createElement('br', null),
-	      React.createElement('br', null),
 	      React.createElement(
 	        'div',
 	        { className: 'ingredients-index-pane' },
 	        'Ingredients:',
 	        React.createElement(IngredientsIndex, null)
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'recipes_items-index-pane' },
+	        'Recipes:',
+	        React.createElement(RecipesIndex, null)
 	      )
 	    );
 	  }
@@ -26667,7 +26663,7 @@
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      { className: 'ingredients-index-item', onClick: this.moveToFridge },
+	      { className: 'ingredients-index-item btn', onClick: this.moveToFridge },
 	      this.props.ingredient.name
 	    );
 	  }
@@ -26942,7 +26938,7 @@
 	        { className: 'recipe-index-item-name' },
 	        this.mapKeyFieldsName()
 	      ),
-	      React.createElement('img', { src: this.mapKeyFieldsImg() })
+	      React.createElement('img', { src: this.mapKeyFieldsImg(), width: '200', height: '150' })
 	    );
 	  }
 	});

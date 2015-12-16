@@ -14,7 +14,7 @@ var IngredientIndexItem = React.createClass({
   },
   render: function() {
     return (
-      <div className="ingredients-index-item" onClick={this.moveToFridge}>
+      <div className="ingredients-index-item btn" onClick={this.moveToFridge}>
         {this.props.ingredient.name}
       </div>
     );

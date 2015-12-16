@@ -15,7 +15,7 @@ var RecipesIndexItem = React.createClass({
     return (
       <div className="recipes-index-item">
         <div className='recipe-index-item-name'>{this.mapKeyFieldsName()}</div>
-        <img src={this.mapKeyFieldsImg()}/>
+        <img src={this.mapKeyFieldsImg()} width='200' height='150'/>
       </div>
     );
   }
