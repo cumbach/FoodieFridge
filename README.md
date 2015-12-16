@@ -1,8 +1,8 @@
 # FoodieFridge
 
-[Heroku link][heroku] **NB:** This should be a link to your production site
+[Heroku link][heroku] 
 
-[heroku]: http://www.herokuapp.com
+[heroku]: http://foodiefridge.herokuapp.com/
 
 ## Minimum Viable Product
 
