@@ -26583,7 +26583,7 @@
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      { id: 'ingredients-index-item', onClick: this.moveToFridge },
+	      { className: 'ingredients-index-item', onClick: this.moveToFridge },
 	      this.props.ingredient.name
 	    );
 	  }

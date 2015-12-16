@@ -9,7 +9,7 @@ var IngredientIndexItem = React.createClass({
   },
   render: function() {
     return (
-      <div id="ingredients-index-item" onClick={this.moveToFridge}>
+      <div className="ingredients-index-item" onClick={this.moveToFridge}>
         {this.props.ingredient.name}
       </div>
     );

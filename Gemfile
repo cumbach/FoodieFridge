@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 gem 'newrelic_rpm'
 gem 'bcrypt'
-
+gem 'bootstrap-sass'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5'
