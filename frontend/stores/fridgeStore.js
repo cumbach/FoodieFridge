@@ -16,9 +16,6 @@ var addFridgeItem = function (fridgeItem) {
   _fridgeItems[fridgeItem.id] = fridgeItem;
 };
 
-// var resetPokemon = function (pokemon) {
-//   _pokemons[pokemon.id] = pokemon;
-// };
 
 FridgeStore.all = function () {
   var fridgeItems = [];
@@ -27,10 +24,6 @@ FridgeStore.all = function () {
   }
   return fridgeItems;
 };
-
-// PokemonStore.find = function (id) {
-//   return _pokemons[id];
-// }
 
 FridgeStore.__onDispatch = function (payload) {
   switch(payload.actionType) {

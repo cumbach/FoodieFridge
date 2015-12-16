@@ -12,9 +12,14 @@ var resetIngredients = function (ingredients) {
   });
 };
 
-// var resetPokemon = function (pokemon) {
-//   _pokemons[pokemon.id] = pokemon;
-// };
+
+
+var removeIngredient = function(ingredient) {
+  delete _ingredients[ingredient.id];
+};
+
+
+
 
 IngredientStore.all = function () {
   var ingredients = [];
@@ -24,18 +29,18 @@ IngredientStore.all = function () {
   return ingredients;
 };
 
-// PokemonStore.find = function (id) {
-//   return _pokemons[id];
-// }
 
 IngredientStore.__onDispatch = function (payload) {
   switch(payload.actionType) {
     case IngredientConstants.INGREDIENTS_RECEIVED:
       resetIngredients(payload.ingredients);
+      IngredientStore.__emitChange();
+      break;
+    case IngredientConstants.INGREDIENT_REMOVED:
+      removeIngredient(payload.ingredient);
+      IngredientStore.__emitChange();
       break;
   }
-
-  IngredientStore.__emitChange();
 };
 
 module.exports = IngredientStore;

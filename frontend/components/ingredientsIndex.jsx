@@ -18,8 +18,8 @@ var IngredientsIndex = React.createClass({
   // },
 
   componentDidMount: function() {
-    // this.ingredientListener = IngredientStore.addListener(this.updateStore);
-    this.fridgeItemListener = FridgeStore.addListener(this._onChange);
+    this.ingredientListener = IngredientStore.addListener(this._onChange);
+    // this.fridgeItemListener = FridgeStore.addListener(this._onChange);
     ApiUtil.fetchAllIngredients();
   },
 

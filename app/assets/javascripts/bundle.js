@@ -19703,8 +19703,8 @@
 	  // },
 	
 	  componentDidMount: function () {
-	    // this.ingredientListener = IngredientStore.addListener(this.updateStore);
-	    this.fridgeItemListener = FridgeStore.addListener(this._onChange);
+	    this.ingredientListener = IngredientStore.addListener(this._onChange);
+	    // this.fridgeItemListener = FridgeStore.addListener(this._onChange);
 	    ApiUtil.fetchAllIngredients();
 	  },
 	
@@ -19732,13 +19732,14 @@
 
 	var React = __webpack_require__(147);
 	var apiUtil = __webpack_require__(169);
+	var IngredientActions = __webpack_require__(163);
 	
 	var IngredientIndexItem = React.createClass({
 	  displayName: 'IngredientIndexItem',
 	
 	  moveToFridge: function () {
 	    apiUtil.createFridgeItem(this.props.ingredient.id);
-	    // FridgeActions.removeIngredientFromStore
+	    IngredientActions.ingredientRemoved(this.props.ingredient);
 	  },
 	  render: function () {
 	    return React.createElement(
@@ -19763,6 +19764,12 @@
 	    Dispatcher.dispatch({
 	      actionType: IngredientConstants.INGREDIENTS_RECEIVED,
 	      ingredients: ingredients
+	    });
+	  },
+	  ingredientRemoved: function (ingredient) {
+	    Dispatcher.dispatch({
+	      actionType: IngredientConstants.INGREDIENT_REMOVED,
+	      ingredient: ingredient
 	    });
 	  }
 	};
@@ -20089,7 +20096,8 @@
 /***/ function(module, exports) {
 
 	module.exports = {
-	  INGREDIENTS_RECEIVED: "INGREDIENTS_RECEIVED"
+	  INGREDIENTS_RECEIVED: "INGREDIENTS_RECEIVED",
+	  INGREDIENT_REMOVED: "INGREDIENT_REMOVED"
 	};
 
 /***/ },
@@ -20147,9 +20155,9 @@
 	  });
 	};
 	
-	// var resetPokemon = function (pokemon) {
-	//   _pokemons[pokemon.id] = pokemon;
-	// };
+	var removeIngredient = function (ingredient) {
+	  delete _ingredients[ingredient.id];
+	};
 	
 	IngredientStore.all = function () {
 	  var ingredients = [];
@@ -20159,18 +20167,17 @@
 	  return ingredients;
 	};
 	
-	// PokemonStore.find = function (id) {
-	//   return _pokemons[id];
-	// }
-	
 	IngredientStore.__onDispatch = function (payload) {
 	  switch (payload.actionType) {
 	    case IngredientConstants.INGREDIENTS_RECEIVED:
 	      resetIngredients(payload.ingredients);
+	      IngredientStore.__emitChange();
+	      break;
+	    case IngredientConstants.INGREDIENT_REMOVED:
+	      removeIngredient(payload.ingredient);
+	      IngredientStore.__emitChange();
 	      break;
 	  }
-	
-	  IngredientStore.__emitChange();
 	};
 	
 	module.exports = IngredientStore;
@@ -26651,10 +26658,6 @@
 	  _fridgeItems[fridgeItem.id] = fridgeItem;
 	};
 	
-	// var resetPokemon = function (pokemon) {
-	//   _pokemons[pokemon.id] = pokemon;
-	// };
-	
 	FridgeStore.all = function () {
 	  var fridgeItems = [];
 	  for (var id in _fridgeItems) {
@@ -26662,10 +26665,6 @@
 	  }
 	  return fridgeItems;
 	};
-	
-	// PokemonStore.find = function (id) {
-	//   return _pokemons[id];
-	// }
 	
 	FridgeStore.__onDispatch = function (payload) {
 	  switch (payload.actionType) {
@@ -26692,11 +26691,14 @@
 	var FridgeIndexItem = React.createClass({
 	  displayName: 'FridgeIndexItem',
 	
+	  removeFromFridge: function () {
+	    console.log('he');
+	  },
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      { id: 'fridge-index-item' },
-	      this.props.fridgeitem.name + " " + this.props.fridgeitem.category
+	      { id: 'fridge-index-item', onClick: this.removeFromFridge },
+	      this.props.fridgeitem.name
 	    );
 	  }
 	});

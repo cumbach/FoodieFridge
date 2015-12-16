@@ -7,6 +7,12 @@ var IngredientActions = {
       actionType: IngredientConstants.INGREDIENTS_RECEIVED,
       ingredients: ingredients
     });
+  },
+  ingredientRemoved: function (ingredient) {
+    Dispatcher.dispatch({
+      actionType: IngredientConstants.INGREDIENT_REMOVED,
+      ingredient: ingredient
+    });
   }
 };
 
