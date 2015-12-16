@@ -11,16 +11,9 @@ var resetIngredients = function (ingredients) {
     _ingredients[ingredient.id] = ingredient;
   });
 };
-
-
-
 var removeIngredient = function(ingredient) {
   delete _ingredients[ingredient.id];
 };
-
-
-
-
 IngredientStore.all = function () {
   var ingredients = [];
   for (var id in _ingredients) {
@@ -28,8 +21,6 @@ IngredientStore.all = function () {
   }
   return ingredients;
 };
-
-
 IngredientStore.__onDispatch = function (payload) {
   switch(payload.actionType) {
     case IngredientConstants.INGREDIENTS_RECEIVED:
