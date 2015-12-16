@@ -9,19 +9,18 @@ var RecipeActions = {
   //   });
   // },
   addedRecipeItem: function (ingredient, recipeItemArray) {
-    // debugger;
     Dispatcher.dispatch({
       actionType: RecipeConstants.RECIPE_ITEM_CREATED,
       ingredient: ingredient,
       recipeItemArray: recipeItemArray
     });
   },
-  // removedRecipeItem: function (recipeItem) {
-  //   Dispatcher.dispatch({
-  //     actionType: RecipeConstants.RECIPE_ITEM_REMOVED,
-  //     recipeItem: recipeItem
-  //   });
-  // }
+  removedRecipeItem: function (ingredient) {
+    Dispatcher.dispatch({
+      actionType: RecipeConstants.RECIPE_ITEM_REMOVED,
+      ingredient: ingredient
+    });
+  },
 };
 
 module.exports = RecipeActions;

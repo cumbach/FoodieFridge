@@ -14,6 +14,9 @@ var _recipeItems = {};
 var addRecipeItem = function (ingredient, recipeItemArray) {
   _recipeItems[ingredient] = recipeItemArray;
 };
+var removeRecipeItem = function(ingredient){
+  delete _recipeItems[ingredient];
+};
 // var removeRecipeItem = function(recipeItem) {
 //   delete _recipeItems[recipeItem.id];
 // };
@@ -39,10 +42,10 @@ RecipeStore.__onDispatch = function (payload) {
       addRecipeItem(payload.ingredient, payload.recipeItemArray);
       RecipeStore.__emitChange();
       break;
-    // case RecipeConstants.RECIPE_ITEM_REMOVED:
-    //   removeRecipeItem(payload.recipeItem);
-    //   RecipeStore.__emitChange();
-    //   break;
+    case RecipeConstants.RECIPE_ITEM_REMOVED:
+      removeRecipeItem(payload.ingredient);
+      RecipeStore.__emitChange();
+      break;
   }
 };
 

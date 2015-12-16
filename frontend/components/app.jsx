@@ -8,11 +8,11 @@ var App = React.createClass({
     return (
       <div className="foodiefridge-app">
         <div className="fridge_items-index-pane">
-          Your Fridge:
+          Your Fridge: (click to remove)
           <FridgeIndex/>
         </div>
         <div className="ingredients-index-pane">
-          Ingredients:
+          Ingredients: (click to add to fridge)
           <IngredientsIndex/>
         </div>
         <div className="recipes_items-index-pane">

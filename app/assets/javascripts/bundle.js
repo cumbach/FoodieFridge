@@ -19660,13 +19660,13 @@
 	      React.createElement(
 	        'div',
 	        { className: 'fridge_items-index-pane' },
-	        'Your Fridge:',
+	        'Your Fridge: (click to remove)',
 	        React.createElement(FridgeIndex, null)
 	      ),
 	      React.createElement(
 	        'div',
 	        { className: 'ingredients-index-pane' },
-	        'Ingredients:',
+	        'Ingredients: (click to add to fridge)',
 	        React.createElement(IngredientsIndex, null)
 	      ),
 	      React.createElement(
@@ -20124,6 +20124,14 @@
 	        RecipeActions.addedRecipeItem(ingredient, recipeItemArray['matches']);
 	      }
 	    });
+	  },
+	  destroyRecipeItem: function (ingredient) {
+	    $.ajax({
+	      url: 'http://api.yummly.com/v1/api/recipes?_app_id=f4ac9032&_app_key=ec28d82137e2708128a2f7f69400989f&q=' + ingredient,
+	      success: function (recipeItemArray) {
+	        RecipeActions.removedRecipeItem(ingredient, recipeItemArray['matches']);
+	      }
+	    });
 	  }
 	};
 
@@ -20182,21 +20190,20 @@
 	  //   });
 	  // },
 	  addedRecipeItem: function (ingredient, recipeItemArray) {
-	    // debugger;
 	    Dispatcher.dispatch({
 	      actionType: RecipeConstants.RECIPE_ITEM_CREATED,
 	      ingredient: ingredient,
 	      recipeItemArray: recipeItemArray
 	    });
+	  },
+	  removedRecipeItem: function (ingredient) {
+	    Dispatcher.dispatch({
+	      actionType: RecipeConstants.RECIPE_ITEM_REMOVED,
+	      ingredient: ingredient
+	    });
 	  }
 	};
 	
-	// removedRecipeItem: function (recipeItem) {
-	//   Dispatcher.dispatch({
-	//     actionType: RecipeConstants.RECIPE_ITEM_REMOVED,
-	//     recipeItem: recipeItem
-	//   });
-	// }
 	module.exports = RecipeActions;
 
 /***/ },
@@ -26645,7 +26652,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(147);
-	var apiUtil = __webpack_require__(167);
+	var ApiUtil = __webpack_require__(167);
 	var IngredientActions = __webpack_require__(161);
 	var RecipeStore = __webpack_require__(193);
 	
@@ -26653,11 +26660,8 @@
 	  displayName: 'IngredientIndexItem',
 	
 	  moveToFridge: function () {
-	    apiUtil.createFridgeItem(this.props.ingredient.id);
-	
-	    // Adding ingredient to fridge calls yummly with that ingredient
-	    apiUtil.createRecipeItem(this.props.ingredient.name);
-	
+	    ApiUtil.createFridgeItem(this.props.ingredient.id);
+	    ApiUtil.createRecipeItem(this.props.ingredient.name);
 	    IngredientActions.ingredientRemoved(this.props.ingredient);
 	  },
 	  render: function () {
@@ -26781,6 +26785,7 @@
 	var IngredientStore = __webpack_require__(172);
 	var ApiUtil = __webpack_require__(167);
 	var IngredientsIndex = __webpack_require__(160);
+	var RecipeActions = __webpack_require__(170);
 	
 	var FridgeIndexItem = React.createClass({
 	  displayName: 'FridgeIndexItem',
@@ -26788,11 +26793,12 @@
 	  deleteFromFridge: function () {
 	    ApiUtil.destroyFridgeItem(this.props.fridgeitem.id);
 	    ApiUtil.fetchAllIngredients();
+	    RecipeActions.removedRecipeItem(this.props.fridgeitem.name);
 	  },
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      { id: 'fridge-index-item', onClick: this.deleteFromFridge },
+	      { className: 'btn', id: 'fridge-index-item', onClick: this.deleteFromFridge },
 	      this.props.fridgeitem.name
 	    );
 	  }
@@ -26820,6 +26826,9 @@
 	var addRecipeItem = function (ingredient, recipeItemArray) {
 	  _recipeItems[ingredient] = recipeItemArray;
 	};
+	var removeRecipeItem = function (ingredient) {
+	  delete _recipeItems[ingredient];
+	};
 	// var removeRecipeItem = function(recipeItem) {
 	//   delete _recipeItems[recipeItem.id];
 	// };
@@ -26845,10 +26854,10 @@
 	      addRecipeItem(payload.ingredient, payload.recipeItemArray);
 	      RecipeStore.__emitChange();
 	      break;
-	    // case RecipeConstants.RECIPE_ITEM_REMOVED:
-	    //   removeRecipeItem(payload.recipeItem);
-	    //   RecipeStore.__emitChange();
-	    //   break;
+	    case RecipeConstants.RECIPE_ITEM_REMOVED:
+	      removeRecipeItem(payload.ingredient);
+	      RecipeStore.__emitChange();
+	      break;
 	  }
 	};
 	

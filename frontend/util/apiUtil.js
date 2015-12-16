@@ -47,5 +47,13 @@ module.exports = {
         RecipeActions.addedRecipeItem(ingredient, recipeItemArray['matches']);
       }
     });
+  },
+  destroyRecipeItem: function(ingredient){
+    $.ajax({
+      url: 'http://api.yummly.com/v1/api/recipes?_app_id=f4ac9032&_app_key=ec28d82137e2708128a2f7f69400989f&q=' + ingredient,
+      success: function(recipeItemArray) {
+        RecipeActions.removedRecipeItem(ingredient, recipeItemArray['matches']);
+      }
+    });
   }
 };
