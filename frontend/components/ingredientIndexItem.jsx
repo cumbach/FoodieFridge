@@ -3,8 +3,8 @@ var apiUtil = require('../util/apiUtil');
 
 var IngredientIndexItem = React.createClass({
   moveToFridge: function() {
-    console.log(this.props.ingredient.id);
     apiUtil.createFridgeItem(this.props.ingredient.id);
+    // FridgeActions.removeIngredientFromStore
   },
   render: function() {
     return (

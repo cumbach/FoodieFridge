@@ -13,7 +13,7 @@ var resetFridgeItems = function (fridgeItems) {
 };
 
 var addFridgeItem = function (fridgeItem) {
-  _fridgeItems['fridgeItem.id'] = fridgeItem;
+  _fridgeItems[fridgeItem.id] = fridgeItem;
 };
 
 // var resetPokemon = function (pokemon) {
@@ -38,7 +38,7 @@ FridgeStore.__onDispatch = function (payload) {
       resetFridgeItems(payload.fridgeItems);
       break;
     case FridgeConstants.FRIDGE_ITEM_CREATED:
-      addFridgeItem(payload.fridgeItems);
+      addFridgeItem(payload.fridgeItem);
       break;
   }
 

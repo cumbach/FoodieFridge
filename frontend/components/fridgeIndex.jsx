@@ -11,6 +11,7 @@ var FridgeIndex = React.createClass({
 
   _onChange: function() {
     this.setState({fridgeItems: FridgeStore.all()});
+    // ApiUtil.fetchAllIngredients();
   },
 
   componentDidMount: function() {
@@ -21,13 +22,23 @@ var FridgeIndex = React.createClass({
   componentWillUnmount: function(){
     this.ingredientListener.remove();
   },
-
+  ingredientMap: function(){
+    var map = [];
+    if (typeof this.state.fridgeItems !== 'undefined') {
+      map = this.state.fridgeItems.map(function(fridgeItem){
+        if (typeof fridgeItem !== 'undefined') {
+          return <FridgeIndexItem
+                  key={fridgeItem.id}
+                  fridgeitem={fridgeItem}/>;
+        }
+      });
+    }
+    return map;
+  },
   render: function() {
     return(
       <ul>
-        {this.state.fridgeItems.map(function(fridgeItem){
-          return <FridgeIndexItem key={fridgeItem.id} fridgeitem={fridgeItem}/>;
-        })}
+        {this.ingredientMap()}
       </ul>
     );
   }

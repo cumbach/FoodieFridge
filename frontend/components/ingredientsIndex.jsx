@@ -3,6 +3,7 @@ var IngredientActions = require('../actions/ingredientActions');
 var ApiUtil = require('../util/apiUtil');
 var IngredientStore = require('../stores/ingredientStore');
 var IngredientIndexItem = require('./ingredientIndexItem');
+var FridgeStore = require('../stores/fridgeStore');
 
 var IngredientsIndex = React.createClass({
   getInitialState: function() {
@@ -12,9 +13,13 @@ var IngredientsIndex = React.createClass({
   _onChange: function() {
     this.setState({ingredients: IngredientStore.all()});
   },
+  // updateStore: function() {
+  //   ApiUtil.fetchAllIngredients();
+  // },
 
   componentDidMount: function() {
-    this.ingredientListener = IngredientStore.addListener(this._onChange);
+    // this.ingredientListener = IngredientStore.addListener(this.updateStore);
+    this.fridgeItemListener = FridgeStore.addListener(this._onChange);
     ApiUtil.fetchAllIngredients();
   },
 

@@ -20,10 +20,9 @@ module.exports = {
     });
   },
   createFridgeItem: function(ingredient_id) {
-    debugger;
     $.ajax({
       url: "api/fridge_items",
-      data: {params: ingredient_id},
+      data: {ingredient_id: ingredient_id},
       method: "POST",
       success: function (fridgeItem) {
         FridgeActions.addedFridgeItem(fridgeItem);

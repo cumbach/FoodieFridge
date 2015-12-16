@@ -19686,6 +19686,7 @@
 	var ApiUtil = __webpack_require__(169);
 	var IngredientStore = __webpack_require__(170);
 	var IngredientIndexItem = __webpack_require__(162);
+	var FridgeStore = __webpack_require__(190);
 	
 	var IngredientsIndex = React.createClass({
 	  displayName: 'IngredientsIndex',
@@ -19697,9 +19698,13 @@
 	  _onChange: function () {
 	    this.setState({ ingredients: IngredientStore.all() });
 	  },
+	  // updateStore: function() {
+	  //   ApiUtil.fetchAllIngredients();
+	  // },
 	
 	  componentDidMount: function () {
-	    this.ingredientListener = IngredientStore.addListener(this._onChange);
+	    // this.ingredientListener = IngredientStore.addListener(this.updateStore);
+	    this.fridgeItemListener = FridgeStore.addListener(this._onChange);
 	    ApiUtil.fetchAllIngredients();
 	  },
 	
@@ -19732,8 +19737,8 @@
 	  displayName: 'IngredientIndexItem',
 	
 	  moveToFridge: function () {
-	    console.log(this.props.ingredient.id);
 	    apiUtil.createFridgeItem(this.props.ingredient.id);
+	    // FridgeActions.removeIngredientFromStore
 	  },
 	  render: function () {
 	    return React.createElement(
@@ -20113,10 +20118,9 @@
 	    });
 	  },
 	  createFridgeItem: function (ingredient_id) {
-	    debugger;
 	    $.ajax({
 	      url: "api/fridge_items",
-	      data: { params: ingredient_id },
+	      data: { ingredient_id: ingredient_id },
 	      method: "POST",
 	      success: function (fridgeItem) {
 	        FridgeActions.addedFridgeItem(fridgeItem);
@@ -26590,6 +26594,7 @@
 	
 	  _onChange: function () {
 	    this.setState({ fridgeItems: FridgeStore.all() });
+	    // ApiUtil.fetchAllIngredients();
 	  },
 	
 	  componentDidMount: function () {
@@ -26600,14 +26605,24 @@
 	  componentWillUnmount: function () {
 	    this.ingredientListener.remove();
 	  },
-	
+	  ingredientMap: function () {
+	    var map = [];
+	    if (typeof this.state.fridgeItems !== 'undefined') {
+	      map = this.state.fridgeItems.map(function (fridgeItem) {
+	        if (typeof fridgeItem !== 'undefined') {
+	          return React.createElement(FridgeIndexItem, {
+	            key: fridgeItem.id,
+	            fridgeitem: fridgeItem });
+	        }
+	      });
+	    }
+	    return map;
+	  },
 	  render: function () {
 	    return React.createElement(
 	      'ul',
 	      null,
-	      this.state.fridgeItems.map(function (fridgeItem) {
-	        return React.createElement(FridgeIndexItem, { key: fridgeItem.id, fridgeitem: fridgeItem });
-	      })
+	      this.ingredientMap()
 	    );
 	  }
 	});
@@ -26633,7 +26648,7 @@
 	};
 	
 	var addFridgeItem = function (fridgeItem) {
-	  _fridgeItems['fridgeItem.id'] = fridgeItem;
+	  _fridgeItems[fridgeItem.id] = fridgeItem;
 	};
 	
 	// var resetPokemon = function (pokemon) {
@@ -26658,7 +26673,7 @@
 	      resetFridgeItems(payload.fridgeItems);
 	      break;
 	    case FridgeConstants.FRIDGE_ITEM_CREATED:
-	      addFridgeItem(payload.fridgeItems);
+	      addFridgeItem(payload.fridgeItem);
 	      break;
 	  }
 	
