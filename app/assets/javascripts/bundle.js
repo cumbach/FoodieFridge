@@ -19697,9 +19697,6 @@
 	  _onChange: function () {
 	    this.setState({ ingredients: IngredientStore.all() });
 	  },
-	  moveD: function () {
-	    console.log('he');
-	  },
 	  componentDidMount: function () {
 	    this.ingredientListener = IngredientStore.addListener(this._onChange);
 	    ApiUtil.fetchAllIngredients();
