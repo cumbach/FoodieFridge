@@ -19694,20 +19694,16 @@
 	  getInitialState: function () {
 	    return { ingredients: [] };
 	  },
-	
 	  _onChange: function () {
 	    this.setState({ ingredients: IngredientStore.all() });
 	  },
-	  // updateStore: function() {
-	  //   ApiUtil.fetchAllIngredients();
-	  // },
-	
+	  moveD: function () {
+	    console.log('he');
+	  },
 	  componentDidMount: function () {
 	    this.ingredientListener = IngredientStore.addListener(this._onChange);
-	    // this.fridgeItemListener = FridgeStore.addListener(this._onChange);
 	    ApiUtil.fetchAllIngredients();
 	  },
-	
 	  componentWillUnmount: function () {
 	    this.ingredientListener.remove();
 	  },
@@ -20132,6 +20128,16 @@
 	      method: "POST",
 	      success: function (fridgeItem) {
 	        FridgeActions.addedFridgeItem(fridgeItem);
+	      }
+	    });
+	  },
+	  destroyFridgeItem: function (ingredient_id) {
+	    $.ajax({
+	      url: "api/fridge_items/:id",
+	      data: { ingredient_id: ingredient_id },
+	      method: "DELETE",
+	      success: function (fridgeItem) {
+	        FridgeActions.removedFridgeItem(fridgeItem);
 	      }
 	    });
 	  }
@@ -26568,6 +26574,12 @@
 	      actionType: FridgeConstants.FRIDGE_ITEM_CREATED,
 	      fridgeItem: fridgeItem
 	    });
+	  },
+	  removedFridgeItem: function (fridgeItem) {
+	    Dispatcher.dispatch({
+	      actionType: FridgeConstants.FRIDGE_ITEM_REMOVED,
+	      fridgeItem: fridgeItem
+	    });
 	  }
 	};
 	
@@ -26579,7 +26591,8 @@
 
 	module.exports = {
 	  FRIDGE_ITEMS_RECEIVED: "FRIDGE_ITEMS_RECEIVED",
-	  FRIDGE_ITEM_CREATED: "FRIDGE_ITEM_CREATED"
+	  FRIDGE_ITEM_CREATED: "FRIDGE_ITEM_CREATED",
+	  FRIDGE_ITEM_REMOVED: "FRIDGE_ITEM_REMOVED"
 	};
 
 /***/ },
@@ -26658,6 +26671,10 @@
 	  _fridgeItems[fridgeItem.id] = fridgeItem;
 	};
 	
+	var removeFridgeItem = function (fridgeItem) {
+	  delete _fridgeItems[fridgeItem.id];
+	};
+	
 	FridgeStore.all = function () {
 	  var fridgeItems = [];
 	  for (var id in _fridgeItems) {
@@ -26670,13 +26687,17 @@
 	  switch (payload.actionType) {
 	    case FridgeConstants.FRIDGE_ITEMS_RECEIVED:
 	      resetFridgeItems(payload.fridgeItems);
+	      FridgeStore.__emitChange();
 	      break;
 	    case FridgeConstants.FRIDGE_ITEM_CREATED:
 	      addFridgeItem(payload.fridgeItem);
+	      FridgeStore.__emitChange();
+	      break;
+	    case FridgeConstants.FRIDGE_ITEM_REMOVED:
+	      removeFridgeItem(payload.fridgeItem);
+	      FridgeStore.__emitChange();
 	      break;
 	  }
-	
-	  FridgeStore.__emitChange();
 	};
 	
 	module.exports = FridgeStore;
@@ -26687,17 +26708,20 @@
 
 	var React = __webpack_require__(147);
 	var IngredientStore = __webpack_require__(170);
+	var ApiUtil = __webpack_require__(169);
+	var IngredientsIndex = __webpack_require__(161);
 	
 	var FridgeIndexItem = React.createClass({
 	  displayName: 'FridgeIndexItem',
 	
-	  removeFromFridge: function () {
-	    console.log('he');
+	  deleteFromFridge: function () {
+	    ApiUtil.destroyFridgeItem(this.props.fridgeitem.id);
+	    ApiUtil.fetchAllIngredients();
 	  },
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      { id: 'fridge-index-item', onClick: this.removeFromFridge },
+	      { id: 'fridge-index-item', onClick: this.deleteFromFridge },
 	      this.props.fridgeitem.name
 	    );
 	  }

@@ -16,6 +16,10 @@ var addFridgeItem = function (fridgeItem) {
   _fridgeItems[fridgeItem.id] = fridgeItem;
 };
 
+var removeFridgeItem = function(fridgeItem) {
+  delete _fridgeItems[fridgeItem.id];
+};
+
 
 FridgeStore.all = function () {
   var fridgeItems = [];
@@ -29,13 +33,17 @@ FridgeStore.__onDispatch = function (payload) {
   switch(payload.actionType) {
     case FridgeConstants.FRIDGE_ITEMS_RECEIVED:
       resetFridgeItems(payload.fridgeItems);
+      FridgeStore.__emitChange();
       break;
     case FridgeConstants.FRIDGE_ITEM_CREATED:
       addFridgeItem(payload.fridgeItem);
+      FridgeStore.__emitChange();
+      break;
+    case FridgeConstants.FRIDGE_ITEM_REMOVED:
+      removeFridgeItem(payload.fridgeItem);
+      FridgeStore.__emitChange();
       break;
   }
-
-  FridgeStore.__emitChange();
 };
 
 module.exports = FridgeStore;

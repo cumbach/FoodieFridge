@@ -13,6 +13,12 @@ var FridgeActions = {
       actionType: FridgeConstants.FRIDGE_ITEM_CREATED,
       fridgeItem: fridgeItem
     });
+  },
+  removedFridgeItem: function (fridgeItem) {
+    Dispatcher.dispatch({
+      actionType: FridgeConstants.FRIDGE_ITEM_REMOVED,
+      fridgeItem: fridgeItem
+    });
   }
 };
 

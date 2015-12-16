@@ -9,20 +9,16 @@ var IngredientsIndex = React.createClass({
   getInitialState: function() {
     return {ingredients: []};
   },
-
   _onChange: function() {
     this.setState({ingredients: IngredientStore.all()});
   },
-  // updateStore: function() {
-  //   ApiUtil.fetchAllIngredients();
-  // },
-
+  moveD: function(){
+    console.log('he');
+  },
   componentDidMount: function() {
     this.ingredientListener = IngredientStore.addListener(this._onChange);
-    // this.fridgeItemListener = FridgeStore.addListener(this._onChange);
     ApiUtil.fetchAllIngredients();
   },
-
   componentWillUnmount: function(){
     this.ingredientListener.remove();
   },

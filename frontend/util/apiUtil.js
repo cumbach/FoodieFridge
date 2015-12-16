@@ -28,5 +28,15 @@ module.exports = {
         FridgeActions.addedFridgeItem(fridgeItem);
       }
     });
+  },
+  destroyFridgeItem: function(ingredient_id) {
+    $.ajax({
+      url: "api/fridge_items/:id",
+      data: {ingredient_id: ingredient_id},
+      method: "DELETE",
+      success: function (fridgeItem) {
+        FridgeActions.removedFridgeItem(fridgeItem);
+      }
+    });
   }
 };
