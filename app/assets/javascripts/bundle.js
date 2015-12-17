@@ -26892,10 +26892,9 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(147);
-	var RecipeActions = __webpack_require__(170);
-	var ApiUtil = __webpack_require__(167);
 	var RecipeStore = __webpack_require__(190);
 	var RecipesIndexItem = __webpack_require__(195);
+	var FridgeStore = __webpack_require__(191);
 	
 	var RecipesIndex = React.createClass({
 	  displayName: 'RecipesIndex',
@@ -26915,12 +26914,37 @@
 	  componentWillUnmount: function () {
 	    this.recipeListener.remove();
 	  },
+	  recipeSort: function () {
+	    var results = {};
+	    var fridgeItems = FridgeStore.all();
+	    fridgeItems = fridgeItems.map(function (item) {
+	      return item.name;
+	    });
+	    this.state.recipeItems.forEach(function (recipe) {
+	      var count = 0;
+	      for (var i = 0; i < fridgeItems.length; i++) {
+	        if (recipe.ingredients.indexOf(fridgeItems[i]) !== -1) {
+	          count += 1;
+	        }
+	      }
+	      if (typeof results[count] === 'undefined') {
+	        results[count] = [];
+	      }
+	      results[count].push(recipe);
+	    });
+	    var reversedResults = Object.keys(results).reverse();
+	    var final = [];
+	    reversedResults.forEach(function (key) {
+	      final = final.concat(results[key]);
+	    });
+	    return final;
+	  },
 	  recipeMap: function () {
 	    var map = [];
 	    if (typeof this.state.recipeItems !== 'undefined') {
-	      map = this.state.recipeItems.map(function (recipeItem) {
+	      map = this.recipeSort().map(function (recipeItem) {
 	        return React.createElement(RecipesIndexItem, {
-	          key: recipeItem['id'],
+	          key: recipeItem.id,
 	          recipeitem: recipeItem });
 	      });
 	    }

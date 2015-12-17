@@ -57,10 +57,15 @@ h3 {
 #fridge-index-item {
   background: white;
 }
+//
+// body {
+//   background: blue;
+// }
 
 .foodiefridge-app {
   width: 1450px;
   margin: 0 auto;
+  position: relative;
 }
 
 .ingredients-index-pane {
@@ -69,7 +74,7 @@ h3 {
   margin-right: 5px;
   height: 600px;
   width: 400px;
-  overflow: auto;
+  overflow: scroll;
   float: left;
 }
 

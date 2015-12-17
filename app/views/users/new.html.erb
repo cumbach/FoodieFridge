@@ -1,18 +1,19 @@
-<h1>Sign Up</h1>
+<div class='jumbotron'>
+  <h3>Sign Up</h3>
+  <form action="<%= users_url %>" method="post">
+    <%= render 'shared/auth' %>
 
-<form action="<%= users_url %>" method="post">
-  <%= render 'shared/auth' %>
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input type="text" name="user[username]" id='username' value="<%= @user.username %>">
+    </div>
 
-  <div class="form-group">
-    <label for="username">Username</label>
-    <input type="text" name="user[username]" id='username' value="<%= @user.username %>">
-  </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" name="user[password]" id='password' value="<%= @user.password %>">
+    </div>
 
-  <div class="form-group">
-    <label for="password">Password</label>
-    <input type="password" name="user[password]" id='password' value="<%= @user.password %>">
-  </div>
+    <input type="submit" value="Sign Up">
 
-  <input type="submit" value="Sign Up">
-
-</form>
+  </form>
+</div>
