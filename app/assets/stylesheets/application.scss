@@ -17,7 +17,7 @@
 @import "bootstrap";
 
 html, body, section, article,
-h1, h2, p, strong, em, a, div, ul {
+h1, h2, h3, p, strong, em, a, div, ul {
   margin: 0;
   border: 0;
   padding: 0;
@@ -34,8 +34,16 @@ h2 {
   font-size: 30px;
 }
 
+h3 {
+  font-size: 24px;
+}
+
 .jumbotron {
   padding: 40px
+}
+
+.user-pane {
+  margin-left: 20px;
 }
 
 .btn {
@@ -55,6 +63,7 @@ h2 {
 }
 
 .fridge_items-index-pane {
+  margin: 5px;
   border: 2px solid black;
   height: 600px;
   width: 200px;
@@ -63,6 +72,7 @@ h2 {
 }
 
 .ingredients-index-pane {
+  margin: 5px;
   margin-left: 5px;
   margin-right: 5px;
   height: 600px;
@@ -72,6 +82,7 @@ h2 {
 }
 
 .recipes_items-index-pane {
+  margin: 5px;
   height: 600px;
   width: 550px;
   overflow: auto;
@@ -79,6 +90,7 @@ h2 {
 }
 
 .recipes-index-item {
+  height: 200px;
   width: 210px;
   float: left
 }

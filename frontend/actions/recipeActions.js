@@ -1,5 +1,7 @@
 var Dispatcher = require('../dispatcher/dispatcher.js');
 var RecipeConstants = require('../constants/recipeConstants.js');
+var ApiUtil = require('../util/apiUtil');
+
 
 var RecipeActions = {
   // receiveAllRecipeItems: function (recipeItems) {
@@ -8,6 +10,11 @@ var RecipeActions = {
   //     recipeItems: recipeItems
   //   });
   // },
+  fetchAllRecipes: function (fridgeItems) {
+    fridgeItems.forEach(function(fridgeItem){
+      ApiUtil.createRecipeItem(fridgeItem['name']);
+    });
+  },
   addedRecipeItem: function (ingredient, recipeItemArray) {
     Dispatcher.dispatch({
       actionType: RecipeConstants.RECIPE_ITEM_CREATED,
