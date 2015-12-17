@@ -31,5 +31,4 @@ var IngredientsIndex = React.createClass({
     );
   }
 });
-
 module.exports = IngredientsIndex;

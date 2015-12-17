@@ -19742,7 +19742,6 @@
 	    );
 	  }
 	});
-	
 	module.exports = IngredientsIndex;
 
 /***/ },
@@ -26927,9 +26926,7 @@
 	    }
 	    return map;
 	  },
-	
 	  render: function () {
-	    // console.log(this.state.recipeItems);
 	    return React.createElement(
 	      'ul',
 	      null,
@@ -26954,25 +26951,53 @@
 	var RecipesIndexItem = React.createClass({
 	  displayName: 'RecipesIndexItem',
 	
-	  mapKeyFieldsName: function () {
-	    var name = this.props.recipeitem['recipeName'];
-	    return name;
+	  ingredientsList: function () {
+	    var ingredients = [];
+	    this.props.recipeitem['ingredients'].forEach(function (ingredient) {
+	      ingredients.push(React.createElement(
+	        'li',
+	        null,
+	        ingredient
+	      ));
+	    });
+	    return ingredients;
 	  },
-	  mapKeyFieldsImg: function () {
-	    var img = this.props.recipeitem['smallImageUrls'];
-	    return img;
-	  },
-	
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      { className: 'recipes-index-item' },
+	      { className: 'recipe-tile' },
 	      React.createElement(
 	        'div',
-	        { className: 'recipe-index-item-name' },
-	        this.mapKeyFieldsName()
-	      ),
-	      React.createElement('img', { src: this.mapKeyFieldsImg(), width: '200', height: '150' })
+	        { className: 'recipe-tile-inner' },
+	        React.createElement(
+	          'div',
+	          { className: 'front' },
+	          React.createElement(
+	            'div',
+	            { className: 'caption_title' },
+	            this.props.recipeitem['recipeName']
+	          ),
+	          React.createElement('img', { className: 'img-container', src: this.props.recipeitem['smallImageUrls'], width: '200', height: '150' })
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'front back' },
+	          React.createElement(
+	            'div',
+	            { className: 'recipe-index-item-ingredients' },
+	            React.createElement(
+	              'h3',
+	              null,
+	              'Ingredients:'
+	            ),
+	            React.createElement(
+	              'ul',
+	              null,
+	              this.ingredientsList()
+	            )
+	          )
+	        )
+	      )
 	    );
 	  }
 	});

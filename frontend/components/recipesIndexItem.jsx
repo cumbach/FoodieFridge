@@ -2,20 +2,30 @@ var React = require('react');
 var ApiUtil = require('../util/apiUtil');
 
 var RecipesIndexItem = React.createClass({
-  mapKeyFieldsName: function() {
-    var name = this.props.recipeitem['recipeName'];
-    return name;
+  ingredientsList: function() {
+    var ingredients = [];
+    this.props.recipeitem['ingredients'].forEach(function(ingredient){
+      ingredients.push(<li>{ingredient}</li>);
+    });
+    return ingredients;
   },
-  mapKeyFieldsImg: function() {
-    var img = this.props.recipeitem['smallImageUrls'];
-    return img;
-  },
-
   render: function() {
     return (
-      <div className="recipes-index-item">
-        <div className='recipe-index-item-name'>{this.mapKeyFieldsName()}</div>
-        <img src={this.mapKeyFieldsImg()} width='200' height='150'/>
+      <div className="recipe-tile">
+        <div className='recipe-tile-inner'>
+
+          <div className='front'>
+            <div className='caption_title'>{this.props.recipeitem['recipeName']}</div>
+            <img className='img-container' src={this.props.recipeitem['smallImageUrls']} width='200' height='150'/>
+          </div>
+
+          <div className='front back'>
+            <div className='recipe-index-item-ingredients'>
+              <h3>Ingredients:</h3>
+              <ul>{this.ingredientsList()}</ul>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

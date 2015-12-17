@@ -31,9 +31,7 @@ var RecipesIndex = React.createClass({
     }
     return map;
   },
-
   render: function() {
-    // console.log(this.state.recipeItems);
     return(
       <ul>
         <div>{this.recipeMap()}</div>
