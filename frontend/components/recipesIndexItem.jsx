@@ -1,7 +1,9 @@
 var React = require('react');
 var ApiUtil = require('../util/apiUtil');
+var History = require('react-router').History;
 
 var RecipesIndexItem = React.createClass({
+  mixins: [History],
   ingredientsList: function() {
     var ingredients = [];
     this.props.recipeitem['ingredients'].forEach(function(ingredient){
@@ -9,9 +11,13 @@ var RecipesIndexItem = React.createClass({
     });
     return ingredients;
   },
+  goToShow: function() {
+    var url = 'recipes/' + this.props.recipeitem.id;
+    this.history.pushState(this.props, url, {something: this.props});
+  },
   render: function() {
     return (
-      <div className="recipe-tile">
+      <div className="recipe-tile" onClick={this.goToShow}>
         <div className='recipe-tile-inner'>
 
           <div className='front'>

@@ -19,7 +19,7 @@ var FridgeIndex = React.createClass({
   },
 
   componentWillUnmount: function(){
-    this.ingredientListener.remove();
+    this.fridgeListener.remove();
   },
   ingredientMap: function(){
     var map = [];

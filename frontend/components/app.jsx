@@ -6,7 +6,7 @@ var RecipesIndex = require('./recipesIndex');
 var App = React.createClass({
   render: function() {
     return (
-      <div className="foodiefridge-app">
+      <div id="wrapper" className="foodiefridge-app">
         <div className="ingredients-index-pane">
           <h2>Ingredients:</h2>
           <ul>(click to add to fridge)</ul>
@@ -21,6 +21,7 @@ var App = React.createClass({
           <h2>Recipes:</h2>
           <RecipesIndex/>
         </div>
+        {this.props.children}
       </div>
     );
   }
