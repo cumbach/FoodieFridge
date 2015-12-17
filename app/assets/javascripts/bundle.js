@@ -19659,20 +19659,42 @@
 	      { className: 'foodiefridge-app' },
 	      React.createElement(
 	        'div',
-	        { className: 'fridge_items-index-pane' },
-	        'Your Fridge: (click to remove)',
-	        React.createElement(FridgeIndex, null)
-	      ),
-	      React.createElement(
-	        'div',
 	        { className: 'ingredients-index-pane' },
-	        'Ingredients: (click to add to fridge)',
+	        React.createElement(
+	          'h2',
+	          null,
+	          'Ingredients:'
+	        ),
+	        React.createElement(
+	          'ul',
+	          null,
+	          '(click to add to fridge)'
+	        ),
 	        React.createElement(IngredientsIndex, null)
 	      ),
 	      React.createElement(
 	        'div',
+	        { className: 'fridge_items-index-pane' },
+	        React.createElement(
+	          'h2',
+	          null,
+	          'Your Fridge:'
+	        ),
+	        React.createElement(
+	          'ul',
+	          null,
+	          '(click to remove)'
+	        ),
+	        React.createElement(FridgeIndex, null)
+	      ),
+	      React.createElement(
+	        'div',
 	        { className: 'recipes_items-index-pane' },
-	        'Recipes:',
+	        React.createElement(
+	          'h2',
+	          null,
+	          'Recipes:'
+	        ),
 	        React.createElement(RecipesIndex, null)
 	      )
 	    );

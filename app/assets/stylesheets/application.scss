@@ -17,7 +17,7 @@
 @import "bootstrap";
 
 html, body, section, article,
-h1, h2, p, strong, em, a, div {
+h1, h2, p, strong, em, a, div, ul {
   margin: 0;
   border: 0;
   padding: 0;
@@ -28,6 +28,10 @@ h1, h2, p, strong, em, a, div {
   text-align: inherit;
   color: inherit;
   background: transparent;
+}
+
+h2 {
+  font-size: 30px;
 }
 
 .jumbotron {
@@ -47,7 +51,7 @@ h1, h2, p, strong, em, a, div {
 }
 
 .foodiefridge-app {
-  min-width: 1400px;
+  min-width: 1100px;
 }
 
 .fridge_items-index-pane {
@@ -69,7 +73,7 @@ h1, h2, p, strong, em, a, div {
 
 .recipes_items-index-pane {
   height: 600px;
-  width: 600px;
+  width: 550px;
   overflow: auto;
   float: left;
 }
