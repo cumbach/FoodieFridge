@@ -24478,6 +24478,11 @@
 	          null,
 	          'Recipes:'
 	        ),
+	        React.createElement(
+	          'ul',
+	          null,
+	          '(click for info)'
+	        ),
 	        React.createElement(RecipesIndex, null)
 	      ),
 	      this.props.children
@@ -31900,13 +31905,14 @@
 	        { className: 'col-md-8 col-md-offset-2 jumbotron recipe-show-pane' },
 	        React.createElement(
 	          'h3',
-	          { className: 'back-link' },
+	          null,
 	          React.createElement(
 	            Link,
 	            { className: 'back-link', to: '/' },
 	            'Back to Recipe Search'
 	          )
 	        ),
+	        React.createElement('br', null),
 	        React.createElement(
 	          'div',
 	          { className: 'recipe-show recipe-header' },
@@ -32010,7 +32016,7 @@
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      null,
+	      { className: 'home-container' },
 	      this.props.children
 	    );
 	  }

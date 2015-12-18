@@ -19,6 +19,7 @@ var App = React.createClass({
         </div>
         <div className="recipes_items-index-pane">
           <h2>Recipes:</h2>
+          <ul>(click for info)</ul>
           <RecipesIndex/>
         </div>
         {this.props.children}

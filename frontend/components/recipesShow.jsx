@@ -41,7 +41,7 @@ var RecipesShow = React.createClass({
     return (
       <div className="recipe-show-pane">
         <div className="col-md-8 col-md-offset-2 jumbotron recipe-show-pane">
-          <h3 className="back-link"><Link className='back-link' to="/">Back to Recipe Search</Link></h3>
+          <h3><Link className='back-link' to="/">Back to Recipe Search</Link></h3><br/>
 
           <div className="recipe-show recipe-header">
             <h2>{recipeItem.name}</h2>

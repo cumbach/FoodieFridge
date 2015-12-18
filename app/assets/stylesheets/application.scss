@@ -24,7 +24,7 @@ h1, h2, h3, p, strong, em, div, ul {
   outline: 0;
   box-sizing: inherit;
   font: inherit;
-  font-family: fantasy;
+  font-family: sans-serif;
   font-size: 13px;
   text-decoration: inherit;
   text-align: inherit;
@@ -32,16 +32,74 @@ h1, h2, h3, p, strong, em, div, ul {
   background: transparent;
 }
 
+.header-nav {
+  background: url('http://i.stack.imgur.com/jGlzr.png') no-repeat 0 0 scroll;
+  background-color:#0C0C0C;
+  height: 54px;
+  border-bottom: 3px solid #A98762;
+}
+
+.fridge-logo {
+  padding: 2px;
+  height: 100%;
+  margin: 0;
+  height: 50px;
+  width: 240px;
+  display: block;
+  float: left;
+
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+.hello-username {
+  display: block;
+  float: left;
+  height: 100%;
+  padding: 13px;
+
+}
+
+.logout-button {
+  height: 50px;
+}
+
+.button_to {
+  height: 100%;
+}
+
+.header-list {
+  float:right;
+}
+
+html {
+  height: 100%;;
+}
+
 body {
+  height: 100%;
   background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url("spoonbackground.jpg");
   background-size: cover;
 }
 
+.home-container{
+  height: 100%;
+}
+
 .back-link{
+  font-size: 19px;
   float:left;
   display: block;
   position: absolute;
-  width: 245px;
+  width: 195px;
+  margin-left: 11px;
+  margin-top: 5px;
+}
+
+#root {
+  height: 85%;
 }
 
 h2 {
@@ -56,9 +114,6 @@ h3 {
   padding: 40px
 }
 
-.user-pane {
-  margin-left: 20px;
-}
 
 .btn {
   background: green;
@@ -85,15 +140,18 @@ h3 {
 
 .ingredients-index-pane {
   display: block;
-  margin-left: 5px;
-  margin-right: 5px;
-  height: 600px;
+  margin-left: 10px;
+  margin-right: 10px;
+  height: 100%;
   width: 337px;
   overflow: auto;
   float: left;
-  background: white;
+  // background: white;
 
-  border: 3px solid #A98827;
+  background: url('http://i.stack.imgur.com/jGlzr.png') no-repeat 0 0 scroll;
+  background-color:#0C0C0C;
+
+  border: 3px solid #A98762;
   border-radius: 6px;
   max-width: 100%;
   box-sizing: border-box;
@@ -101,28 +159,31 @@ h3 {
 
 .fridge_items-index-pane {
   display: block;
-  margin-right: 5px;
+  margin-right: 10px;
   border: 2px solid black;
-  height: 600px;
+  height: 100%;
   width: 164px;
   overflow: auto;
   float: left;
+
   background: white;
 
-  border: 3px solid #A98827;
+  border: 3px solid black;
   border-radius: 6px;
   max-width: 100%;
   box-sizing: border-box;
 }
 
 .recipes_items-index-pane {
-  margin-right: 5px;
-  background:white;
-  height: 600px;
+  margin-right: 10px;
+  height: 100%;
   overflow: auto;
   display: block;
 
-  border: 3px solid #A98827;
+  background: url('http://i.stack.imgur.com/jGlzr.png') no-repeat 0 0 scroll;
+  background-color:#0C0C0C;
+
+  border: 3px solid #A98762;
   border-radius: 6px;
   max-width: 100%;
   box-sizing: border-box;
@@ -134,6 +195,10 @@ h3 {
   float: left
 }
 
+.foodiefridge-app {
+  height: 100%;
+}
+
 // .foodiefridge-app:after {
 //   content: "";
 //   display: block;
@@ -142,6 +207,7 @@ h3 {
 
 .recipe-show-pane {
   text-align: center;
+  padding: 0px;
 }
 
 a {

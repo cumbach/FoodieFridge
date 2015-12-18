@@ -6,7 +6,7 @@ var RecipeStore = require('../stores/recipeStore');
 var Home = React.createClass({
   render: function() {
     return (
-      <div>
+      <div className="home-container">
         {this.props.children}
       </div>
     );

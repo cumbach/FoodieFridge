@@ -10,11 +10,26 @@
 
 <div class='user-pane'>
   <% if current_user %>
-    <h3>
-      Logged in as:
-      <%= current_user.username %>
-    </h3>
-    <%= button_to "Sign Out", session_url, method: :delete %>
+
+    <header class="header">
+      <nav class="header-nav group">
+        <img class="fridge-logo" src="assets/FoodieFridge-logo.png"/>
+        <h3 class="hello-username">
+          Hello
+          <%= current_user.username %>
+        </h3>
+
+
+        <ul class="header-list group">
+
+          <!-- About goes here -->
+          <div class="logout-button">
+            <%= button_to "Log out", session_url, method: :delete %>
+          </div>
+        </ul>
+      </nav>
+    </header>
+
   <% else %>
     <%= link_to "Sign In", new_session_url %>
     <%= link_to "Sign Up", new_user_url %>
