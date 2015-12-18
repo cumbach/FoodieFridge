@@ -17,7 +17,7 @@
 @import "bootstrap";
 
 html, body, section, article,
-h1, h2, h3, p, strong, em, a, div, ul {
+h1, h2, h3, p, strong, em, div, ul {
   margin: 0;
   border: 0;
   padding: 0;
@@ -33,10 +33,16 @@ h1, h2, h3, p, strong, em, a, div, ul {
 }
 
 body {
-  background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url("http://st.depositphotos.com/1801791/1409/i/950/depositphotos_14090883-Various-food-ingredients-beans-legumes-peas-lentils-in-wooden-spoon-on-the-sackcloth-background.jpg");
+  background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url("spoonbackground.jpg");
   background-size: cover;
 }
 
+.back-link{
+  float:left;
+  display: block;
+  position: absolute;
+  width: 245px;
+}
 
 h2 {
   font-size: 30px;

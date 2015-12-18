@@ -38,10 +38,10 @@ var RecipesShow = React.createClass({
       recipeItem = this.state.recipeItem;
       key = Object.keys(this.state.recipeItem.images[0].imageUrlsBySize);
     }
-    console.log(this.state.recipeItem);
     return (
       <div className="recipe-show-pane">
         <div className="col-md-8 col-md-offset-2 jumbotron recipe-show-pane">
+          <h3 className="back-link"><Link className='back-link' to="/">Back to Recipe Search</Link></h3>
 
           <div className="recipe-show recipe-header">
             <h2>{recipeItem.name}</h2>
@@ -68,7 +68,6 @@ var RecipesShow = React.createClass({
             search powered by <a href='http://www.yummly.com/recipes'><img alt='Yummly' src='http://static.yummly.com/api-logo.png'/></a>
           </h6>
 
-          <h2><Link to="/">Back to Recipe Search</Link></h2>
 
         </div>
       </div>
