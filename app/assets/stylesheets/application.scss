@@ -62,27 +62,29 @@ h3 {
 //   background: blue;
 // }
 
-#wrapper {
-  width: 1450px;
-  margin: 0 auto;
-  position: relative;
-}
+// #wrapper {
+//   width: 100%;
+//   margin: 0 auto;
+//   position: relative;
+// }
 
 .ingredients-index-pane {
+  display: block;
   margin: 5px;
   margin-left: 5px;
   margin-right: 5px;
   height: 600px;
-  width: 400px;
-  overflow: scroll;
+  width: 360px;
+  overflow: auto;
   float: left;
 }
 
 .fridge_items-index-pane {
+  display: block;
   margin: 5px;
   border: 2px solid black;
   height: 600px;
-  width: 200px;
+  width: 190px;
   overflow: auto;
   float: left;
 }
@@ -90,9 +92,8 @@ h3 {
 .recipes_items-index-pane {
   margin: 5px;
   height: 600px;
-  width: 750px;
   overflow: auto;
-  float: left;
+  display: block;
 }
 
 .recipes-index-item {
@@ -101,11 +102,11 @@ h3 {
   float: left
 }
 
-.foodiefridge-app:after {
-  content: "";
-  display: block;
-  clear: both;
-}
+// .foodiefridge-app:after {
+//   content: "";
+//   display: block;
+//   clear: both;
+// }
 
 
 
