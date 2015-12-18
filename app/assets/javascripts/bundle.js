@@ -31892,12 +31892,13 @@
 	      recipeItem = this.state.recipeItem;
 	      key = Object.keys(this.state.recipeItem.images[0].imageUrlsBySize);
 	    }
+	    console.log(this.state.recipeItem);
 	    return React.createElement(
 	      'div',
-	      { id: 'wrapper', className: 'show-nav' },
+	      { className: 'recipe-show-pane' },
 	      React.createElement(
 	        'div',
-	        { className: 'col-md-8 col-md-offset-2 recipe-show-pane' },
+	        { className: 'col-md-8 col-md-offset-2 jumbotron recipe-show-pane' },
 	        React.createElement(
 	          'div',
 	          { className: 'recipe-show recipe-header' },
@@ -31910,13 +31911,17 @@
 	            'h5',
 	            null,
 	            'Recipe from: ',
-	            recipeItem.source.sourceDisplayName
+	            React.createElement(
+	              'a',
+	              { href: recipeItem.source.sourceSiteUrl },
+	              recipeItem.source.sourceDisplayName
+	            )
 	          ),
 	          React.createElement(
 	            'h4',
 	            null,
 	            'Total Prep Time: ',
-	            recipeItem.cookTime
+	            recipeItem.totalTime
 	          ),
 	          ' ',
 	          React.createElement('br', null)
@@ -31939,8 +31944,18 @@
 	            )
 	          ),
 	          React.createElement(
+	            'h3',
+	            null,
+	            'Read full recipe at ',
+	            React.createElement(
+	              'a',
+	              { href: recipeItem.source.sourceRecipeUrl },
+	              recipeItem.source.sourceDisplayName
+	            )
+	          ),
+	          React.createElement(
 	            'div',
-	            { className: 'recipe-show recipe-photo' },
+	            { id: 'recipe-show-photo', className: 'recipe-show recipe-photo' },
 	            React.createElement('img', { src: recipeItem.images[0].imageUrlsBySize[key[key.length - 1]] })
 	          )
 	        ),

@@ -30,6 +30,11 @@ h1, h2, h3, p, strong, em, a, div, ul {
   background: transparent;
 }
 
+body {
+  background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("spoonbackground.jpg")
+}
+
+
 h2 {
   font-size: 30px;
 }
@@ -56,6 +61,7 @@ h3 {
 
 #fridge-index-item {
   background: white;
+  -webkit-background-size: cover;
 }
 //
 // body {
@@ -70,30 +76,46 @@ h3 {
 
 .ingredients-index-pane {
   display: block;
-  margin: 5px;
   margin-left: 5px;
   margin-right: 5px;
   height: 600px;
   width: 360px;
   overflow: auto;
   float: left;
+  background: white;
+
+  border: 3px solid #A98827;
+  border-radius: 6px;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .fridge_items-index-pane {
   display: block;
-  margin: 5px;
+  margin-right: 5px;
   border: 2px solid black;
   height: 600px;
   width: 190px;
   overflow: auto;
   float: left;
+  background: white;
+
+  border: 3px solid #A98827;
+  border-radius: 6px;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .recipes_items-index-pane {
-  margin: 5px;
+  background:white;
   height: 600px;
   overflow: auto;
   display: block;
+
+  border: 3px solid #A98827;
+  border-radius: 6px;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .recipes-index-item {
@@ -108,9 +130,21 @@ h3 {
 //   clear: both;
 // }
 
+.recipe-show-pane {
+  text-align: center;
+}
 
+a {
+  color: #428bca;
+}
 
-
+#recipe-show-photo {
+  display: -webkit-inline-box;
+  border: 3px solid #428bca;
+  border-radius: 6px;
+  max-width: 100%;
+  box-sizing: border-box;
+}
 
 .recipe-tile{
   margin: 9px;

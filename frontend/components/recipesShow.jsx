@@ -38,14 +38,15 @@ var RecipesShow = React.createClass({
       recipeItem = this.state.recipeItem;
       key = Object.keys(this.state.recipeItem.images[0].imageUrlsBySize);
     }
+    console.log(this.state.recipeItem);
     return (
-      <div id="wrapper" className="show-nav">
-        <div className="col-md-8 col-md-offset-2 recipe-show-pane">
+      <div className="recipe-show-pane">
+        <div className="col-md-8 col-md-offset-2 jumbotron recipe-show-pane">
 
           <div className="recipe-show recipe-header">
             <h2>{recipeItem.name}</h2>
-            <h5>Recipe from: {recipeItem.source.sourceDisplayName}</h5>
-            <h4>Total Prep Time: {recipeItem.cookTime}</h4> <br/>
+            <h5>Recipe from: <a href={recipeItem.source.sourceSiteUrl}>{recipeItem.source.sourceDisplayName}</a></h5>
+            <h4>Total Prep Time: {recipeItem.totalTime}</h4> <br/>
           </div>
 
           <div className="recipe-show recipe-body">
@@ -54,7 +55,9 @@ var RecipesShow = React.createClass({
               <h4>{this.ingredientMap()}</h4>
             </div>
 
-            <div className="recipe-show recipe-photo">
+            <h3>Read full recipe at <a href={recipeItem.source.sourceRecipeUrl}>{recipeItem.source.sourceDisplayName}</a></h3>
+
+            <div id='recipe-show-photo' className="recipe-show recipe-photo">
               <img src={recipeItem.images[0].imageUrlsBySize[key[key.length - 1]]}/>
             </div>
 
