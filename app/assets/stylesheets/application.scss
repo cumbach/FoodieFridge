@@ -24,6 +24,8 @@ h1, h2, h3, p, strong, em, a, div, ul {
   outline: 0;
   box-sizing: inherit;
   font: inherit;
+  font-family: fantasy;
+  font-size: 13px;
   text-decoration: inherit;
   text-align: inherit;
   color: inherit;
@@ -31,7 +33,7 @@ h1, h2, h3, p, strong, em, a, div, ul {
 }
 
 body {
-  background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url("spoonbackground.jpg");
+  background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url("http://st.depositphotos.com/1801791/1409/i/950/depositphotos_14090883-Various-food-ingredients-beans-legumes-peas-lentils-in-wooden-spoon-on-the-sackcloth-background.jpg");
   background-size: cover;
 }
 
@@ -54,7 +56,7 @@ h3 {
 
 .btn {
   background: green;
-  width: 120px;
+  width: 138px;
   font-weight: bold;
   margin: 10px;
   border: 1px solid black;
@@ -80,7 +82,7 @@ h3 {
   margin-left: 5px;
   margin-right: 5px;
   height: 600px;
-  width: 360px;
+  width: 337px;
   overflow: auto;
   float: left;
   background: white;
@@ -96,7 +98,7 @@ h3 {
   margin-right: 5px;
   border: 2px solid black;
   height: 600px;
-  width: 190px;
+  width: 164px;
   overflow: auto;
   float: left;
   background: white;
@@ -108,6 +110,7 @@ h3 {
 }
 
 .recipes_items-index-pane {
+  margin-right: 5px;
   background:white;
   height: 600px;
   overflow: auto;

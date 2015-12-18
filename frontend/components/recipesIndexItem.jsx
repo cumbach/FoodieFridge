@@ -7,7 +7,7 @@ var RecipesIndexItem = React.createClass({
   ingredientsList: function() {
     var ingredients = [];
     this.props.recipeitem['ingredients'].forEach(function(ingredient){
-      ingredients.push(<li>{ingredient}</li>);
+      ingredients.push(<li key={ingredient}>{ingredient}</li>);
     });
     return ingredients;
   },

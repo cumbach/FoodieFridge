@@ -31790,7 +31790,7 @@
 	    this.props.recipeitem['ingredients'].forEach(function (ingredient) {
 	      ingredients.push(React.createElement(
 	        'li',
-	        null,
+	        { key: ingredient },
 	        ingredient
 	      ));
 	    });
