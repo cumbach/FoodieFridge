@@ -27,9 +27,11 @@ var RecipesIndex = React.createClass({
     });
     this.state.recipeItems.forEach(function(recipe) {
       var count = 0;
-      for (var i = 0; i < fridgeItems.length; i++) {
-        if (recipe.ingredients.indexOf(fridgeItems[i]) === -1) {
-          count += 1;
+      for (var i = 0; i < recipe.ingredients.length; i++) {
+        for (var j = 0; j < fridgeItems.length; j++) {
+          if (fridgeItems.indexOf(recipe.ingredients[i]) === -1) {
+            count += 1;
+          }
         }
       }
       if (typeof results[count] === 'undefined') {
@@ -38,7 +40,6 @@ var RecipesIndex = React.createClass({
       results[count].push(recipe);
     });
     var reversedResults = Object.keys(results);
-    console.log(results);
     var final = [];
     reversedResults.forEach(function(key) {
       final = final.concat(results[key]);
