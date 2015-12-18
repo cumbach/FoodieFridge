@@ -13,7 +13,7 @@ var RecipesIndexItem = React.createClass({
   },
   goToShow: function() {
     var url = 'recipes/' + this.props.recipeitem.id;
-    this.history.pushState(this.props, url, {something: this.props});
+    this.history.pushState(this.props, url, {});
   },
   render: function() {
     return (

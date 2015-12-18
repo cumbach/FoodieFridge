@@ -2,9 +2,11 @@ var IngredientActions = require('../actions/ingredientActions');
 var FridgeActions = require('../actions/fridgeActions');
 var RecipeActions;
 
+// var APP_ID = 'f4ac9032';
+// var APP_KEY = 'ec28d82137e2708128a2f7f69400989f';
 
-module.exports = window.APIUIL = {
-  fetchAllIngredients: function () {
+module.exports = {
+  fetchAllIngredients: function() {
     $.ajax({
       url: "api/ingredients",
       success: function (ingredients) {
@@ -12,7 +14,7 @@ module.exports = window.APIUIL = {
       }
     });
   },
-  fetchAllFridgeItems: function () {
+  fetchAllFridgeItems: function() {
     $.ajax({
       url: "api/ingredients",
       data: {query: "fridge"},
@@ -52,6 +54,15 @@ module.exports = window.APIUIL = {
       }
     });
   },
+  createSingleRecipe: function(recipeId) {
+    $.ajax({
+      url: 'http://api.yummly.com/v1/api/recipe/' + recipeId,
+      data: {_app_id: 'f4ac9032', _app_key: 'ec28d82137e2708128a2f7f69400989f'},
+      success: function(singleRecipeItem) {
+        RecipeActions.addedSingleRecipe(singleRecipeItem);
+      }
+    });
+  }
 };
 
 RecipeActions = require('../actions/recipeActions');

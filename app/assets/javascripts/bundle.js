@@ -20118,7 +20118,10 @@
 	var FridgeActions = __webpack_require__(168);
 	var RecipeActions;
 	
-	module.exports = window.APIUIL = {
+	// var APP_ID = 'f4ac9032';
+	// var APP_KEY = 'ec28d82137e2708128a2f7f69400989f';
+	
+	module.exports = {
 	  fetchAllIngredients: function () {
 	    $.ajax({
 	      url: "api/ingredients",
@@ -20164,6 +20167,15 @@
 	      url: 'http://api.yummly.com/v1/api/recipes?_app_id=f4ac9032&_app_key=ec28d82137e2708128a2f7f69400989f&q=' + ingredient,
 	      success: function (recipeItemArray) {
 	        RecipeActions.addedRecipeItem(ingredient, recipeItemArray['matches']);
+	      }
+	    });
+	  },
+	  createSingleRecipe: function (recipeId) {
+	    $.ajax({
+	      url: 'http://api.yummly.com/v1/api/recipe/' + recipeId,
+	      data: { _app_id: 'f4ac9032', _app_key: 'ec28d82137e2708128a2f7f69400989f' },
+	      success: function (singleRecipeItem) {
+	        RecipeActions.addedSingleRecipe(singleRecipeItem);
 	      }
 	    });
 	  }
@@ -20220,12 +20232,12 @@
 	var ApiUtil = __webpack_require__(167);
 	
 	var RecipeActions = {
-	  // receiveAllRecipeItems: function (recipeItems) {
-	  //   Dispatcher.dispatch({
-	  //     actionType: RecipeConstants.RECIPE_ITEMS_RECEIVED,
-	  //     recipeItems: recipeItems
-	  //   });
-	  // },
+	  addedSingleRecipe: function (singleRecipeItem) {
+	    Dispatcher.dispatch({
+	      actionType: RecipeConstants.SINGLE_RECIPE_ITEM_CREATED,
+	      singleRecipeItem: singleRecipeItem
+	    });
+	  },
 	  fetchAllRecipes: function (fridgeItems) {
 	    fridgeItems.forEach(function (fridgeItem) {
 	      ApiUtil.createRecipeItem(fridgeItem['name']);
@@ -20255,7 +20267,8 @@
 	module.exports = {
 	  RECIPE_ITEMS_RECEIVED: "RECIPE_ITEMS_RECEIVED",
 	  RECIPE_ITEM_CREATED: "RECIPE_ITEM_CREATED",
-	  RECIPE_ITEM_REMOVED: "RECIPE_ITEM_REMOVED"
+	  RECIPE_ITEM_REMOVED: "RECIPE_ITEM_REMOVED",
+	  SINGLE_RECIPE_ITEM_CREATED: "SINGLE_RECIPE_ITEM_CREATED"
 	};
 
 /***/ },
@@ -26727,7 +26740,7 @@
 	var RecipeStore = new Store(Dispatcher);
 	
 	var _recipeItems = {};
-	
+	var singleRecipeItem = {};
 	// var resetRecipeItems = function (recipeItems) {
 	//   _recipeItems = {};
 	//   recipeItems.forEach(function (recipeItem) {
@@ -26739,6 +26752,10 @@
 	};
 	var removeRecipeItem = function (ingredient) {
 	  delete _recipeItems[ingredient];
+	};
+	
+	RecipeStore.singleItem = function () {
+	  return singleRecipeItem;
 	};
 	// var removeRecipeItem = function(recipeItem) {
 	//   delete _recipeItems[recipeItem.id];
@@ -26767,6 +26784,10 @@
 	      break;
 	    case RecipeConstants.RECIPE_ITEM_REMOVED:
 	      removeRecipeItem(payload.ingredient);
+	      RecipeStore.__emitChange();
+	      break;
+	    case RecipeConstants.SINGLE_RECIPE_ITEM_CREATED:
+	      singleRecipeItem = payload.singleRecipeItem;
 	      RecipeStore.__emitChange();
 	      break;
 	  }
@@ -26894,6 +26915,7 @@
 	    ApiUtil.fetchAllIngredients();
 	    RecipeActions.removedRecipeItem(this.props.fridgeitem.name);
 	  },
+	
 	  render: function () {
 	    return React.createElement(
 	      'div',
@@ -26951,6 +26973,7 @@
 	      results[count].push(recipe);
 	    });
 	    var reversedResults = Object.keys(results).reverse();
+	    console.log(results);
 	    var final = [];
 	    reversedResults.forEach(function (key) {
 	      final = final.concat(results[key]);
@@ -27008,7 +27031,7 @@
 	  },
 	  goToShow: function () {
 	    var url = 'recipes/' + this.props.recipeitem.id;
-	    this.history.pushState(this.props, url, { something: this.props });
+	    this.history.pushState(this.props, url, {});
 	  },
 	  render: function () {
 	    return React.createElement(
@@ -31823,33 +31846,133 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(147);
+	var ReactRouter = __webpack_require__(196);
 	var ApiUtil = __webpack_require__(167);
 	var IngredientActions = __webpack_require__(161);
 	var RecipeStore = __webpack_require__(190);
+	var App = __webpack_require__(159);
+	var Link = ReactRouter.Link;
 	
 	var RecipesShow = React.createClass({
 	  displayName: 'RecipesShow',
 	
 	  getInitialState: function () {
-	    return { recipeItem: this.props.location.state.recipeitem };
+	    return { recipeItem: RecipeStore.singleItem() };
+	  },
+	  ingredientMap: function () {
+	    var map = [];
+	    if (typeof this.state.recipeItem !== 'undefined') {
+	      map = this.state.recipeItem.ingredientLines.map(function (ingredient) {
+	        return React.createElement(
+	          'ul',
+	          { key: ingredient },
+	          ingredient + ' '
+	        );
+	      });
+	    }
+	    return map;
+	  },
+	  _onChange: function () {
+	    this.setState({ recipeItem: RecipeStore.singleItem() });
+	  },
+	  componentWillMount: function () {
+	    this.singleRecipeListener = RecipeStore.addListener(this._onChange);
+	    ApiUtil.createSingleRecipe(this.props.location.state.recipeitem.id);
+	  },
+	  componentWillUnmount: function () {
+	    this.singleRecipeListener.remove();
 	  },
 	  render: function () {
-	    console.log(this.state.recipeItem);
+	    var recipeItem = {};
+	    var key = {};
+	    if (typeof this.state.recipeItem.id === 'undefined') {
+	      return React.createElement('div', null);
+	    } else {
+	      recipeItem = this.state.recipeItem;
+	      key = Object.keys(this.state.recipeItem.images[0].imageUrlsBySize);
+	    }
 	    return React.createElement(
 	      'div',
-	      { id: 'wrapper', 'class': 'show-nav' },
+	      { id: 'wrapper', className: 'show-nav' },
 	      React.createElement(
 	        'div',
-	        { className: 'recipe-show-pane' },
+	        { className: 'col-md-8 col-md-offset-2 recipe-show-pane' },
 	        React.createElement(
-	          'li',
-	          null,
-	          'Hello in Show'
+	          'div',
+	          { className: 'recipe-show recipe-header' },
+	          React.createElement(
+	            'h2',
+	            null,
+	            recipeItem.name
+	          ),
+	          React.createElement(
+	            'h5',
+	            null,
+	            'Recipe from: ',
+	            recipeItem.source.sourceDisplayName
+	          ),
+	          React.createElement(
+	            'h4',
+	            null,
+	            'Total Prep Time: ',
+	            recipeItem.cookTime
+	          ),
+	          ' ',
+	          React.createElement('br', null)
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'recipe-show recipe-body' },
+	          React.createElement(
+	            'div',
+	            { className: 'recipe-show ingredient-pane' },
+	            React.createElement(
+	              'h3',
+	              null,
+	              'Ingredients:'
+	            ),
+	            React.createElement(
+	              'h4',
+	              null,
+	              this.ingredientMap()
+	            )
+	          ),
+	          React.createElement(
+	            'div',
+	            { className: 'recipe-show recipe-photo' },
+	            React.createElement('img', { src: recipeItem.images[0].imageUrlsBySize[key[key.length - 1]] })
+	          )
+	        ),
+	        React.createElement(
+	          'h6',
+	          { className: 'footer' },
+	          React.createElement(
+	            'a',
+	            { href: 'http://www.yummly.com/recipe/' + recipeItem.id },
+	            recipeItem.name,
+	            ' Recipe '
+	          ),
+	          'search powered by ',
+	          React.createElement(
+	            'a',
+	            { href: 'http://www.yummly.com/recipes' },
+	            React.createElement('img', { alt: 'Yummly', src: 'http://static.yummly.com/api-logo.png' })
+	          )
+	        ),
+	        React.createElement(
+	          Link,
+	          { to: '/' },
+	          'Back to Recipe Search'
 	        )
 	      )
 	    );
 	  }
 	});
+	
+	html: "Recipe search powered by <a href='http://www.yummly.com/recipes'><img alt='Yummly' src='http://static.yummly.com/api-logo.png'/></a>";
+	logo: "http://static.yummly.com/api-logo.png";
+	text: "Recipe search powered by Yummly";
+	url: "http://www.yummly.com/recipes/";
 	
 	module.exports = RecipesShow;
 

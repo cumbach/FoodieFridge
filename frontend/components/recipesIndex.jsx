@@ -38,6 +38,7 @@ var RecipesIndex = React.createClass({
       results[count].push(recipe);
     });
     var reversedResults = Object.keys(results).reverse();
+    console.log(results);
     var final = [];
     reversedResults.forEach(function(key) {
       final = final.concat(results[key]);

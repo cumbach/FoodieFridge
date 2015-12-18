@@ -4,12 +4,12 @@ var ApiUtil = require('../util/apiUtil');
 
 
 var RecipeActions = {
-  // receiveAllRecipeItems: function (recipeItems) {
-  //   Dispatcher.dispatch({
-  //     actionType: RecipeConstants.RECIPE_ITEMS_RECEIVED,
-  //     recipeItems: recipeItems
-  //   });
-  // },
+  addedSingleRecipe: function(singleRecipeItem) {
+    Dispatcher.dispatch({
+      actionType: RecipeConstants.SINGLE_RECIPE_ITEM_CREATED,
+      singleRecipeItem: singleRecipeItem
+    });
+  },
   fetchAllRecipes: function (fridgeItems) {
     fridgeItems.forEach(function(fridgeItem){
       ApiUtil.createRecipeItem(fridgeItem['name']);

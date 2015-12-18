@@ -4,7 +4,7 @@ var RecipeConstants = require('../constants/recipeConstants.js');
 var RecipeStore = new Store(Dispatcher);
 
 var _recipeItems = {};
-
+var singleRecipeItem = {};
 // var resetRecipeItems = function (recipeItems) {
 //   _recipeItems = {};
 //   recipeItems.forEach(function (recipeItem) {
@@ -16,6 +16,10 @@ var addRecipeItem = function (ingredient, recipeItemArray) {
 };
 var removeRecipeItem = function(ingredient){
   delete _recipeItems[ingredient];
+};
+
+RecipeStore.singleItem = function() {
+  return singleRecipeItem;
 };
 // var removeRecipeItem = function(recipeItem) {
 //   delete _recipeItems[recipeItem.id];
@@ -44,6 +48,10 @@ RecipeStore.__onDispatch = function (payload) {
       break;
     case RecipeConstants.RECIPE_ITEM_REMOVED:
       removeRecipeItem(payload.ingredient);
+      RecipeStore.__emitChange();
+      break;
+    case RecipeConstants.SINGLE_RECIPE_ITEM_CREATED:
+      singleRecipeItem = payload.singleRecipeItem;
       RecipeStore.__emitChange();
       break;
   }
