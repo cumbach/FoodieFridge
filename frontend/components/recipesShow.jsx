@@ -65,7 +65,7 @@ var RecipesShow = React.createClass({
             search powered by <a href='http://www.yummly.com/recipes'><img alt='Yummly' src='http://static.yummly.com/api-logo.png'/></a>
           </h6>
 
-          <Link to="/">Back to Recipe Search</Link>
+          <h2><Link to="/">Back to Recipe Search</Link></h2>
 
         </div>
       </div>

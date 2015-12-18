@@ -26963,7 +26963,7 @@
 	    this.state.recipeItems.forEach(function (recipe) {
 	      var count = 0;
 	      for (var i = 0; i < fridgeItems.length; i++) {
-	        if (recipe.ingredients.indexOf(fridgeItems[i]) !== -1) {
+	        if (recipe.ingredients.indexOf(fridgeItems[i]) === -1) {
 	          count += 1;
 	        }
 	      }
@@ -26972,7 +26972,7 @@
 	      }
 	      results[count].push(recipe);
 	    });
-	    var reversedResults = Object.keys(results).reverse();
+	    var reversedResults = Object.keys(results);
 	    console.log(results);
 	    var final = [];
 	    reversedResults.forEach(function (key) {
@@ -31960,9 +31960,13 @@
 	          )
 	        ),
 	        React.createElement(
-	          Link,
-	          { to: '/' },
-	          'Back to Recipe Search'
+	          'h2',
+	          null,
+	          React.createElement(
+	            Link,
+	            { to: '/' },
+	            'Back to Recipe Search'
+	          )
 	        )
 	      )
 	    );
