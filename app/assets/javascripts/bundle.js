@@ -24459,16 +24459,20 @@
 	        'div',
 	        { className: 'fridge_items-index-pane' },
 	        React.createElement(
-	          'h2',
-	          null,
-	          'Your Fridge:'
-	        ),
-	        React.createElement(
-	          'ul',
-	          null,
-	          '(click to remove)'
-	        ),
-	        React.createElement(FridgeIndex, null)
+	          'div',
+	          { className: 'inner-fridge-pane' },
+	          React.createElement(
+	            'h2',
+	            null,
+	            'Your Fridge:'
+	          ),
+	          React.createElement(
+	            'ul',
+	            null,
+	            '(click to remove)'
+	          ),
+	          React.createElement(FridgeIndex, null)
+	        )
 	      ),
 	      React.createElement(
 	        'div',
@@ -24519,11 +24523,15 @@
 	  componentWillUnmount: function () {
 	    this.ingredientListener.remove();
 	  },
+	  shuffle: function (o) {
+	    for (var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+	    return o;
+	  },
 	  render: function () {
 	    return React.createElement(
 	      'ul',
 	      null,
-	      this.state.ingredients.map(function (ingredient) {
+	      this.shuffle(this.state.ingredients).map(function (ingredient) {
 	        return React.createElement(IngredientIndexItem, {
 	          key: ingredient.id,
 	          ingredient: ingredient });
@@ -31491,9 +31499,10 @@
 	    IngredientActions.ingredientRemoved(this.props.ingredient);
 	  },
 	  render: function () {
+	    var category = this.props.ingredient.category;
 	    return React.createElement(
 	      'div',
-	      { className: 'ingredients-index-item btn', onClick: this.moveToFridge },
+	      { className: 'ingredients-index-item btn', id: category, onClick: this.moveToFridge },
 	      this.props.ingredient.name
 	    );
 	  }

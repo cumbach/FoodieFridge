@@ -10,8 +10,9 @@ var IngredientIndexItem = React.createClass({
     IngredientActions.ingredientRemoved(this.props.ingredient);
   },
   render: function() {
+    var category = this.props.ingredient.category;
     return (
-      <div className="ingredients-index-item btn" onClick={this.moveToFridge}>
+      <div className="ingredients-index-item btn" id={category} onClick={this.moveToFridge}>
         {this.props.ingredient.name}
       </div>
     );

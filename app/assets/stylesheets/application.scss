@@ -62,12 +62,8 @@ h1, h2, h3, p, strong, em, div, ul {
 
 }
 
-.logout-button {
-  height: 50px;
-}
-
-.button_to {
-  height: 100%;
+.logout-button input {
+  height: 20px;
 }
 
 .header-list {
@@ -116,15 +112,39 @@ h3 {
 
 
 .btn {
-  background: green;
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-top: 6px;
+  padding-bottom: 6px;
   width: 138px;
   font-weight: bold;
   margin: 10px;
   border: 1px solid black;
 }
+#Vegetables {
+  background: green;
+}
+#Grains {
+  background: #ec971f;
+}
+#Protein {
+  background: red;
+}
+#Fruit {
+  background: blue;
+}
+#Dairy {
+  background: #97DDF2;
+}
+#Other {
+  background: purple;
+}
+
+
+
 
 #fridge-index-item {
-  background: white;
+  background: #eee;
   -webkit-background-size: cover;
 }
 //
@@ -158,20 +178,27 @@ h3 {
 }
 
 .fridge_items-index-pane {
+  padding: 6px;
   display: block;
   margin-right: 10px;
-  border: 2px solid black;
   height: 100%;
-  width: 164px;
+  width: 184px;
   overflow: auto;
   float: left;
 
   background: white;
 
-  border: 3px solid black;
+  border: 2px solid black;
   border-radius: 6px;
   max-width: 100%;
   box-sizing: border-box;
+
+  .inner-fridge-pane {
+    border: 2px solid black;
+    border-radius: 6px;
+    height: 100%;
+    width: 100%
+  }
 }
 
 .recipes_items-index-pane {
@@ -188,6 +215,7 @@ h3 {
   max-width: 100%;
   box-sizing: border-box;
 }
+
 
 .recipes-index-item {
   height: 200px;
@@ -208,6 +236,7 @@ h3 {
 .recipe-show-pane {
   text-align: center;
   padding: 0px;
+  border-radius: 6px;
 }
 
 a {
@@ -245,7 +274,7 @@ a {
   .img-container{
     display: block;
     width: 215px;
-    height: 140px;
+    height: 141px;
     border-bottom: 2px solid white;
     overflow: hidden;
     img {

@@ -13,9 +13,11 @@ var App = React.createClass({
           <IngredientsIndex/>
         </div>
         <div className="fridge_items-index-pane">
-          <h2>Your Fridge:</h2>
-          <ul>(click to remove)</ul>
-          <FridgeIndex/>
+          <div className="inner-fridge-pane">
+            <h2>Your Fridge:</h2>
+            <ul>(click to remove)</ul>
+            <FridgeIndex/>
+          </div>
         </div>
         <div className="recipes_items-index-pane">
           <h2>Recipes:</h2>

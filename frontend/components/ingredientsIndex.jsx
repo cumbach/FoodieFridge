@@ -19,10 +19,14 @@ var IngredientsIndex = React.createClass({
   componentWillUnmount: function(){
     this.ingredientListener.remove();
   },
+  shuffle: function(o){
+      for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+      return o;
+  },
   render: function() {
     return(
       <ul>
-        {this.state.ingredients.map(function(ingredient){
+        {this.shuffle(this.state.ingredients).map(function(ingredient){
           return <IngredientIndexItem
                   key={ingredient.id}
                   ingredient={ingredient}/>;
