@@ -20,20 +20,35 @@ var IngredientsIndex = React.createClass({
     this.ingredientListener.remove();
   },
   shuffle: function(o){
-    if (typeof this.result === 'undefined' || this.result.length === 0) {
+    // shuffles the ingredients and assigns to result
+    // if (typeof this.result === 'undefined' || this.result.length === 0) {
       for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
-      this.result = o;
-      for (var i = 0; i < this.result.length; i++) {
-        if (this.state.ingredients.indexOf(this.result[i]) === -1) {
-          this.result.splice(i, 1);
-        }
-      }
-    }
-
-    return this.result;
+      return o;
+    // }
+    //
+    //
+    // debugger;
+    // // goes through each ingredient and adds to result if the result array doesnt contain it
+    // for (var i = 0; i < this.state.ingredients.length; i++) {
+    //   if (this.result.indexOf(this.state.ingredients[i]) === -1) {
+    //     this.result.push(this.state.ingredients[i]);
+    //   }
+    // }
+    // debugger;
+    //
+    //
+    //
+    // // goes through each result and splices if the ingredients array doesnt contain it
+    // for (var i = 0; i < this.result.length; i++) {
+    //   if(this.state.ingredients.indexOf(this.result[i]) === -1) {
+    //     this.result.splice(i, 1);
+    //   }
+    // }
+    // console.log(this.state.ingredients.length);
+    // console.log(this.result.length);
+    // return this.result;
   },
   render: function() {
-
     return(
       <ul>
         {this.shuffle(this.state.ingredients).map(function(ingredient){

@@ -33,7 +33,7 @@ h1, h2, h3, p, strong, em, div, ul {
 }
 
 .header-nav {
-  background: url('http://i.stack.imgur.com/jGlzr.png') no-repeat 0 0 scroll;
+  background: url('http://i.stack.imgur.com/jGlzr.png') repeat 0 0 scroll;
   background-color:#0C0C0C;
   height: 54px;
   border-bottom: 3px solid #A98762;
@@ -251,6 +251,19 @@ a {
   box-sizing: border-box;
 }
 
+.ingredient-pane {
+  float: left;
+  width: 40%;
+  display: block;
+  padding: 25px;
+}
+
+.recipe-and-photo {
+  width: 40%;
+  display: inline-block;
+  padding: 25px;
+}
+
 .recipe-tile{
   margin: 9px;
   display: -webkit-inline-box;
@@ -327,5 +340,5 @@ a {
 .recipe-tile:hover .recipe-tile-inner{
   transform: rotateY(180deg);
   -webkit-transform: rotateY(180deg);
-  box-shadow: -10px 10px 10px #aaa;
+  box-shadow: -10px 10px 10px #010;
 }

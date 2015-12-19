@@ -55,10 +55,11 @@ var RecipesShow = React.createClass({
               <h4>{this.ingredientMap()}</h4>
             </div>
 
-            <h3>Read full recipe at <a href={recipeItem.source.sourceRecipeUrl}>{recipeItem.source.sourceDisplayName}</a></h3>
-
-            <div id='recipe-show-photo' className="recipe-show recipe-photo">
-              <img src={recipeItem.images[0].imageUrlsBySize[key[key.length - 1]]}/>
+            <div className="recipe-and-photo">
+              <h3>Read full recipe at <a href={recipeItem.source.sourceRecipeUrl}>{recipeItem.source.sourceDisplayName}</a></h3>
+              <div id='recipe-show-photo' className="recipe-show recipe-photo">
+                <img src={recipeItem.images[0].imageUrlsBySize[key[key.length - 1]]}/>
+              </div>
             </div>
 
           </div>
