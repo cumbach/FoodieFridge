@@ -24524,20 +24524,35 @@
 	    this.ingredientListener.remove();
 	  },
 	  shuffle: function (o) {
-	    if (typeof this.result === 'undefined' || this.result.length === 0) {
-	      for (var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
-	      this.result = o;
-	      for (var i = 0; i < this.result.length; i++) {
-	        if (this.state.ingredients.indexOf(this.result[i]) === -1) {
-	          this.result.splice(i, 1);
-	        }
-	      }
-	    }
-	
-	    return this.result;
+	    // shuffles the ingredients and assigns to result
+	    // if (typeof this.result === 'undefined' || this.result.length === 0) {
+	    for (var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+	    return o;
+	    // }
+	    //
+	    //
+	    // debugger;
+	    // // goes through each ingredient and adds to result if the result array doesnt contain it
+	    // for (var i = 0; i < this.state.ingredients.length; i++) {
+	    //   if (this.result.indexOf(this.state.ingredients[i]) === -1) {
+	    //     this.result.push(this.state.ingredients[i]);
+	    //   }
+	    // }
+	    // debugger;
+	    //
+	    //
+	    //
+	    // // goes through each result and splices if the ingredients array doesnt contain it
+	    // for (var i = 0; i < this.result.length; i++) {
+	    //   if(this.state.ingredients.indexOf(this.result[i]) === -1) {
+	    //     this.result.splice(i, 1);
+	    //   }
+	    // }
+	    // console.log(this.state.ingredients.length);
+	    // console.log(this.result.length);
+	    // return this.result;
 	  },
 	  render: function () {
-	
 	    return React.createElement(
 	      'ul',
 	      null,
@@ -31977,19 +31992,23 @@
 	            )
 	          ),
 	          React.createElement(
-	            'h3',
-	            null,
-	            'Read full recipe at ',
-	            React.createElement(
-	              'a',
-	              { href: recipeItem.source.sourceRecipeUrl },
-	              recipeItem.source.sourceDisplayName
-	            )
-	          ),
-	          React.createElement(
 	            'div',
-	            { id: 'recipe-show-photo', className: 'recipe-show recipe-photo' },
-	            React.createElement('img', { src: recipeItem.images[0].imageUrlsBySize[key[key.length - 1]] })
+	            { className: 'recipe-and-photo' },
+	            React.createElement(
+	              'h3',
+	              null,
+	              'Read full recipe at ',
+	              React.createElement(
+	                'a',
+	                { href: recipeItem.source.sourceRecipeUrl },
+	                recipeItem.source.sourceDisplayName
+	              )
+	            ),
+	            React.createElement(
+	              'div',
+	              { id: 'recipe-show-photo', className: 'recipe-show recipe-photo' },
+	              React.createElement('img', { src: recipeItem.images[0].imageUrlsBySize[key[key.length - 1]] })
+	            )
 	          )
 	        ),
 	        React.createElement(
