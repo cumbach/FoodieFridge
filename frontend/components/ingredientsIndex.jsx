@@ -20,10 +20,20 @@ var IngredientsIndex = React.createClass({
     this.ingredientListener.remove();
   },
   shuffle: function(o){
+    if (typeof this.result === 'undefined' || this.result.length === 0) {
       for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
-      return o;
+      this.result = o;
+      for (var i = 0; i < this.result.length; i++) {
+        if (this.state.ingredients.indexOf(this.result[i]) === -1) {
+          this.result.splice(i, 1);
+        }
+      }
+    }
+
+    return this.result;
   },
   render: function() {
+
     return(
       <ul>
         {this.shuffle(this.state.ingredients).map(function(ingredient){
