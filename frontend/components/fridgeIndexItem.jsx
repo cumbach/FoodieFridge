@@ -12,7 +12,6 @@ var FridgeIndexItem = React.createClass({
   },
 
   render: function() {
-    console.log(this.props.fridgeitem);
     return (
       <div className='btn fridge-index-item' id={this.props.fridgeitem.category} onClick={this.deleteFromFridge}>
         {this.props.fridgeitem.name}

@@ -69,9 +69,14 @@ h1, h2, h3, p, strong, em, div, ul {
     display: none;
 }
 
+.log-title {
+  // text-align: -webkit-center;
+  padding: 10px;
+}
+
 .first-page {
   margin: 0 auto;
-  width: 50%;
+  width: 30%;
   background: white;
   border-radius: 6px;
   padding: 40px;
@@ -274,6 +279,7 @@ a {
   border: 3px solid #428bca;
   border-radius: 6px;
   max-width: 100%;
+  max-height: 100%;
   box-sizing: border-box;
 }
 
@@ -295,7 +301,7 @@ a {
   display: -webkit-inline-box;
   cursor: pointer;
   position: relative;
-  width: 215px;
+  width: 205px;
   height: 205px;
   z-index: 1;
  .recipe-tile{
@@ -312,8 +318,8 @@ a {
   }
   .img-container{
     display: block;
-    width: 215px;
-    height: 141px;
+    max-width: 100%;
+    max-height: 100%;
     border-bottom: 2px solid white;
     overflow: hidden;
     img {
@@ -327,7 +333,7 @@ a {
     border-radius: $border-radius-base;
     border: 3px solid #BFA386;
     height: 205px;
-    width: 215px;
+    width: 205px;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
   }
