@@ -13,7 +13,9 @@ var IngredientIndexItem = React.createClass({
     var category = this.props.ingredient.category;
     return (
       <div className="ingredients-index-item btn" id={category} onClick={this.moveToFridge}>
-        {this.props.ingredient.name}
+        <ul className="ingredient-name">{this.props.ingredient.name}</ul>
+        <ul className="ingredient-category">{this.props.ingredient.category}</ul>
+
       </div>
     );
   }
