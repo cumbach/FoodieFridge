@@ -29,6 +29,7 @@ var RecipesShow = React.createClass({
   componentWillUnmount: function() {
     this.singleRecipeListener.remove();
   },
+  
   render: function() {
     var recipeItem = {};
     var key = {};
