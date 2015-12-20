@@ -21,31 +21,8 @@ var IngredientsIndex = React.createClass({
     this.ingredientListener.remove();
   },
   shuffle: function(o){
-    // shuffles the ingredients and assigns to result
-    // if (typeof this.result === 'undefined' || this.result.length === 0) {
-      for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
-      return o;
-    // }
-    //
-    //
-    // // goes through each ingredient and adds to result if the result array doesnt contain it
-    // for (var i = 0; i < this.state.ingredients.length; i++) {
-    //   if (this.result.indexOf(this.state.ingredients[i]) === -1) {
-    //     this.result.push(this.state.ingredients[i]);
-    //   }
-    // }
-    //
-    //
-    //
-    // // goes through each result and splices if the ingredients array doesnt contain it
-    // for (var i = 0; i < this.result.length; i++) {
-    //   if(this.state.ingredients.indexOf(this.result[i]) === -1) {
-    //     this.result.splice(i, 1);
-    //   }
-    // }
-    // console.log(this.state.ingredients.length);
-    // console.log(this.result.length);
-    // return this.result;
+    for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+    return o;
   },
   handleChange: function(e) {
     this.setState({ inputVal: e.target.value });
@@ -86,14 +63,18 @@ var IngredientsIndex = React.createClass({
   clearSearch: function() {
     this.setState({inputVal: ""});
   },
-  log: function(e) {
+  addOnEnter: function(e, matchingIngredients) {
     if (e) {
-      if (e.key === "Enter") {
-        console.log(e);
+      if (e.key === "Enter" && this.matchingIngredients().length === 1) {
+        var ingredient = this.matchingIngredients()[0].props.ingredient;
+        ApiUtil.createFridgeItem(ingredient.id);
+        ApiUtil.createRecipeItem(ingredient.name);
+        IngredientActions.ingredientRemoved(ingredient);
+        this.clearSearch();
       }
     }
   },
-  render: function() {
+  matchingIngredients: function() {
     var matchingIngredients = <ul>no matches found</ul>;
     if (!this.matches() && this.state.inputVal.length === 0) {
       matchingIngredients = <ul>{this.mapper(this.shuffle(this.state.ingredients))}</ul>;
@@ -101,17 +82,20 @@ var IngredientsIndex = React.createClass({
     if (this.matches()) {
       matchingIngredients = this.mapper(this.matches());
     }
+    return matchingIngredients;
+  },
+  render: function() {
     return(
-      <div onMouseEnter={this.log()}>
+      <div>
         <input type="text"
                className="form-control"
                onChange={this.handleChange}
-               onKeyPress={this.log}
+               onKeyPress={this.addOnEnter}
                placeholder="Search Ingredients: Click to add to fridge"
 
                value={this.state.inputVal}/>
         <ul className="matching-ingredients" onClick={this.clearSearch}>
-          {matchingIngredients}
+          {this.matchingIngredients()}
         </ul>
       </div>
     );
