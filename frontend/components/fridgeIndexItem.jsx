@@ -10,10 +10,11 @@ var FridgeIndexItem = React.createClass({
     ApiUtil.fetchAllIngredients();
     RecipeActions.removedRecipeItem(this.props.fridgeitem.name);
   },
-  
+
   render: function() {
+    console.log(this.props.fridgeitem);
     return (
-      <div className='btn' id="fridge-index-item" onClick={this.deleteFromFridge}>
+      <div className='btn fridge-index-item' id={this.props.fridgeitem.category} onClick={this.deleteFromFridge}>
         {this.props.fridgeitem.name}
       </div>
     );

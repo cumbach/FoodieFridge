@@ -1,4 +1,4 @@
-<div class="jumbotron">
+<div class="first-page">
 
   <h3>Login</h3>
 
@@ -6,15 +6,16 @@
     <%= render 'shared/auth' %>
 
     <div class='form-group'>
-      <label for="username">Username</label>
-      <input type="text" name="user[username]" id='username' value="">
+      <label for="username"></label>
+      <input type="text" name="user[username]" placeholder="username" id='username' value="">
     </div>
     <div class='form-group'>
-      <label for="password">Password</label>
-      <input type="password" name="user[password]" id='password' value="">
+      <label for="password"></label>
+      <input type="password" name="user[password]" placeholder="password" id='password' value="">
     </div>
 
     <input type="submit" value="Sign In">
 
   </form>
+  <h6>New user? <%= link_to "Sign up here", new_user_url %><h6>
 </div>

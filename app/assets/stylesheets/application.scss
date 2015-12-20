@@ -69,6 +69,14 @@ h1, h2, h3, p, strong, em, div, ul {
     display: none;
 }
 
+.first-page {
+  margin: 0 auto;
+  width: 50%;
+  background: white;
+  border-radius: 6px;
+  padding: 40px;
+}
+
 .hello-username {
   display: block;
   float: left;
@@ -161,7 +169,7 @@ h3 {
 
 
 
-#fridge-index-item {
+.fridge-index-item {
   background: #eee;
   -webkit-background-size: cover;
 }
