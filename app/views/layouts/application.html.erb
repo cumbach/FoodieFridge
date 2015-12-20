@@ -14,14 +14,14 @@
     <header class="header">
       <nav class="header-nav group">
         <img class="fridge-logo" src="assets/FoodieFridge-logo.png"/>
-        <h3 class="hello-username">
-          Hello
-          <%= current_user.username %>
-        </h3>
+
 
 
         <ul class="header-list group">
-
+          <h3 class="hello-username">
+            Hello
+            <%= current_user.username %>
+          </h3>
           <!-- About goes here -->
           <div class="logout-button">
             <%= button_to "Log out", session_url, method: :delete %>
