@@ -24587,6 +24587,16 @@
 	    });
 	    return result;
 	  },
+	  clearSearch: function () {
+	    this.setState({ inputVal: "" });
+	  },
+	  log: function (e) {
+	    if (e) {
+	      if (e.key === "Enter") {
+	        console.log(e);
+	      }
+	    }
+	  },
 	  render: function () {
 	    var matchingIngredients = React.createElement(
 	      'ul',
@@ -24603,16 +24613,21 @@
 	    if (this.matches()) {
 	      matchingIngredients = this.mapper(this.matches());
 	    }
-	    // console.log(this.state.ingredients);
 	    return React.createElement(
 	      'div',
-	      null,
+	      { onMouseEnter: this.log() },
 	      React.createElement('input', { type: 'text',
 	        className: 'form-control',
 	        onChange: this.handleChange,
+	        onKeyPress: this.log,
 	        placeholder: 'Search Ingredients: Click to add to fridge',
+	
 	        value: this.state.inputVal }),
-	      matchingIngredients
+	      React.createElement(
+	        'ul',
+	        { className: 'matching-ingredients', onClick: this.clearSearch },
+	        matchingIngredients
+	      )
 	    );
 	  }
 	});
@@ -31634,16 +31649,17 @@
 	// };
 	RecipeStore.all = function () {
 	  var recipeItems = [];
+	  var recipeKeys = [];
 	  for (var ingredient in _recipeItems) {
 	    for (var i = 0; i < _recipeItems[ingredient].length; i++) {
-	      if (recipeItems.indexOf(_recipeItems[ingredient][i] === -1)) {
+	      if (recipeKeys.indexOf(_recipeItems[ingredient][i].recipeName) === -1) {
+	        recipeKeys.push(_recipeItems[ingredient][i].recipeName);
 	        recipeItems.push(_recipeItems[ingredient][i]);
 	      }
 	    }
 	  }
 	  return recipeItems;
 	};
-	// recipeItems.push(_recipeItems[id]);
 	RecipeStore.__onDispatch = function (payload) {
 	  switch (payload.actionType) {
 	    // case RecipeConstants.RECIPE_ITEMS_RECEIVED:
@@ -32423,7 +32439,6 @@
 	    return this.props.recipeitem.imageUrlsBySize[key[key.length - 1]];
 	  },
 	  render: function () {
-	    console.log(this.props.recipeitem);
 	    return React.createElement(
 	      'div',
 	      { className: 'recipe-tile', onClick: this.goToShow },

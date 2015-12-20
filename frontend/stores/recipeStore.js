@@ -26,16 +26,17 @@ RecipeStore.singleItem = function() {
 // };
 RecipeStore.all = function () {
   var recipeItems = [];
+  var recipeKeys = [];
   for (var ingredient in _recipeItems) {
     for (var i = 0; i < _recipeItems[ingredient].length; i++) {
-      if (recipeItems.indexOf(_recipeItems[ingredient][i] === -1)) {
+      if (recipeKeys.indexOf(_recipeItems[ingredient][i].recipeName) === -1) {
+        recipeKeys.push(_recipeItems[ingredient][i].recipeName);
         recipeItems.push(_recipeItems[ingredient][i]);
       }
     }
   }
   return recipeItems;
 };
-// recipeItems.push(_recipeItems[id]);
 RecipeStore.__onDispatch = function (payload) {
   switch(payload.actionType) {
     // case RecipeConstants.RECIPE_ITEMS_RECEIVED:

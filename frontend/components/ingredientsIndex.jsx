@@ -83,6 +83,16 @@ var IngredientsIndex = React.createClass({
     })
     return result;
   },
+  clearSearch: function() {
+    this.setState({inputVal: ""});
+  },
+  log: function(e) {
+    if (e) {
+      if (e.key === "Enter") {
+        console.log(e);
+      }
+    }
+  },
   render: function() {
     var matchingIngredients = <ul>no matches found</ul>;
     if (!this.matches() && this.state.inputVal.length === 0) {
@@ -91,15 +101,18 @@ var IngredientsIndex = React.createClass({
     if (this.matches()) {
       matchingIngredients = this.mapper(this.matches());
     }
-    // console.log(this.state.ingredients);
     return(
-      <div>
+      <div onMouseEnter={this.log()}>
         <input type="text"
                className="form-control"
                onChange={this.handleChange}
+               onKeyPress={this.log}
                placeholder="Search Ingredients: Click to add to fridge"
+
                value={this.state.inputVal}/>
-        {matchingIngredients}
+        <ul className="matching-ingredients" onClick={this.clearSearch}>
+          {matchingIngredients}
+        </ul>
       </div>
     );
   }
