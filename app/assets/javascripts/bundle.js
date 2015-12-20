@@ -32296,7 +32296,6 @@
 	  },
 	
 	  render: function () {
-	    console.log(this.props.fridgeitem);
 	    return React.createElement(
 	      'div',
 	      { className: 'btn fridge-index-item', id: this.props.fridgeitem.category, onClick: this.deleteFromFridge },
@@ -32414,7 +32413,17 @@
 	    var url = 'recipes/' + this.props.recipeitem.id;
 	    this.history.pushState(this.props, url, {});
 	  },
+	  keyToImage: function () {
+	    var key = {};
+	    if (typeof this.props.recipeitem.id === 'undefined') {
+	      return React.createElement('div', null);
+	    } else {
+	      key = Object.keys(this.props.recipeitem.imageUrlsBySize);
+	    }
+	    return this.props.recipeitem.imageUrlsBySize[key[key.length - 1]];
+	  },
 	  render: function () {
+	    console.log(this.props.recipeitem);
 	    return React.createElement(
 	      'div',
 	      { className: 'recipe-tile', onClick: this.goToShow },
@@ -32429,7 +32438,7 @@
 	            { className: 'caption_title' },
 	            this.props.recipeitem['recipeName']
 	          ),
-	          React.createElement('img', { className: 'img-container', src: this.props.recipeitem['smallImageUrls'], width: '200', height: '150' })
+	          React.createElement('img', { className: 'img-container', src: this.keyToImage(), width: '200', height: '150' })
 	        ),
 	        React.createElement(
 	          'div',

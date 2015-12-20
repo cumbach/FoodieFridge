@@ -15,14 +15,24 @@ var RecipesIndexItem = React.createClass({
     var url = 'recipes/' + this.props.recipeitem.id;
     this.history.pushState(this.props, url, {});
   },
+  keyToImage: function() {
+    var key = {};
+    if (typeof this.props.recipeitem.id === 'undefined') {
+      return (<div></div>)
+    } else {
+      key = Object.keys(this.props.recipeitem.imageUrlsBySize);
+    }
+    return this.props.recipeitem.imageUrlsBySize[key[key.length - 1]];
+  },
   render: function() {
+    console.log(this.props.recipeitem);
     return (
       <div className="recipe-tile" onClick={this.goToShow}>
         <div className='recipe-tile-inner'>
 
           <div className='front'>
             <div className='caption_title'>{this.props.recipeitem['recipeName']}</div>
-            <img className='img-container' src={this.props.recipeitem['smallImageUrls']} width='200' height='150'/>
+            <img className='img-container' src={this.keyToImage()} width='200' height='150'/>
           </div>
 
           <div className='front back'>
