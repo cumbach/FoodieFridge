@@ -32296,9 +32296,10 @@
 	  },
 	
 	  render: function () {
+	    console.log(this.props.fridgeitem);
 	    return React.createElement(
 	      'div',
-	      { className: 'btn', id: 'fridge-index-item', onClick: this.deleteFromFridge },
+	      { className: 'btn fridge-index-item', id: this.props.fridgeitem.category, onClick: this.deleteFromFridge },
 	      this.props.fridgeitem.name
 	    );
 	  }
