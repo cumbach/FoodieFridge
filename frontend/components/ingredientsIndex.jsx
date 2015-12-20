@@ -4,10 +4,11 @@ var ApiUtil = require('../util/apiUtil');
 var IngredientStore = require('../stores/ingredientStore');
 var IngredientIndexItem = require('./ingredientIndexItem');
 var FridgeStore = require('../stores/fridgeStore');
+var Fuse = require('fuse.js');
 
 var IngredientsIndex = React.createClass({
   getInitialState: function() {
-    return {ingredients: []};
+    return {inputVal: "", ingredients: []};
   },
   _onChange: function() {
     this.setState({ingredients: IngredientStore.all()});
@@ -27,14 +28,12 @@ var IngredientsIndex = React.createClass({
     // }
     //
     //
-    // debugger;
     // // goes through each ingredient and adds to result if the result array doesnt contain it
     // for (var i = 0; i < this.state.ingredients.length; i++) {
     //   if (this.result.indexOf(this.state.ingredients[i]) === -1) {
     //     this.result.push(this.state.ingredients[i]);
     //   }
     // }
-    // debugger;
     //
     //
     //
@@ -48,16 +47,67 @@ var IngredientsIndex = React.createClass({
     // console.log(this.result.length);
     // return this.result;
   },
+  handleChange: function(e) {
+    this.setState({ inputVal: e.target.value });
+  },
+
+  matches: function () {
+    var ingredients = this.state.ingredients;
+    var ingredientsArray = [];
+    for (key in ingredients) {
+      if (ingredients.hasOwnProperty(key)) {
+        ingredientsArray.push(ingredients[key]);
+      }
+    }
+
+    var options = {
+      caseSensitive: false,
+      includeScore: false,
+      shouldSort: true,
+      threshold: 0.1,
+      keys: ['name', 'category']
+    }
+
+    var fuse = new Fuse(ingredientsArray, options)
+    if (fuse.search(this.state.inputVal)[0]) {
+      return fuse.search(this.state.inputVal);
+    } else {
+      return false;
+    }
+  },
+  mapper: function (array) {
+    var result = array.map(function(ingredient){
+      return <IngredientIndexItem
+              key={ingredient.id}
+              ingredient={ingredient}/>;
+    })
+    return result;
+  },
   render: function() {
+    var matchingIngredients = <ul>no matches found</ul>;
+    if (!this.matches() && this.state.inputVal.length === 0) {
+      matchingIngredients = <ul>{this.mapper(this.shuffle(this.state.ingredients))}</ul>;
+    }
+    if (this.matches()) {
+      matchingIngredients = this.mapper(this.matches());
+    }
+    // console.log(this.state.ingredients);
     return(
-      <ul>
-        {this.shuffle(this.state.ingredients).map(function(ingredient){
-          return <IngredientIndexItem
-                  key={ingredient.id}
-                  ingredient={ingredient}/>;
-              })}
-      </ul>
+      <div>
+        <input type="text"
+               className="form-control"
+               onChange={this.handleChange}
+               placeholder="Search Ingredients: Click to add to fridge"
+               value={this.state.inputVal}/>
+        {matchingIngredients}
+      </div>
     );
   }
 });
+
+// {this.matches().map(function(ingredient){
+//   return <IngredientIndexItem
+//           key={ingredient.id}
+//           ingredient={ingredient}/>;
+//       })}
 module.exports = IngredientsIndex;
