@@ -32506,6 +32506,7 @@
 	  componentWillUnmount: function () {
 	    this.singleRecipeListener.remove();
 	  },
+	
 	  render: function () {
 	    var recipeItem = {};
 	    var key = {};
