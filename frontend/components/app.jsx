@@ -4,7 +4,19 @@ var FridgeIndex = require('./fridgeIndex');
 var RecipesIndex = require('./recipesIndex');
 
 var App = React.createClass({
+
+  dragOver: function(e) {
+    e.preventDefault();
+    if(e.target.className == "fridge_items-index-pane") return;
+  },
+  drop: function(e){
+    var ingredient = e.dataTransfer.getData("object");
+    // debugger;
+    e.target.appendChild(document.getElementById(ingredient));
+    e.preventDefault();
+  },
   render: function() {
+
     return (
       <div id="wrapper" className="foodiefridge-app">
         <div className="ingredients-index-pane">
@@ -12,7 +24,7 @@ var App = React.createClass({
           <ul>(click to add to fridge)</ul>
           <IngredientsIndex/>
         </div>
-        <div className="fridge_items-index-pane">
+        <div onDrop={this.drop} onDragOver={this.dragOver} className="fridge_items-index-pane">
           <div className="inner-fridge-pane">
             <h2>Your Fridge:</h2>
             <ul>(click to remove)</ul>
