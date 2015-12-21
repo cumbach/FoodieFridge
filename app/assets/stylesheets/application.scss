@@ -158,22 +158,22 @@ h3 {
   margin: 10px;
   border: 1px solid black;
 }
-#Vegetables {
+.Vegetables {
   background: #449d44;
 }
-#Grains {
+.Grains {
   background: #ec971f;
 }
-#Protein {
+.Protein {
   background: #d9534f;
 }
-#Fruit {
+.Fruit {
   background: #428bca;
 }
-#Dairy {
+.Dairy {
   background: #97DDF2;
 }
-#Other {
+.Other {
   background: #673a7b;
 }
 
@@ -181,7 +181,6 @@ h3 {
 
 
 .fridge-index-item {
-  background: #eee;
   -webkit-background-size: cover;
 }
 //
