@@ -24436,7 +24436,18 @@
 	var App = React.createClass({
 	  displayName: 'App',
 	
+	  dragOver: function (e) {
+	    e.preventDefault();
+	    if (e.target.className == "fridge_items-index-pane") return;
+	  },
+	  drop: function (e) {
+	    var ingredient = e.dataTransfer.getData("object");
+	    // debugger;
+	    e.target.appendChild(document.getElementById(ingredient));
+	    e.preventDefault();
+	  },
 	  render: function () {
+	
 	    return React.createElement(
 	      'div',
 	      { id: 'wrapper', className: 'foodiefridge-app' },
@@ -24457,7 +24468,7 @@
 	      ),
 	      React.createElement(
 	        'div',
-	        { className: 'fridge_items-index-pane' },
+	        { onDrop: this.drop, onDragOver: this.dragOver, className: 'fridge_items-index-pane' },
 	        React.createElement(
 	          'div',
 	          { className: 'inner-fridge-pane' },
@@ -24556,14 +24567,6 @@
 	      return false;
 	    }
 	  },
-	  mapper: function (array) {
-	    var result = array.map(function (ingredient) {
-	      return React.createElement(IngredientIndexItem, {
-	        key: ingredient.id,
-	        ingredient: ingredient });
-	    });
-	    return result;
-	  },
 	  clearSearch: function () {
 	    this.setState({ inputVal: "" });
 	  },
@@ -24596,6 +24599,14 @@
 	    }
 	    return matchingIngredients;
 	  },
+	  mapper: function (array) {
+	    var result = array.map(function (ingredient) {
+	      return React.createElement(IngredientIndexItem, {
+	        key: ingredient.id,
+	        ingredient: ingredient });
+	    });
+	    return result;
+	  },
 	  render: function () {
 	    return React.createElement(
 	      'div',
@@ -24604,7 +24615,7 @@
 	        className: 'form-control',
 	        onChange: this.handleChange,
 	        onKeyPress: this.addOnEnter,
-	        placeholder: 'Search Ingredients: Click to add to fridge',
+	        placeholder: 'Search Ingredients',
 	
 	        value: this.state.inputVal }),
 	      React.createElement(
@@ -31580,20 +31591,54 @@
 	    ApiUtil.createRecipeItem(this.props.ingredient.name);
 	    IngredientActions.ingredientRemoved(this.props.ingredient);
 	  },
+	
+	  // dragEnd: function(e) {
+	  //   console.log("ended")
+	  //   this.moveToFridge();
+	  // },
+	  dragStart: function (e) {
+	    // debugger;
+	    e.dataTransfer.effectAllowed = 'move';
+	    // debugger;
+	    e.dataTransfer.setData("object", this.props.ingredient.name);
+	  },
+	  // dragOver: function(e) {
+	  //   e.preventDefault();
+	  //   if(e.target.className == "outer-div") return;
+	  // },
+	  // drop: function(e){
+	  //   var ingredient = e.dataTransfer.getData("Text");
+	  //   e.target.appendChild(document.getElementById(ingredient));
+	  //   e.preventDefault();
+	  // },
+	
 	  render: function () {
 	    var category = this.props.ingredient.category;
 	    return React.createElement(
 	      'div',
-	      { className: 'ingredients-index-item btn', id: category, onClick: this.moveToFridge },
+	      { className: 'outer-div' },
 	      React.createElement(
-	        'ul',
-	        { className: 'ingredient-name' },
-	        this.props.ingredient.name
-	      ),
-	      React.createElement(
-	        'ul',
-	        { className: 'ingredient-category' },
-	        this.props.ingredient.category
+	        'div',
+	        { id: 'box_1', onDrop: this.drop, onDragDver: this.dragOver },
+	        React.createElement(
+	          'div',
+	          { className: 'ingredients-index-item btn',
+	            draggable: 'true',
+	            onDragStart: this.dragStart,
+	            onDragEnd: this.dragEnd,
+	            id: this.props.ingredient.name,
+	            onClick: this.moveToFridge },
+	          React.createElement(
+	            'ul',
+	            { className: 'ingredient-name' },
+	            this.props.ingredient.name
+	          ),
+	          React.createElement(
+	            'ul',
+	            { className: 'ingredient-category' },
+	            this.props.ingredient.category
+	          )
+	        )
 	      )
 	    );
 	  }

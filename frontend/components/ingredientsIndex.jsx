@@ -52,14 +52,6 @@ var IngredientsIndex = React.createClass({
       return false;
     }
   },
-  mapper: function (array) {
-    var result = array.map(function(ingredient){
-      return <IngredientIndexItem
-              key={ingredient.id}
-              ingredient={ingredient}/>;
-    })
-    return result;
-  },
   clearSearch: function() {
     this.setState({inputVal: ""});
   },
@@ -84,6 +76,14 @@ var IngredientsIndex = React.createClass({
     }
     return matchingIngredients;
   },
+  mapper: function (array) {
+    var result = array.map(function(ingredient){
+      return <IngredientIndexItem
+        key={ingredient.id}
+        ingredient={ingredient}/>;
+    })
+    return result;
+  },
   render: function() {
     return(
       <div>
@@ -91,7 +91,7 @@ var IngredientsIndex = React.createClass({
                className="form-control"
                onChange={this.handleChange}
                onKeyPress={this.addOnEnter}
-               placeholder="Search Ingredients: Click to add to fridge"
+               placeholder="Search Ingredients"
 
                value={this.state.inputVal}/>
         <ul className="matching-ingredients" onClick={this.clearSearch}>
