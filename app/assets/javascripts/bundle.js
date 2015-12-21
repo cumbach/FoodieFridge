@@ -25038,7 +25038,7 @@
 	      success: function (primaries) {
 	        PrimaryActions.receiveAllPrimaries(primaries);
 	
-	        // RecipeActions.fetchAllRecipes(fridgeItems);
+	        // RecipeActions.fetchAllRecipes(primaries);
 	      }
 	    });
 	  },
