@@ -12,6 +12,13 @@ class User < ActiveRecord::Base
     through: :fridge_items,
     source: :ingredient
 
+
+    has_many :primaries
+
+    has_many :primary_ingredients,
+    through: :primaries,
+    source: :ingredient
+
     def self.find_by_credentials(username, password)
       user = User.find_by(username: username)
       return nil unless user
