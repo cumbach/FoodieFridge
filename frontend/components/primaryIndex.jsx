@@ -11,7 +11,9 @@ var PrimaryIndex = React.createClass({
   _onChange: function() {
     this.setState({primaries: PrimaryStore.all()});
     // ApiUtil.fetchAllFridgeItems();
-    ApiUtil.createRecipeItem(PrimaryStore.all(), []);
+    if (Object.keys(PrimaryStore.all()).length !== 0) {
+      ApiUtil.createRecipeItem(PrimaryStore.all(), []);
+    }
   },
   componentDidMount: function() {
     this.primaryListener = PrimaryStore.addListener(this._onChange);

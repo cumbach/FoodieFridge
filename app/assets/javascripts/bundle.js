@@ -25095,7 +25095,7 @@
 	    var data = { allowedIngredient: search };
 	    // debugger;
 	    $.ajax({
-	      url: 'http://api.yummly.com/v1/api/recipes?_app_id=f4ac9032&_app_key=ec28d82137e2708128a2f7f69400989f',
+	      url: 'http://api.yummly.com/v1/api/recipes?_app_id=f4ac9032&_app_key=ec28d82137e2708128a2f7f69400989f&requirePictures=true',
 	      data: data,
 	      success: function (recipeItemArray) {
 	        RecipeActions.addedRecipeItem(ingredient, recipeItemArray['matches']);
@@ -32616,7 +32616,9 @@
 	  _onChange: function () {
 	    this.setState({ primaries: PrimaryStore.all() });
 	    // ApiUtil.fetchAllFridgeItems();
-	    ApiUtil.createRecipeItem(PrimaryStore.all(), []);
+	    if (Object.keys(PrimaryStore.all()).length !== 0) {
+	      ApiUtil.createRecipeItem(PrimaryStore.all(), []);
+	    }
 	  },
 	  componentDidMount: function () {
 	    this.primaryListener = PrimaryStore.addListener(this._onChange);
