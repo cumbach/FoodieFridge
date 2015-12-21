@@ -219,7 +219,6 @@ h3 {
   margin-right: 10px;
   height: 100%;
   width: 184px;
-  overflow: auto;
   float: left;
 
   background: white;
@@ -233,12 +232,15 @@ h3 {
     border: 2px solid black;
     border-radius: 6px;
     height: 50%;
+    overflow: auto;
     width: 100%
   }
   .primary-index-pane {
     height: 50%;
     border: 2px solid black;
     border-radius: 6px;
+    overflow: auto;
+    
   }
 }
 
