@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   namespace :api, defaults: {format: :json} do
     resources :ingredients, only: [:index]
     resources :fridge_items, only: [:create, :destroy, :index]
+    resources :primaries, only: [:create, :destroy, :index]
   end
+
 
 end

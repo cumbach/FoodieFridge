@@ -2,6 +2,7 @@ var React = require('react');
 var IngredientsIndex = require('./ingredientsIndex');
 var FridgeIndex = require('./fridgeIndex');
 var RecipesIndex = require('./recipesIndex');
+var PrimaryIndex = require('./primaryIndex');
 
 var ApiUtil = require('../util/apiUtil');
 var IngredientActions = require('../actions/ingredientActions');
@@ -34,6 +35,10 @@ var App = React.createClass({
             <ul>(click to remove)</ul>
             <FridgeIndex/>
           </div>
+        </div>
+        <div className="primary-index-pane">
+          <h2>Primaries</h2>
+          <PrimaryIndex/>
         </div>
         <div className="recipes_items-index-pane">
           <h2>Recipes:</h2>

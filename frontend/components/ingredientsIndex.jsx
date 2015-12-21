@@ -102,9 +102,5 @@ var IngredientsIndex = React.createClass({
   }
 });
 
-// {this.matches().map(function(ingredient){
-//   return <IngredientIndexItem
-//           key={ingredient.id}
-//           ingredient={ingredient}/>;
-//       })}
+
 module.exports = IngredientsIndex;

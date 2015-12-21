@@ -12,7 +12,7 @@ class Api::PrimariesController < ApplicationController
   def destroy
     @primary = Primary.find_by(user_id: current_user.id, ingredient_id: params[:ingredient_id])
     @primary.delete
-    render partial: "api/primaries/primary", locals: {ingredient: @primary.ingredient}
+    render partial: "api/ingredients/ingredient", locals: {ingredient: @primary.ingredient}
   end
 
   def index

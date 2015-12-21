@@ -24432,6 +24432,7 @@
 	var IngredientsIndex = __webpack_require__(211);
 	var FridgeIndex = __webpack_require__(244);
 	var RecipesIndex = __webpack_require__(246);
+	var PrimaryIndex = __webpack_require__(250);
 	
 	var ApiUtil = __webpack_require__(218);
 	var IngredientActions = __webpack_require__(212);
@@ -24487,6 +24488,16 @@
 	          ),
 	          React.createElement(FridgeIndex, null)
 	        )
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'primary-index-pane' },
+	        React.createElement(
+	          'h2',
+	          null,
+	          'Primaries'
+	        ),
+	        React.createElement(PrimaryIndex, null)
 	      ),
 	      React.createElement(
 	        'div',
@@ -24630,11 +24641,6 @@
 	  }
 	});
 	
-	// {this.matches().map(function(ingredient){
-	//   return <IngredientIndexItem
-	//           key={ingredient.id}
-	//           ingredient={ingredient}/>;
-	//       })}
 	module.exports = IngredientsIndex;
 
 /***/ },
@@ -24991,6 +24997,7 @@
 
 	var IngredientActions = __webpack_require__(212);
 	var FridgeActions = __webpack_require__(219);
+	var PrimaryActions = __webpack_require__(252);
 	var RecipeActions;
 	
 	// var APP_ID = 'f4ac9032';
@@ -25014,6 +25021,27 @@
 	        FridgeActions.receiveAllFridgeItems(fridgeItems);
 	
 	        RecipeActions.fetchAllRecipes(fridgeItems);
+	      }
+	    });
+	  },
+	  fetchAllPrimaries: function () {
+	    $.ajax({
+	      url: "api/ingredients",
+	      data: { query: "primary" },
+	      success: function (primaries) {
+	        PrimaryActions.receiveAllPrimaries(primaries);
+	
+	        // RecipeActions.fetchAllRecipes(fridgeItems);
+	      }
+	    });
+	  },
+	  destroyPrimary: function (ingredient_id) {
+	    $.ajax({
+	      url: "api/primaries/:id",
+	      data: { ingredient_id: ingredient_id },
+	      method: "DELETE",
+	      success: function (primary) {
+	        PrimaryActions.removedPrimary(primary);
 	      }
 	    });
 	  },
@@ -32689,6 +32717,178 @@
 	});
 	
 	module.exports = Home;
+
+/***/ },
+/* 250 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(147);
+	var PrimaryActions = __webpack_require__(252);
+	var ApiUtil = __webpack_require__(218);
+	var PrimaryStore = __webpack_require__(254);
+	var Primary = __webpack_require__(251);
+	
+	var PrimaryIndex = React.createClass({
+	  displayName: 'PrimaryIndex',
+	
+	  getInitialState: function () {
+	    return { primaries: [] };
+	  },
+	  _onChange: function () {
+	    this.setState({ primaries: PrimaryStore.all() });
+	  },
+	  componentDidMount: function () {
+	    this.primaryListener = PrimaryStore.addListener(this._onChange);
+	    ApiUtil.fetchAllPrimaries();
+	  },
+	  componentWillUnmount: function () {
+	    this.primaryListener.remove();
+	  },
+	  primaryMap: function () {
+	    var map = [];
+	    if (typeof this.state.primaries !== 'undefined') {
+	      map = this.state.primaries.map(function (primary) {
+	        if (typeof primary !== 'undefined') {
+	          return React.createElement(Primary, {
+	            key: primary.id,
+	            primary: primary });
+	        }
+	      });
+	    }
+	    return map;
+	  },
+	  render: function () {
+	    return React.createElement(
+	      'ul',
+	      null,
+	      this.primaryMap()
+	    );
+	  }
+	});
+	
+	module.exports = PrimaryIndex;
+
+/***/ },
+/* 251 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(147);
+	var IngredientStore = __webpack_require__(223);
+	var ApiUtil = __webpack_require__(218);
+	var IngredientsIndex = __webpack_require__(211);
+	var RecipeActions = __webpack_require__(221);
+	
+	var Primary = React.createClass({
+	  displayName: 'Primary',
+	
+	  deleteFromPrimary: function () {
+	    ApiUtil.destroyPrimary(this.props.primary.id);
+	    ApiUtil.fetchAllIngredients();
+	    // RecipeActions.removedRecipeItem(this.props.primary.name);
+	  },
+	  classname: function () {
+	    return 'btn primary ' + this.props.primary.category;
+	  },
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { className: this.classname(), onClick: this.deleteFromPrimary },
+	      this.props.primary.name
+	    );
+	  }
+	});
+	
+	module.exports = Primary;
+
+/***/ },
+/* 252 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Dispatcher = __webpack_require__(213);
+	var PrimaryConstants = __webpack_require__(253);
+	
+	var PrimaryActions = {
+	  receiveAllPrimaries: function (primaries) {
+	    Dispatcher.dispatch({
+	      actionType: PrimaryConstants.PRIMARIES_RECEIVED,
+	      primaries: primaries
+	    });
+	  },
+	  // addedPrimary: function (primary) {
+	  //   Dispatcher.dispatch({
+	  //     actionType: PrimaryConstants.PRIMARY_CREATED,
+	  //     primary: primary
+	  //   });
+	  // },
+	  removedPrimary: function (primary) {
+	    Dispatcher.dispatch({
+	      actionType: PrimaryConstants.PRIMARY_REMOVED,
+	      primary: primary
+	    });
+	  }
+	};
+	
+	module.exports = PrimaryActions;
+
+/***/ },
+/* 253 */
+/***/ function(module, exports) {
+
+	module.exports = {
+	  PRIMARIES_RECEIVED: "PRIMARIES_RECEIVED",
+	  PRIMARY_CREATED: "PRIMARY_CREATED",
+	  PRIMARY_REMOVED: "PRIMARY_REMOVED"
+	};
+
+/***/ },
+/* 254 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Store = __webpack_require__(224).Store;
+	var Dispatcher = __webpack_require__(213);
+	var PrimaryConstants = __webpack_require__(253);
+	var PrimaryStore = new Store(Dispatcher);
+	
+	var _primaries = {};
+	
+	var resetPrimaries = function (primaries) {
+	  _primaries = {};
+	  primaries.forEach(function (primary) {
+	    _primaries[primary.id] = primary;
+	  });
+	};
+	// var addPrimary = function (primary) {
+	//   _primaries[primary.id] = primary;
+	// };
+	var removePrimary = function (primary) {
+	  delete _primaries[primary.id];
+	};
+	PrimaryStore.all = function () {
+	  var primaries = [];
+	  for (var id in _primaries) {
+	    primaries.push(_primaries[id]);
+	  }
+	  return primaries;
+	};
+	PrimaryStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case PrimaryConstants.PRIMARIES_RECEIVED:
+	      resetPrimaries(payload.primaries);
+	      PrimaryStore.__emitChange();
+	      break;
+	    // case PrimaryConstants.PRIMARY_CREATED:
+	    //   addPrimary(payload.primary);
+	    //   PrimaryStore.__emitChange();
+	    //   break;
+	    case PrimaryConstants.PRIMARY_REMOVED:
+	      removePrimary(payload.primary);
+	      PrimaryStore.__emitChange();
+	      break;
+	  }
+	};
+	
+	module.exports = PrimaryStore;
 
 /***/ }
 /******/ ]);

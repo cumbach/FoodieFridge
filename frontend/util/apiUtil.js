@@ -1,6 +1,8 @@
 var IngredientActions = require('../actions/ingredientActions');
 var FridgeActions = require('../actions/fridgeActions');
+var PrimaryActions = require('../actions/primaryActions');
 var RecipeActions;
+
 
 // var APP_ID = 'f4ac9032';
 // var APP_KEY = 'ec28d82137e2708128a2f7f69400989f';
@@ -23,6 +25,27 @@ module.exports = {
         FridgeActions.receiveAllFridgeItems(fridgeItems);
 
         RecipeActions.fetchAllRecipes(fridgeItems);
+      }
+    });
+  },
+  fetchAllPrimaries: function() {
+    $.ajax({
+      url: "api/ingredients",
+      data: {query: "primary"},
+      success: function (primaries) {
+        PrimaryActions.receiveAllPrimaries(primaries);
+
+        // RecipeActions.fetchAllRecipes(fridgeItems);
+      }
+    });
+  },
+  destroyPrimary: function(ingredient_id) {
+    $.ajax({
+      url: "api/primaries/:id",
+      data: {ingredient_id: ingredient_id},
+      method: "DELETE",
+      success: function (primary) {
+        PrimaryActions.removedPrimary(primary);
       }
     });
   },
