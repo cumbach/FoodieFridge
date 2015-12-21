@@ -3,7 +3,7 @@ class Api::PrimariesController < ApplicationController
   def create
     @primary = Primary.new(user_id: current_user.id, ingredient_id: params[:ingredient_id])
     if @primary.save!
-      render partial: "api/primaries/primary", locals: {primary: @primary.ingredient}
+      render partial: "api/ingredients/ingredient", locals: {ingredient: @primary.ingredient}
     else
       flash.now[:errors] = @primary.errors.full_messages
     end

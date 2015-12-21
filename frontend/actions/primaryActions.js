@@ -8,12 +8,12 @@ var PrimaryActions = {
       primaries: primaries
     });
   },
-  // addedPrimary: function (primary) {
-  //   Dispatcher.dispatch({
-  //     actionType: PrimaryConstants.PRIMARY_CREATED,
-  //     primary: primary
-  //   });
-  // },
+  addedPrimary: function (primary) {
+    Dispatcher.dispatch({
+      actionType: PrimaryConstants.PRIMARY_CREATED,
+      primary: primary
+    });
+  },
   removedPrimary: function (primary) {
     Dispatcher.dispatch({
       actionType: PrimaryConstants.PRIMARY_REMOVED,

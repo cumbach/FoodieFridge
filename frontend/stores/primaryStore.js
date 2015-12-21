@@ -11,9 +11,9 @@ var resetPrimaries = function (primaries) {
     _primaries[primary.id] = primary;
   });
 };
-// var addPrimary = function (primary) {
-//   _primaries[primary.id] = primary;
-// };
+var addPrimary = function (primary) {
+  _primaries[primary.id] = primary;
+};
 var removePrimary = function(primary) {
   delete _primaries[primary.id];
 };
@@ -30,10 +30,10 @@ PrimaryStore.__onDispatch = function (payload) {
       resetPrimaries(payload.primaries);
       PrimaryStore.__emitChange();
       break;
-    // case PrimaryConstants.PRIMARY_CREATED:
-    //   addPrimary(payload.primary);
-    //   PrimaryStore.__emitChange();
-    //   break;
+    case PrimaryConstants.PRIMARY_CREATED:
+      addPrimary(payload.primary);
+      PrimaryStore.__emitChange();
+      break;
     case PrimaryConstants.PRIMARY_REMOVED:
       removePrimary(payload.primary);
       PrimaryStore.__emitChange();

@@ -39,6 +39,16 @@ module.exports = {
       }
     });
   },
+  createPrimary: function(ingredient_id) {
+    $.ajax({
+      url: "api/primaries",
+      data: {ingredient_id: ingredient_id},
+      method: "POST",
+      success: function (primary) {
+        PrimaryActions.addedPrimary(primary);
+      }
+    });
+  },
   destroyPrimary: function(ingredient_id) {
     $.ajax({
       url: "api/primaries/:id",

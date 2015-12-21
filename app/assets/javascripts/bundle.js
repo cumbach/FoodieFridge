@@ -24440,11 +24440,23 @@
 	var App = React.createClass({
 	  displayName: 'App',
 	
-	  dragOver: function (e) {
+	  dragOverPrimary: function (e) {
+	    e.preventDefault();
+	    if (e.target.className == "primary-index-pane") return;
+	  },
+	  dropPrimary: function (e) {
+	    var ingredient = JSON.parse(e.dataTransfer.getData("Text"));
+	    console.log('create primary');
+	    ApiUtil.createPrimary(ingredient.id);
+	    // ApiUtil.createRecipeItem(ingredient.name);
+	    IngredientActions.ingredientRemoved(ingredient);
+	    e.preventDefault();
+	  },
+	  dragOverFridge: function (e) {
 	    e.preventDefault();
 	    if (e.target.className == "fridge_items-index-pane") return;
 	  },
-	  drop: function (e) {
+	  dropFridge: function (e) {
 	    var ingredient = JSON.parse(e.dataTransfer.getData("Text"));
 	    ApiUtil.createFridgeItem(ingredient.id);
 	    ApiUtil.createRecipeItem(ingredient.name);
@@ -24472,7 +24484,7 @@
 	      ),
 	      React.createElement(
 	        'div',
-	        { onDrop: this.drop, onDragOver: this.dragOver, className: 'fridge_items-index-pane' },
+	        { onDrop: this.dropFridge, onDragOver: this.dragOverFridge, className: 'fridge_items-index-pane' },
 	        React.createElement(
 	          'div',
 	          { className: 'inner-fridge-pane' },
@@ -24491,7 +24503,7 @@
 	      ),
 	      React.createElement(
 	        'div',
-	        { className: 'primary-index-pane' },
+	        { className: 'primary-index-pane', onDrop: this.dropPrimary, onDragOver: this.dragOverPrimary },
 	        React.createElement(
 	          'h2',
 	          null,
@@ -25032,6 +25044,16 @@
 	        PrimaryActions.receiveAllPrimaries(primaries);
 	
 	        // RecipeActions.fetchAllRecipes(fridgeItems);
+	      }
+	    });
+	  },
+	  createPrimary: function (ingredient_id) {
+	    $.ajax({
+	      url: "api/primaries",
+	      data: { ingredient_id: ingredient_id },
+	      method: "POST",
+	      success: function (primary) {
+	        PrimaryActions.addedPrimary(primary);
 	      }
 	    });
 	  },
@@ -32815,12 +32837,12 @@
 	      primaries: primaries
 	    });
 	  },
-	  // addedPrimary: function (primary) {
-	  //   Dispatcher.dispatch({
-	  //     actionType: PrimaryConstants.PRIMARY_CREATED,
-	  //     primary: primary
-	  //   });
-	  // },
+	  addedPrimary: function (primary) {
+	    Dispatcher.dispatch({
+	      actionType: PrimaryConstants.PRIMARY_CREATED,
+	      primary: primary
+	    });
+	  },
 	  removedPrimary: function (primary) {
 	    Dispatcher.dispatch({
 	      actionType: PrimaryConstants.PRIMARY_REMOVED,
@@ -32858,9 +32880,9 @@
 	    _primaries[primary.id] = primary;
 	  });
 	};
-	// var addPrimary = function (primary) {
-	//   _primaries[primary.id] = primary;
-	// };
+	var addPrimary = function (primary) {
+	  _primaries[primary.id] = primary;
+	};
 	var removePrimary = function (primary) {
 	  delete _primaries[primary.id];
 	};
@@ -32877,10 +32899,10 @@
 	      resetPrimaries(payload.primaries);
 	      PrimaryStore.__emitChange();
 	      break;
-	    // case PrimaryConstants.PRIMARY_CREATED:
-	    //   addPrimary(payload.primary);
-	    //   PrimaryStore.__emitChange();
-	    //   break;
+	    case PrimaryConstants.PRIMARY_CREATED:
+	      addPrimary(payload.primary);
+	      PrimaryStore.__emitChange();
+	      break;
 	    case PrimaryConstants.PRIMARY_REMOVED:
 	      removePrimary(payload.primary);
 	      PrimaryStore.__emitChange();

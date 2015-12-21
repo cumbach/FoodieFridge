@@ -9,12 +9,23 @@ var IngredientActions = require('../actions/ingredientActions');
 
 
 var App = React.createClass({
-
-  dragOver: function(e) {
+  dragOverPrimary: function(e) {
+    e.preventDefault();
+    if(e.target.className == "primary-index-pane") return;
+  },
+  dropPrimary: function(e){
+    var ingredient = JSON.parse(e.dataTransfer.getData("Text"));
+    console.log('create primary')
+    ApiUtil.createPrimary(ingredient.id);
+    // ApiUtil.createRecipeItem(ingredient.name);
+    IngredientActions.ingredientRemoved(ingredient);
+    e.preventDefault();
+  },
+  dragOverFridge: function(e) {
     e.preventDefault();
     if(e.target.className == "fridge_items-index-pane") return;
   },
-  drop: function(e){
+  dropFridge: function(e){
     var ingredient = JSON.parse(e.dataTransfer.getData("Text"));
     ApiUtil.createFridgeItem(ingredient.id);
     ApiUtil.createRecipeItem(ingredient.name);
@@ -29,14 +40,14 @@ var App = React.createClass({
           <ul>(click to add to fridge)</ul>
           <IngredientsIndex/>
         </div>
-        <div onDrop={this.drop} onDragOver={this.dragOver} className="fridge_items-index-pane">
+        <div onDrop={this.dropFridge} onDragOver={this.dragOverFridge} className="fridge_items-index-pane">
           <div className="inner-fridge-pane">
             <h2>Your Fridge:</h2>
             <ul>(click to remove)</ul>
             <FridgeIndex/>
           </div>
         </div>
-        <div className="primary-index-pane">
+        <div className="primary-index-pane" onDrop={this.dropPrimary} onDragOver={this.dragOverPrimary}>
           <h2>Primaries</h2>
           <PrimaryIndex/>
         </div>
