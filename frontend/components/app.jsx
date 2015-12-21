@@ -3,6 +3,10 @@ var IngredientsIndex = require('./ingredientsIndex');
 var FridgeIndex = require('./fridgeIndex');
 var RecipesIndex = require('./recipesIndex');
 
+var ApiUtil = require('../util/apiUtil');
+var IngredientActions = require('../actions/ingredientActions');
+
+
 var App = React.createClass({
 
   dragOver: function(e) {
@@ -10,13 +14,13 @@ var App = React.createClass({
     if(e.target.className == "fridge_items-index-pane") return;
   },
   drop: function(e){
-    var ingredient = e.dataTransfer.getData("object");
-    // debugger;
-    e.target.appendChild(document.getElementById(ingredient));
+    var ingredient = JSON.parse(e.dataTransfer.getData("Text"));
+    ApiUtil.createFridgeItem(ingredient.id);
+    ApiUtil.createRecipeItem(ingredient.name);
+    IngredientActions.ingredientRemoved(ingredient);
     e.preventDefault();
   },
   render: function() {
-
     return (
       <div id="wrapper" className="foodiefridge-app">
         <div className="ingredients-index-pane">

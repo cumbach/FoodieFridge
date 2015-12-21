@@ -4,23 +4,10 @@ var IngredientActions = require('../actions/ingredientActions');
 var RecipeStore = require('../stores/recipeStore');
 
 var IngredientIndexItem = React.createClass({
-  moveToFridge: function() {
-    ApiUtil.createFridgeItem(this.props.ingredient.id);
-    ApiUtil.createRecipeItem(this.props.ingredient.name);
-    IngredientActions.ingredientRemoved(this.props.ingredient);
-  },
-
-
   // dragEnd: function(e) {
   //   console.log("ended")
   //   this.moveToFridge();
   // },
-  dragStart: function(e) {
-    // debugger;
-    e.dataTransfer.effectAllowed = 'move';
-    // debugger;
-    e.dataTransfer.setData("object", this.props.ingredient.name);
-  },
   // dragOver: function(e) {
   //   e.preventDefault();
   //   if(e.target.className == "outer-div") return;
@@ -30,23 +17,32 @@ var IngredientIndexItem = React.createClass({
   //   e.target.appendChild(document.getElementById(ingredient));
   //   e.preventDefault();
   // },
-
+  // onDrop={this.drop}
+  // onDragDver={this.dragOver}
+  moveToFridge: function() {
+    ApiUtil.createFridgeItem(this.props.ingredient.id);
+    ApiUtil.createRecipeItem(this.props.ingredient.name);
+    IngredientActions.ingredientRemoved(this.props.ingredient);
+  },
+  dragStart: function(e) {
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData("Text", e.target.id);
+  },
+  classname: function(){
+    return "ingredients-index-item btn " + this.props.ingredient.category;
+  },
   render: function() {
     var category = this.props.ingredient.category;
     return (
-      <div className="outer-div">
-        <div id="box_1" onDrop={this.drop} onDragDver={this.dragOver}>
-          <div className="ingredients-index-item btn"
-               draggable="true"
-               onDragStart={this.dragStart}
-               onDragEnd={this.dragEnd}
-               id={this.props.ingredient.name}
-               onClick={this.moveToFridge}>
-            <ul className="ingredient-name">{this.props.ingredient.name}</ul>
-            <ul className="ingredient-category">{this.props.ingredient.category}</ul>
+      <div className={this.classname()}
+           draggable="true"
+           onDragStart={this.dragStart}
+           onDragEnd={this.dragEnd}
+           id={JSON.stringify(this.props.ingredient)}
+           onClick={this.moveToFridge}>
 
-          </div>
-        </div>
+        <ul className="ingredient-name">{this.props.ingredient.name}</ul>
+        <ul className="ingredient-category">{this.props.ingredient.category}</ul>
       </div>
     );
   }

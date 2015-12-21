@@ -24433,6 +24433,9 @@
 	var FridgeIndex = __webpack_require__(244);
 	var RecipesIndex = __webpack_require__(246);
 	
+	var ApiUtil = __webpack_require__(218);
+	var IngredientActions = __webpack_require__(212);
+	
 	var App = React.createClass({
 	  displayName: 'App',
 	
@@ -24441,13 +24444,13 @@
 	    if (e.target.className == "fridge_items-index-pane") return;
 	  },
 	  drop: function (e) {
-	    var ingredient = e.dataTransfer.getData("object");
-	    // debugger;
-	    e.target.appendChild(document.getElementById(ingredient));
+	    var ingredient = JSON.parse(e.dataTransfer.getData("Text"));
+	    ApiUtil.createFridgeItem(ingredient.id);
+	    ApiUtil.createRecipeItem(ingredient.name);
+	    IngredientActions.ingredientRemoved(ingredient);
 	    e.preventDefault();
 	  },
 	  render: function () {
-	
 	    return React.createElement(
 	      'div',
 	      { id: 'wrapper', className: 'foodiefridge-app' },
@@ -31586,22 +31589,10 @@
 	var IngredientIndexItem = React.createClass({
 	  displayName: 'IngredientIndexItem',
 	
-	  moveToFridge: function () {
-	    ApiUtil.createFridgeItem(this.props.ingredient.id);
-	    ApiUtil.createRecipeItem(this.props.ingredient.name);
-	    IngredientActions.ingredientRemoved(this.props.ingredient);
-	  },
-	
 	  // dragEnd: function(e) {
 	  //   console.log("ended")
 	  //   this.moveToFridge();
 	  // },
-	  dragStart: function (e) {
-	    // debugger;
-	    e.dataTransfer.effectAllowed = 'move';
-	    // debugger;
-	    e.dataTransfer.setData("object", this.props.ingredient.name);
-	  },
 	  // dragOver: function(e) {
 	  //   e.preventDefault();
 	  //   if(e.target.className == "outer-div") return;
@@ -31611,34 +31602,39 @@
 	  //   e.target.appendChild(document.getElementById(ingredient));
 	  //   e.preventDefault();
 	  // },
-	
+	  // onDrop={this.drop}
+	  // onDragDver={this.dragOver}
+	  moveToFridge: function () {
+	    ApiUtil.createFridgeItem(this.props.ingredient.id);
+	    ApiUtil.createRecipeItem(this.props.ingredient.name);
+	    IngredientActions.ingredientRemoved(this.props.ingredient);
+	  },
+	  dragStart: function (e) {
+	    e.dataTransfer.effectAllowed = 'move';
+	    e.dataTransfer.setData("Text", e.target.id);
+	  },
+	  classname: function () {
+	    return "ingredients-index-item btn " + this.props.ingredient.category;
+	  },
 	  render: function () {
 	    var category = this.props.ingredient.category;
 	    return React.createElement(
 	      'div',
-	      { className: 'outer-div' },
+	      { className: this.classname(),
+	        draggable: 'true',
+	        onDragStart: this.dragStart,
+	        onDragEnd: this.dragEnd,
+	        id: JSON.stringify(this.props.ingredient),
+	        onClick: this.moveToFridge },
 	      React.createElement(
-	        'div',
-	        { id: 'box_1', onDrop: this.drop, onDragDver: this.dragOver },
-	        React.createElement(
-	          'div',
-	          { className: 'ingredients-index-item btn',
-	            draggable: 'true',
-	            onDragStart: this.dragStart,
-	            onDragEnd: this.dragEnd,
-	            id: this.props.ingredient.name,
-	            onClick: this.moveToFridge },
-	          React.createElement(
-	            'ul',
-	            { className: 'ingredient-name' },
-	            this.props.ingredient.name
-	          ),
-	          React.createElement(
-	            'ul',
-	            { className: 'ingredient-category' },
-	            this.props.ingredient.category
-	          )
-	        )
+	        'ul',
+	        { className: 'ingredient-name' },
+	        this.props.ingredient.name
+	      ),
+	      React.createElement(
+	        'ul',
+	        { className: 'ingredient-category' },
+	        this.props.ingredient.category
 	      )
 	    );
 	  }
@@ -32339,11 +32335,14 @@
 	    ApiUtil.fetchAllIngredients();
 	    RecipeActions.removedRecipeItem(this.props.fridgeitem.name);
 	  },
+	  classname: function () {
+	    return 'btn fridge-index-item ' + this.props.fridgeitem.category;
+	  },
 	
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      { className: 'btn fridge-index-item', id: this.props.fridgeitem.category, onClick: this.deleteFromFridge },
+	      { className: this.classname(), onClick: this.deleteFromFridge },
 	      this.props.fridgeitem.name
 	    );
 	  }
