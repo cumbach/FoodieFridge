@@ -79,18 +79,30 @@ module.exports = {
       }
     });
   },
-  createRecipeItem: function(ingredient) {
+  createRecipeItem: function(primaries, ingredient) {
+    if (primaries.length !== 0) {
+      var result = [];
+      primaries.forEach(function(primary){
+        result.push(primary.name);
+      })
+      primaries = result;
+    }
+    var search = primaries.concat(ingredient);
+    var data = {allowedIngredient: search};
+    // debugger;
     $.ajax({
-      url: 'http://api.yummly.com/v1/api/recipes?_app_id=f4ac9032&_app_key=ec28d82137e2708128a2f7f69400989f&q=' + ingredient,
+      url: 'http://api.yummly.com/v1/api/recipes?_app_id=f4ac9032&_app_key=ec28d82137e2708128a2f7f69400989f',
+      data: data,
       success: function(recipeItemArray) {
         RecipeActions.addedRecipeItem(ingredient, recipeItemArray['matches']);
       }
     });
   },
   createSingleRecipe: function(recipeId) {
+    var data = {_app_id: 'f4ac9032', _app_key: 'ec28d82137e2708128a2f7f69400989f'}
     $.ajax({
       url: 'http://api.yummly.com/v1/api/recipe/' + recipeId,
-      data: {_app_id: 'f4ac9032', _app_key: 'ec28d82137e2708128a2f7f69400989f'},
+      data: data,
       success: function(singleRecipeItem) {
         RecipeActions.addedSingleRecipe(singleRecipeItem);
       }

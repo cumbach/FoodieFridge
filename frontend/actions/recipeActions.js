@@ -1,6 +1,8 @@
 var Dispatcher = require('../dispatcher/dispatcher.js');
 var RecipeConstants = require('../constants/recipeConstants.js');
 var ApiUtil = require('../util/apiUtil');
+var PrimaryStore = require('../stores/primaryStore');
+
 
 
 var RecipeActions = {
@@ -12,7 +14,7 @@ var RecipeActions = {
   },
   fetchAllRecipes: function (fridgeItems) {
     fridgeItems.forEach(function(fridgeItem){
-      ApiUtil.createRecipeItem(fridgeItem['name']);
+      ApiUtil.createRecipeItem(PrimaryStore.all(), fridgeItem['name']);
     });
   },
   addedRecipeItem: function (ingredient, recipeItemArray) {

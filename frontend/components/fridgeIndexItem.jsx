@@ -8,6 +8,7 @@ var FridgeIndexItem = React.createClass({
   deleteFromFridge: function() {
     ApiUtil.destroyFridgeItem(this.props.fridgeitem.id);
     ApiUtil.fetchAllIngredients();
+    debugger;
     RecipeActions.removedRecipeItem(this.props.fridgeitem.name);
   },
   classname: function () {

@@ -5,6 +5,7 @@ var IngredientStore = require('../stores/ingredientStore');
 var IngredientIndexItem = require('./ingredientIndexItem');
 var FridgeStore = require('../stores/fridgeStore');
 var Fuse = require('fuse.js');
+var PrimaryStore = require('../stores/primaryStore');
 
 var IngredientsIndex = React.createClass({
   getInitialState: function() {
@@ -16,6 +17,7 @@ var IngredientsIndex = React.createClass({
   componentDidMount: function() {
     this.ingredientListener = IngredientStore.addListener(this._onChange);
     ApiUtil.fetchAllIngredients();
+    // debugger;
   },
   componentWillUnmount: function(){
     this.ingredientListener.remove();
@@ -60,7 +62,7 @@ var IngredientsIndex = React.createClass({
       if (e.key === "Enter" && this.matchingIngredients().length === 1) {
         var ingredient = this.matchingIngredients()[0].props.ingredient;
         ApiUtil.createFridgeItem(ingredient.id);
-        ApiUtil.createRecipeItem(ingredient.name);
+        ApiUtil.createRecipeItem(PrimaryStore.all(), ingredient.name);
         IngredientActions.ingredientRemoved(ingredient);
         this.clearSearch();
       }

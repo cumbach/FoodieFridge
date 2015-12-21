@@ -3,6 +3,8 @@ var IngredientsIndex = require('./ingredientsIndex');
 var FridgeIndex = require('./fridgeIndex');
 var RecipesIndex = require('./recipesIndex');
 var PrimaryIndex = require('./primaryIndex');
+var PrimaryStore = require('../stores/primaryStore');
+
 
 var ApiUtil = require('../util/apiUtil');
 var IngredientActions = require('../actions/ingredientActions');
@@ -15,9 +17,7 @@ var App = React.createClass({
   },
   dropPrimary: function(e){
     var ingredient = JSON.parse(e.dataTransfer.getData("Text"));
-    console.log('create primary')
     ApiUtil.createPrimary(ingredient.id);
-    // ApiUtil.createRecipeItem(ingredient.name);
     IngredientActions.ingredientRemoved(ingredient);
     e.preventDefault();
   },
@@ -28,7 +28,7 @@ var App = React.createClass({
   dropFridge: function(e){
     var ingredient = JSON.parse(e.dataTransfer.getData("Text"));
     ApiUtil.createFridgeItem(ingredient.id);
-    ApiUtil.createRecipeItem(ingredient.name);
+    ApiUtil.createRecipeItem(PrimaryStore.all(), ingredient.name);
     IngredientActions.ingredientRemoved(ingredient);
     e.preventDefault();
   },

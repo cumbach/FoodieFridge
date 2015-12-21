@@ -20,8 +20,9 @@ var IngredientIndexItem = React.createClass({
   // onDrop={this.drop}
   // onDragDver={this.dragOver}
   moveToFridge: function() {
+    // onClick={this.moveToFridge}>
     ApiUtil.createFridgeItem(this.props.ingredient.id);
-    ApiUtil.createRecipeItem(this.props.ingredient.name);
+    ApiUtil.createRecipeItem({}, this.props.ingredient.name);
     IngredientActions.ingredientRemoved(this.props.ingredient);
   },
   dragStart: function(e) {
@@ -38,8 +39,8 @@ var IngredientIndexItem = React.createClass({
            draggable="true"
            onDragStart={this.dragStart}
            onDragEnd={this.dragEnd}
-           id={JSON.stringify(this.props.ingredient)}
-           onClick={this.moveToFridge}>
+           id={JSON.stringify(this.props.ingredient)}>
+
 
         <ul className="ingredient-name">{this.props.ingredient.name}</ul>
         <ul className="ingredient-category">{this.props.ingredient.category}</ul>

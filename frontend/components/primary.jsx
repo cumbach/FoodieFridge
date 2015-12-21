@@ -5,10 +5,13 @@ var IngredientsIndex = require('./ingredientsIndex');
 var RecipeActions = require('../actions/recipeActions');
 
 var Primary = React.createClass({
+  componentDidMount: function() {
+    ApiUtil.fetchAllPrimaries();
+  },
   deleteFromPrimary: function() {
     ApiUtil.destroyPrimary(this.props.primary.id);
     ApiUtil.fetchAllIngredients();
-    // RecipeActions.removedRecipeItem(this.props.primary.name);
+    RecipeActions.removedRecipeItem(this.props.primary.name);
   },
   classname: function () {
     return 'btn primary ' + this.props.primary.category;

@@ -14,6 +14,7 @@ var RecipesIndex = React.createClass({
 
   componentDidMount: function() {
     this.recipeListener = RecipeStore.addListener(this._onChange);
+    // debugger;
   },
 
   componentWillUnmount: function() {
@@ -50,14 +51,18 @@ var RecipesIndex = React.createClass({
     var map = [];
     if (typeof this.state.recipeItems !== 'undefined') {
       map = this.recipeSort().map(function(recipeItem) {
-        return <RecipesIndexItem
-                key={recipeItem.id}
-                recipeitem={recipeItem}/>;
+        if (recipeItem.imageUrlsBySize) {
+          return <RecipesIndexItem
+                  key={recipeItem.id}
+                  recipeitem={recipeItem}/>;
+        }
+        return '';
       });
     }
     return map;
   },
   render: function() {
+    // console.log(this.state.recipeItems)
     return (
       <ul>
         <div>{this.recipeMap()}</div>
