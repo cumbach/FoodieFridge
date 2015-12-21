@@ -25224,9 +25224,7 @@
 	    });
 	  },
 	  fetchAllRecipes: function (fridgeItems) {
-	    // debugger;
 	    fridgeItems.forEach(function (fridgeItem) {
-	      console.log("from fetch");
 	      ApiUtil.createRecipeItem(PrimaryStore.all(), fridgeItem['name']);
 	    });
 	  },
@@ -32631,15 +32629,11 @@
 	  },
 	  _onChange: function () {
 	    this.setState({ primaries: PrimaryStore.all() });
-	
 	    // RecipeActions.resetAllRecipes();
-	
 	    // ApiUtil.fetchAllFridgeItems();
 	    if (this.state.primaries.length !== 0) {
-	      console.log("Primary Idx: _onChange");
 	      // ApiUtil.createRecipeItem(PrimaryStore.all(), []);
 	      var fridgeStoreHolder = FridgeStore.all().length === 0 ? [0] : FridgeStore.all();
-	      // debugger;
 	      RecipeActions.fetchAllRecipes(fridgeStoreHolder);
 	    }
 	  },
@@ -32708,7 +32702,6 @@
 	PrimaryStore.__onDispatch = function (payload) {
 	  switch (payload.actionType) {
 	    case PrimaryConstants.PRIMARIES_RECEIVED:
-	      debugger;
 	      resetPrimaries(payload.primaries);
 	      PrimaryStore.__emitChange();
 	      break;

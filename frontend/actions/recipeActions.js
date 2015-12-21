@@ -17,9 +17,7 @@ var RecipeActions = {
     });
   },
   fetchAllRecipes: function (fridgeItems) {
-    // debugger;
     fridgeItems.forEach(function(fridgeItem){
-      console.log("from fetch")
       ApiUtil.createRecipeItem(PrimaryStore.all(), fridgeItem['name']);
     });
   },

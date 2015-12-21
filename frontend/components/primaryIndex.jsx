@@ -12,15 +12,11 @@ var PrimaryIndex = React.createClass({
   },
   _onChange: function() {
     this.setState({primaries: PrimaryStore.all()});
-
     // RecipeActions.resetAllRecipes();
-
     // ApiUtil.fetchAllFridgeItems();
     if (this.state.primaries.length !== 0) {
-      console.log("Primary Idx: _onChange");
       // ApiUtil.createRecipeItem(PrimaryStore.all(), []);
       var fridgeStoreHolder = FridgeStore.all().length === 0 ? [0] : FridgeStore.all();
-      // debugger;
       RecipeActions.fetchAllRecipes(fridgeStoreHolder);
     }
   },
