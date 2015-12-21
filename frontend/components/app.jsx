@@ -23,7 +23,7 @@ var App = React.createClass({
   },
   dragOverFridge: function(e) {
     e.preventDefault();
-    if(e.target.className == "fridge_items-index-pane") return;
+    if(e.target.className == "inner-fridge-pane") return;
   },
   dropFridge: function(e){
     var ingredient = JSON.parse(e.dataTransfer.getData("Text"));
@@ -40,16 +40,15 @@ var App = React.createClass({
           <ul>(click to add to fridge)</ul>
           <IngredientsIndex/>
         </div>
-        <div onDrop={this.dropFridge} onDragOver={this.dragOverFridge} className="fridge_items-index-pane">
-          <div className="inner-fridge-pane">
-            <h2>Your Fridge:</h2>
-            <ul>(click to remove)</ul>
+        <div className="center-index-pane">
+          <div className="inner-fridge-pane" onDrop={this.dropFridge} onDragOver={this.dragOverFridge}>
+            <h4>Fridge:</h4>
             <FridgeIndex/>
           </div>
-        </div>
-        <div className="primary-index-pane" onDrop={this.dropPrimary} onDragOver={this.dragOverPrimary}>
-          <h2>Primaries</h2>
-          <PrimaryIndex/>
+          <div className="primary-index-pane" onDrop={this.dropPrimary} onDragOver={this.dragOverPrimary}>
+            <h4>Primary Ingredients</h4>
+            <PrimaryIndex/>
+          </div>
         </div>
         <div className="recipes_items-index-pane">
           <h2>Recipes:</h2>

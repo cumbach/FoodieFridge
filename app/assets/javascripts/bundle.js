@@ -24454,7 +24454,7 @@
 	  },
 	  dragOverFridge: function (e) {
 	    e.preventDefault();
-	    if (e.target.className == "fridge_items-index-pane") return;
+	    if (e.target.className == "inner-fridge-pane") return;
 	  },
 	  dropFridge: function (e) {
 	    var ingredient = JSON.parse(e.dataTransfer.getData("Text"));
@@ -24484,32 +24484,27 @@
 	      ),
 	      React.createElement(
 	        'div',
-	        { onDrop: this.dropFridge, onDragOver: this.dragOverFridge, className: 'fridge_items-index-pane' },
+	        { className: 'center-index-pane' },
 	        React.createElement(
 	          'div',
-	          { className: 'inner-fridge-pane' },
+	          { className: 'inner-fridge-pane', onDrop: this.dropFridge, onDragOver: this.dragOverFridge },
 	          React.createElement(
-	            'h2',
+	            'h4',
 	            null,
-	            'Your Fridge:'
-	          ),
-	          React.createElement(
-	            'ul',
-	            null,
-	            '(click to remove)'
+	            'Fridge:'
 	          ),
 	          React.createElement(FridgeIndex, null)
-	        )
-	      ),
-	      React.createElement(
-	        'div',
-	        { className: 'primary-index-pane', onDrop: this.dropPrimary, onDragOver: this.dragOverPrimary },
-	        React.createElement(
-	          'h2',
-	          null,
-	          'Primaries'
 	        ),
-	        React.createElement(PrimaryIndex, null)
+	        React.createElement(
+	          'div',
+	          { className: 'primary-index-pane', onDrop: this.dropPrimary, onDragOver: this.dragOverPrimary },
+	          React.createElement(
+	            'h4',
+	            null,
+	            'Primary Ingredients'
+	          ),
+	          React.createElement(PrimaryIndex, null)
+	        )
 	      ),
 	      React.createElement(
 	        'div',

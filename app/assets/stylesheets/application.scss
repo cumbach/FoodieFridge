@@ -213,7 +213,7 @@ h3 {
   box-sizing: border-box;
 }
 
-.fridge_items-index-pane {
+.center-index-pane {
   padding: 6px;
   display: block;
   margin-right: 10px;
@@ -232,17 +232,16 @@ h3 {
   .inner-fridge-pane {
     border: 2px solid black;
     border-radius: 6px;
-    height: 100%;
+    height: 50%;
     width: 100%
+  }
+  .primary-index-pane {
+    height: 50%;
+    border: 2px solid black;
+    border-radius: 6px;
   }
 }
 
-.primary-index-pane {
-  width: 184px;
-  float: left;
-  height: 60%;
-  background: white;
-}
 
 .recipes_items-index-pane {
   margin-right: 10px;
