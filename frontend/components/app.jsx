@@ -19,6 +19,9 @@ var App = React.createClass({
     var ingredient = JSON.parse(e.dataTransfer.getData("Text"));
     ApiUtil.createPrimary(ingredient.id);
     IngredientActions.ingredientRemoved(ingredient);
+
+    // ApiUtil.createRecipeItem(PrimaryStore.all(), []);
+
     e.preventDefault();
   },
   dragOverFridge: function(e) {

@@ -14,8 +14,8 @@ var FridgeIndex = React.createClass({
   },
 
   componentDidMount: function() {
-    this.fridgeListener = FridgeStore.addListener(this._onChange);
     ApiUtil.fetchAllFridgeItems();
+    this.fridgeListener = FridgeStore.addListener(this._onChange);
   },
 
   componentWillUnmount: function(){

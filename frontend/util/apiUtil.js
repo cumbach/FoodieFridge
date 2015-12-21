@@ -21,7 +21,6 @@ module.exports = {
       url: "api/ingredients",
       data: {query: "fridge"},
       success: function (fridgeItems) {
-
         FridgeActions.receiveAllFridgeItems(fridgeItems);
 
         RecipeActions.fetchAllRecipes(fridgeItems);
@@ -89,11 +88,15 @@ module.exports = {
     }
     var search = primaries.concat(ingredient);
     var data = {allowedIngredient: search};
-    // debugger;
+    console.log("api request:");
+    console.log(search.join('+'));
     $.ajax({
       url: 'http://api.yummly.com/v1/api/recipes?_app_id=f4ac9032&_app_key=ec28d82137e2708128a2f7f69400989f&requirePictures=true',
       data: data,
       success: function(recipeItemArray) {
+
+        // RecipeActions.resetAllRecipes()
+
         RecipeActions.addedRecipeItem(ingredient, recipeItemArray['matches']);
       }
     });

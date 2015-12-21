@@ -4,8 +4,12 @@ var ApiUtil = require('../util/apiUtil');
 var PrimaryStore = require('../stores/primaryStore');
 
 
-
 var RecipeActions = {
+  resetAllRecipes: function() {
+    Dispatcher.dispatch({
+      actionType: RecipeConstants.RESET_ALL_RECIPES
+    });
+  },
   addedSingleRecipe: function(singleRecipeItem) {
     Dispatcher.dispatch({
       actionType: RecipeConstants.SINGLE_RECIPE_ITEM_CREATED,
@@ -13,7 +17,9 @@ var RecipeActions = {
     });
   },
   fetchAllRecipes: function (fridgeItems) {
+    // debugger;
     fridgeItems.forEach(function(fridgeItem){
+      console.log("from fetch")
       ApiUtil.createRecipeItem(PrimaryStore.all(), fridgeItem['name']);
     });
   },

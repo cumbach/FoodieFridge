@@ -27,6 +27,7 @@ PrimaryStore.all = function () {
 PrimaryStore.__onDispatch = function (payload) {
   switch(payload.actionType) {
     case PrimaryConstants.PRIMARIES_RECEIVED:
+      debugger;
       resetPrimaries(payload.primaries);
       PrimaryStore.__emitChange();
       break;

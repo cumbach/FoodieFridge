@@ -5,12 +5,13 @@ var RecipeStore = new Store(Dispatcher);
 
 var _recipeItems = {};
 var singleRecipeItem = {};
-// var resetRecipeItems = function (recipeItems) {
-//   _recipeItems = {};
-//   recipeItems.forEach(function (recipeItem) {
-//     _recipeItems[recipeItem.id] = recipeItem;
-//   });
-// };
+
+var resetRecipeItems = function (recipeItems) {
+  _recipeItems = {};
+  // recipeItems.forEach(function (recipeItem) {
+  //   _recipeItems[recipeItem.id] = recipeItem;
+  // });
+};
 var addRecipeItem = function (ingredient, recipeItemArray) {
   _recipeItems[ingredient] = recipeItemArray;
 };
@@ -39,10 +40,10 @@ RecipeStore.all = function () {
 };
 RecipeStore.__onDispatch = function (payload) {
   switch(payload.actionType) {
-    // case RecipeConstants.RECIPE_ITEMS_RECEIVED:
-    //   resetRecipeItems(payload.recipeItems);
-    //   RecipeStore.__emitChange();
-    //   break;
+    case RecipeConstants.RESET_ALL_RECIPES:
+      resetRecipeItems();
+      RecipeStore.__emitChange();
+      break;
     case RecipeConstants.RECIPE_ITEM_CREATED:
       addRecipeItem(payload.ingredient, payload.recipeItemArray);
       RecipeStore.__emitChange();

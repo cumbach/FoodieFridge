@@ -5,9 +5,6 @@ var IngredientsIndex = require('./ingredientsIndex');
 var RecipeActions = require('../actions/recipeActions');
 
 var Primary = React.createClass({
-  componentDidMount: function() {
-    ApiUtil.fetchAllPrimaries();
-  },
   deleteFromPrimary: function() {
     ApiUtil.destroyPrimary(this.props.primary.id);
     ApiUtil.fetchAllIngredients();

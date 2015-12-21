@@ -24449,6 +24449,9 @@
 	    var ingredient = JSON.parse(e.dataTransfer.getData("Text"));
 	    ApiUtil.createPrimary(ingredient.id);
 	    IngredientActions.ingredientRemoved(ingredient);
+	
+	    // ApiUtil.createRecipeItem(PrimaryStore.all(), []);
+	
 	    e.preventDefault();
 	  },
 	  dragOverFridge: function (e) {
@@ -25025,7 +25028,6 @@
 	      url: "api/ingredients",
 	      data: { query: "fridge" },
 	      success: function (fridgeItems) {
-	
 	        FridgeActions.receiveAllFridgeItems(fridgeItems);
 	
 	        RecipeActions.fetchAllRecipes(fridgeItems);
@@ -25093,11 +25095,15 @@
 	    }
 	    var search = primaries.concat(ingredient);
 	    var data = { allowedIngredient: search };
-	    // debugger;
+	    console.log("api request:");
+	    console.log(search.join('+'));
 	    $.ajax({
 	      url: 'http://api.yummly.com/v1/api/recipes?_app_id=f4ac9032&_app_key=ec28d82137e2708128a2f7f69400989f&requirePictures=true',
 	      data: data,
 	      success: function (recipeItemArray) {
+	
+	        // RecipeActions.resetAllRecipes()
+	
 	        RecipeActions.addedRecipeItem(ingredient, recipeItemArray['matches']);
 	      }
 	    });
@@ -25206,6 +25212,11 @@
 	var PrimaryStore = __webpack_require__(251);
 	
 	var RecipeActions = {
+	  resetAllRecipes: function () {
+	    Dispatcher.dispatch({
+	      actionType: RecipeConstants.RESET_ALL_RECIPES
+	    });
+	  },
 	  addedSingleRecipe: function (singleRecipeItem) {
 	    Dispatcher.dispatch({
 	      actionType: RecipeConstants.SINGLE_RECIPE_ITEM_CREATED,
@@ -25213,7 +25224,9 @@
 	    });
 	  },
 	  fetchAllRecipes: function (fridgeItems) {
+	    // debugger;
 	    fridgeItems.forEach(function (fridgeItem) {
+	      console.log("from fetch");
 	      ApiUtil.createRecipeItem(PrimaryStore.all(), fridgeItem['name']);
 	    });
 	  },
@@ -25239,6 +25252,7 @@
 /***/ function(module, exports) {
 
 	module.exports = {
+	  RESET_ALL_RECIPES: "RESET_ALL_RECIPES",
 	  RECIPE_ITEMS_RECEIVED: "RECIPE_ITEMS_RECEIVED",
 	  RECIPE_ITEM_CREATED: "RECIPE_ITEM_CREATED",
 	  RECIPE_ITEM_REMOVED: "RECIPE_ITEM_REMOVED",
@@ -31730,12 +31744,13 @@
 	
 	var _recipeItems = {};
 	var singleRecipeItem = {};
-	// var resetRecipeItems = function (recipeItems) {
-	//   _recipeItems = {};
-	//   recipeItems.forEach(function (recipeItem) {
-	//     _recipeItems[recipeItem.id] = recipeItem;
-	//   });
-	// };
+	
+	var resetRecipeItems = function (recipeItems) {
+	  _recipeItems = {};
+	  // recipeItems.forEach(function (recipeItem) {
+	  //   _recipeItems[recipeItem.id] = recipeItem;
+	  // });
+	};
 	var addRecipeItem = function (ingredient, recipeItemArray) {
 	  _recipeItems[ingredient] = recipeItemArray;
 	};
@@ -31764,10 +31779,10 @@
 	};
 	RecipeStore.__onDispatch = function (payload) {
 	  switch (payload.actionType) {
-	    // case RecipeConstants.RECIPE_ITEMS_RECEIVED:
-	    //   resetRecipeItems(payload.recipeItems);
-	    //   RecipeStore.__emitChange();
-	    //   break;
+	    case RecipeConstants.RESET_ALL_RECIPES:
+	      resetRecipeItems();
+	      RecipeStore.__emitChange();
+	      break;
 	    case RecipeConstants.RECIPE_ITEM_CREATED:
 	      addRecipeItem(payload.ingredient, payload.recipeItemArray);
 	      RecipeStore.__emitChange();
@@ -32363,8 +32378,8 @@
 	  },
 	
 	  componentDidMount: function () {
-	    this.fridgeListener = FridgeStore.addListener(this._onChange);
 	    ApiUtil.fetchAllFridgeItems();
+	    this.fridgeListener = FridgeStore.addListener(this._onChange);
 	  },
 	
 	  componentWillUnmount: function () {
@@ -32410,7 +32425,6 @@
 	  deleteFromFridge: function () {
 	    ApiUtil.destroyFridgeItem(this.props.fridgeitem.id);
 	    ApiUtil.fetchAllIngredients();
-	    debugger;
 	    RecipeActions.removedRecipeItem(this.props.fridgeitem.name);
 	  },
 	  classname: function () {
@@ -32603,9 +32617,11 @@
 
 	var React = __webpack_require__(147);
 	var PrimaryActions = __webpack_require__(221);
+	var RecipeActions = __webpack_require__(223);
 	var ApiUtil = __webpack_require__(218);
 	var PrimaryStore = __webpack_require__(251);
 	var Primary = __webpack_require__(252);
+	var FridgeStore = __webpack_require__(244);
 	
 	var PrimaryIndex = React.createClass({
 	  displayName: 'PrimaryIndex',
@@ -32615,12 +32631,20 @@
 	  },
 	  _onChange: function () {
 	    this.setState({ primaries: PrimaryStore.all() });
+	
+	    // RecipeActions.resetAllRecipes();
+	
 	    // ApiUtil.fetchAllFridgeItems();
-	    if (Object.keys(PrimaryStore.all()).length !== 0) {
-	      ApiUtil.createRecipeItem(PrimaryStore.all(), []);
+	    if (this.state.primaries.length !== 0) {
+	      console.log("Primary Idx: _onChange");
+	      // ApiUtil.createRecipeItem(PrimaryStore.all(), []);
+	      var fridgeStoreHolder = FridgeStore.all().length === 0 ? [0] : FridgeStore.all();
+	      // debugger;
+	      RecipeActions.fetchAllRecipes(fridgeStoreHolder);
 	    }
 	  },
 	  componentDidMount: function () {
+	    console.log("Primary Idx: compDidMount");
 	    this.primaryListener = PrimaryStore.addListener(this._onChange);
 	    ApiUtil.fetchAllPrimaries();
 	  },
@@ -32684,6 +32708,7 @@
 	PrimaryStore.__onDispatch = function (payload) {
 	  switch (payload.actionType) {
 	    case PrimaryConstants.PRIMARIES_RECEIVED:
+	      debugger;
 	      resetPrimaries(payload.primaries);
 	      PrimaryStore.__emitChange();
 	      break;
@@ -32713,9 +32738,6 @@
 	var Primary = React.createClass({
 	  displayName: 'Primary',
 	
-	  componentDidMount: function () {
-	    ApiUtil.fetchAllPrimaries();
-	  },
 	  deleteFromPrimary: function () {
 	    ApiUtil.destroyPrimary(this.props.primary.id);
 	    ApiUtil.fetchAllIngredients();

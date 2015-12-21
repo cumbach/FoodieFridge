@@ -1,8 +1,10 @@
 var React = require('react');
 var PrimaryActions = require('../actions/primaryActions');
+var RecipeActions = require('../actions/recipeActions');
 var ApiUtil = require('../util/apiUtil');
 var PrimaryStore = require('../stores/primaryStore');
 var Primary = require('./primary');
+var FridgeStore = require('../stores/fridgeStore');
 
 var PrimaryIndex = React.createClass({
   getInitialState: function() {
@@ -10,12 +12,20 @@ var PrimaryIndex = React.createClass({
   },
   _onChange: function() {
     this.setState({primaries: PrimaryStore.all()});
+
+    // RecipeActions.resetAllRecipes();
+
     // ApiUtil.fetchAllFridgeItems();
-    if (Object.keys(PrimaryStore.all()).length !== 0) {
-      ApiUtil.createRecipeItem(PrimaryStore.all(), []);
+    if (this.state.primaries.length !== 0) {
+      console.log("Primary Idx: _onChange");
+      // ApiUtil.createRecipeItem(PrimaryStore.all(), []);
+      var fridgeStoreHolder = FridgeStore.all().length === 0 ? [0] : FridgeStore.all();
+      // debugger;
+      RecipeActions.fetchAllRecipes(fridgeStoreHolder);
     }
   },
   componentDidMount: function() {
+    console.log("Primary Idx: compDidMount");
     this.primaryListener = PrimaryStore.addListener(this._onChange);
     ApiUtil.fetchAllPrimaries();
   },
