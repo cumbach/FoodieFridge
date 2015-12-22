@@ -24559,7 +24559,6 @@
 	  componentDidMount: function () {
 	    this.ingredientListener = IngredientStore.addListener(this._onChange);
 	    ApiUtil.fetchAllIngredients();
-	    // debugger;
 	  },
 	  componentWillUnmount: function () {
 	    this.ingredientListener.remove();
@@ -24645,7 +24644,6 @@
 	        onChange: this.handleChange,
 	        onKeyPress: this.addOnEnter,
 	        placeholder: 'Search Ingredients',
-	
 	        value: this.state.inputVal }),
 	      React.createElement(
 	        'ul',
@@ -25044,8 +25042,6 @@
 	      data: { query: "primary" },
 	      success: function (primaries) {
 	        PrimaryActions.receiveAllPrimaries(primaries);
-	
-	        // RecipeActions.fetchAllRecipes(primaries);
 	      }
 	    });
 	  },
@@ -25105,9 +25101,6 @@
 	      url: 'http://api.yummly.com/v1/api/recipes?_app_id=f4ac9032&_app_key=ec28d82137e2708128a2f7f69400989f&requirePictures=true',
 	      data: data,
 	      success: function (recipeItemArray) {
-	
-	        // RecipeActions.resetAllRecipes()
-	
 	        RecipeActions.addedRecipeItem(ingredient, recipeItemArray['matches']);
 	      }
 	    });
@@ -31678,6 +31671,7 @@
 	var ApiUtil = __webpack_require__(218);
 	var IngredientActions = __webpack_require__(212);
 	var RecipeStore = __webpack_require__(243);
+	var PrimaryStore = __webpack_require__(251);
 	
 	var IngredientIndexItem = React.createClass({
 	  displayName: 'IngredientIndexItem',
@@ -31698,9 +31692,8 @@
 	  // onDrop={this.drop}
 	  // onDragDver={this.dragOver}
 	  moveToFridge: function () {
-	    // onClick={this.moveToFridge}>
 	    ApiUtil.createFridgeItem(this.props.ingredient.id);
-	    ApiUtil.createRecipeItem({}, this.props.ingredient.name);
+	    ApiUtil.createRecipeItem(PrimaryStore.all(), this.props.ingredient.name);
 	    IngredientActions.ingredientRemoved(this.props.ingredient);
 	  },
 	  dragStart: function (e) {
@@ -31715,6 +31708,7 @@
 	    return React.createElement(
 	      'div',
 	      { className: this.classname(),
+	        onClick: this.moveToFridge,
 	        draggable: 'true',
 	        onDragStart: this.dragStart,
 	        onDragEnd: this.dragEnd,
@@ -31743,16 +31737,16 @@
 	var Dispatcher = __webpack_require__(213);
 	var RecipeConstants = __webpack_require__(224);
 	var RecipeStore = new Store(Dispatcher);
+	var PrimaryConstants = __webpack_require__(222);
+	var RecipeActions = __webpack_require__(223);
+	var FridgeStore = __webpack_require__(244);
+	var PrimaryStore = __webpack_require__(251);
 	
 	var _recipeItems = {};
 	var singleRecipeItem = {};
 	
 	var resetRecipeItems = function (recipeItems) {
-	  debugger;
 	  _recipeItems = {};
-	  // recipeItems.forEach(function (recipeItem) {
-	  //   _recipeItems[recipeItem.id] = recipeItem;
-	  // });
 	};
 	var addRecipeItem = function (ingredient, recipeItemArray) {
 	  _recipeItems[ingredient] = recipeItemArray;
@@ -31764,9 +31758,7 @@
 	RecipeStore.singleItem = function () {
 	  return singleRecipeItem;
 	};
-	// var removeRecipeItem = function(recipeItem) {
-	//   delete _recipeItems[recipeItem.id];
-	// };
+	
 	RecipeStore.all = function () {
 	  var recipeItems = [];
 	  var recipeKeys = [];
@@ -31781,6 +31773,7 @@
 	  return recipeItems;
 	};
 	RecipeStore.__onDispatch = function (payload) {
+	  // debugger;
 	  switch (payload.actionType) {
 	    case RecipeConstants.RESET_ALL_RECIPES:
 	      resetRecipeItems();
@@ -31796,6 +31789,16 @@
 	      break;
 	    case RecipeConstants.SINGLE_RECIPE_ITEM_CREATED:
 	      singleRecipeItem = payload.singleRecipeItem;
+	      RecipeStore.__emitChange();
+	      break;
+	    case PrimaryConstants.PRIMARY_CREATED:
+	      resetRecipeItems();
+	      RecipeStore.__emitChange();
+	      break;
+	    case PrimaryConstants.PRIMARY_REMOVED:
+	      resetRecipeItems();
+	      // if FridgeStore.all().length === 0 {}
+	      // THEN YOU WANT TO DO A RECIPEACTIONS.FETCHALLRECIPIES FOR PRIMARIES
 	      RecipeStore.__emitChange();
 	      break;
 	  }
@@ -32368,6 +32371,8 @@
 	var ApiUtil = __webpack_require__(218);
 	var FridgeStore = __webpack_require__(244);
 	var FridgeIndexItem = __webpack_require__(247);
+	var PrimaryStore = __webpack_require__(251);
+	var RecipeActions = __webpack_require__(223);
 	
 	var FridgeIndex = React.createClass({
 	  displayName: 'FridgeIndex',
@@ -32378,6 +32383,11 @@
 	
 	  _onChange: function () {
 	    this.setState({ fridgeItems: FridgeStore.all() });
+	
+	    // NO NEW REQUEST MADE WHEN FRIDGEITEMS ALL TAKEN OUT
+	    if (FridgeStore.all().length === 0) {
+	      RecipeActions.fetchAllRecipes([0]);
+	    }
 	  },
 	
 	  componentDidMount: function () {
@@ -32467,7 +32477,6 @@
 	
 	  componentDidMount: function () {
 	    this.recipeListener = RecipeStore.addListener(this._onChange);
-	    // debugger;
 	  },
 	
 	  componentWillUnmount: function () {
@@ -32515,7 +32524,6 @@
 	    return map;
 	  },
 	  render: function () {
-	    // console.log(this.state.recipeItems)
 	    return React.createElement(
 	      'ul',
 	      null,
@@ -32556,23 +32564,19 @@
 	    return ingredients;
 	  },
 	  goToShow: function () {
-	    // debugger;
 	    var url = 'recipes/' + this.props.recipeitem.id;
 	    this.history.pushState(this.props, url, {});
 	  },
 	  keyToImage: function () {
 	    var key = {};
 	    if (typeof this.props.recipeitem.id === 'undefined') {
-	      // debugger;
 	      return React.createElement('div', null);
 	    } else {
-	      // debugger;
 	      key = Object.keys(this.props.recipeitem.imageUrlsBySize);
 	    }
 	    return this.props.recipeitem.imageUrlsBySize[key[key.length - 1]];
 	  },
 	  render: function () {
-	    // console.log(this.props.recipeitem);
 	    return React.createElement(
 	      'div',
 	      { className: 'recipe-tile', onClick: this.goToShow },
@@ -32635,10 +32639,8 @@
 	  _onChange: function () {
 	    this.setState({ primaries: PrimaryStore.all() });
 	
-	    // RecipeActions.resetAllRecipes();
-	
-	    if (this.state.primaries.length !== 0) {
-	      // ApiUtil.createRecipeItem(PrimaryStore.all(), []);
+	    // FIND RECIPES FOR PRIMARIES SOMEHOW?
+	    if (this.state.primaries.length !== 0 || FridgeStore.all().length !== 0) {
 	      var fridgeStoreHolder = FridgeStore.all().length === 0 ? [0] : FridgeStore.all();
 	      RecipeActions.fetchAllRecipes(fridgeStoreHolder);
 	    }

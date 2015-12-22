@@ -2,16 +2,16 @@ var Store = require('flux/utils').Store;
 var Dispatcher = require('../dispatcher/dispatcher.js');
 var RecipeConstants = require('../constants/recipeConstants.js');
 var RecipeStore = new Store(Dispatcher);
+var PrimaryConstants = require('../constants/primaryConstants.js');
+var RecipeActions = require('../actions/recipeActions');
+var FridgeStore = require('./fridgeStore');
+var PrimaryStore = require('./primaryStore');
 
 var _recipeItems = {};
 var singleRecipeItem = {};
 
 var resetRecipeItems = function (recipeItems) {
-  debugger;
   _recipeItems = {};
-  // recipeItems.forEach(function (recipeItem) {
-  //   _recipeItems[recipeItem.id] = recipeItem;
-  // });
 };
 var addRecipeItem = function (ingredient, recipeItemArray) {
   _recipeItems[ingredient] = recipeItemArray;
@@ -23,9 +23,7 @@ var removeRecipeItem = function(ingredient){
 RecipeStore.singleItem = function() {
   return singleRecipeItem;
 };
-// var removeRecipeItem = function(recipeItem) {
-//   delete _recipeItems[recipeItem.id];
-// };
+
 RecipeStore.all = function () {
   var recipeItems = [];
   var recipeKeys = [];
@@ -40,6 +38,7 @@ RecipeStore.all = function () {
   return recipeItems;
 };
 RecipeStore.__onDispatch = function (payload) {
+  // debugger;
   switch(payload.actionType) {
     case RecipeConstants.RESET_ALL_RECIPES:
       resetRecipeItems();
@@ -55,6 +54,16 @@ RecipeStore.__onDispatch = function (payload) {
       break;
     case RecipeConstants.SINGLE_RECIPE_ITEM_CREATED:
       singleRecipeItem = payload.singleRecipeItem;
+      RecipeStore.__emitChange();
+      break;
+    case PrimaryConstants.PRIMARY_CREATED:
+      resetRecipeItems();
+      RecipeStore.__emitChange();
+      break;
+    case PrimaryConstants.PRIMARY_REMOVED:
+      resetRecipeItems();
+      // if FridgeStore.all().length === 0 {}
+      // THEN YOU WANT TO DO A RECIPEACTIONS.FETCHALLRECIPIES FOR PRIMARIES
       RecipeStore.__emitChange();
       break;
   }

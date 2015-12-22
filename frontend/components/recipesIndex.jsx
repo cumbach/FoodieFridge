@@ -14,7 +14,6 @@ var RecipesIndex = React.createClass({
 
   componentDidMount: function() {
     this.recipeListener = RecipeStore.addListener(this._onChange);
-    // debugger;
   },
 
   componentWillUnmount: function() {
@@ -62,7 +61,6 @@ var RecipesIndex = React.createClass({
     return map;
   },
   render: function() {
-    // console.log(this.state.recipeItems)
     return (
       <ul>
         <div>{this.recipeMap()}</div>

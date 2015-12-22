@@ -3,6 +3,8 @@ var IngredientActions = require('../actions/fridgeActions');
 var ApiUtil = require('../util/apiUtil');
 var FridgeStore = require('../stores/fridgeStore');
 var FridgeIndexItem = require('./fridgeIndexItem');
+var PrimaryStore = require('../stores/primaryStore');
+var RecipeActions = require('../actions/recipeActions');
 
 var FridgeIndex = React.createClass({
   getInitialState: function() {
@@ -11,6 +13,11 @@ var FridgeIndex = React.createClass({
 
   _onChange: function() {
     this.setState({fridgeItems: FridgeStore.all()});
+
+    // NO NEW REQUEST MADE WHEN FRIDGEITEMS ALL TAKEN OUT
+    if (FridgeStore.all().length === 0) {
+      RecipeActions.fetchAllRecipes([0]);
+    }
   },
 
   componentDidMount: function() {

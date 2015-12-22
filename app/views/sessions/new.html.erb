@@ -17,5 +17,13 @@
     <input type="submit" value="Sign In">
 
   </form>
+  
+  <form class="input-group user-auth" action=<%= session_url %> method="post">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+    <input type="hidden" name=user[username] value="user">
+    <input type="hidden" name=user[password] value="password">
+    <input class="form-control demo-account purple-button" type="submit" value="Sign in with demo account">
+  </form>
+
   <h6>New user? <%= link_to "Sign up here", new_user_url %><h6>
 </div>

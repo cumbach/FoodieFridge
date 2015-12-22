@@ -17,7 +17,6 @@ var IngredientsIndex = React.createClass({
   componentDidMount: function() {
     this.ingredientListener = IngredientStore.addListener(this._onChange);
     ApiUtil.fetchAllIngredients();
-    // debugger;
   },
   componentWillUnmount: function(){
     this.ingredientListener.remove();
@@ -94,7 +93,6 @@ var IngredientsIndex = React.createClass({
                onChange={this.handleChange}
                onKeyPress={this.addOnEnter}
                placeholder="Search Ingredients"
-
                value={this.state.inputVal}/>
         <ul className="matching-ingredients" onClick={this.clearSearch}>
           {this.matchingIngredients()}

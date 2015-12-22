@@ -1,5 +1,3 @@
-
-
 <div class="first-page">
   <div class="row lg-margin-top">
     <div class="col-xs-6 col-xs-offset-3 text-align">
@@ -39,7 +37,13 @@
       </div>
     </div>
   </div>
-
+  
+  <form class="input-group user-auth" action=<%= session_url %> method="post">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+    <input type="hidden" name=user[username] value="user">
+    <input type="hidden" name=user[password] value="password">
+    <input class="form-control demo-account purple-button" type="submit" value="Sign in with demo account">
+  </form>
 
   <br/>
   <h6>Already have an account? <%= link_to "Sign in here", new_session_url %><h6>
