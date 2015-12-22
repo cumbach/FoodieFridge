@@ -25,6 +25,7 @@ h1, h2, h3, p, strong, em, div, ul {
   box-sizing: inherit;
   // font: inherit;
   // font-size: 13px;
+  list-style: none;
   font-family: sans-serif;
   text-decoration: inherit;
   text-align: inherit;
@@ -148,7 +149,6 @@ h1, h2, h3, p, strong, em, div, ul {
 
 .hello-username {
   display: block;
-  float: left;
   height: 100%;
   padding: 13px;
 
@@ -159,14 +159,17 @@ h1, h2, h3, p, strong, em, div, ul {
   top: -8px;
   left: 0px;
   height: 30px;
-  float: right;
   margin: 9px;
   position: relative;
 }
 
 .header-list {
-  width: 20%;
-  float:right;
+  float: right;
+}
+
+.header-list li {
+  float: left;
+  // list-style: none;
 }
 
 html {
@@ -353,6 +356,14 @@ h3 {
   text-align: center;
 }
 
+.sideways-hover-instructions {
+  transform: rotate(90deg) translateX(64%) translateY(-50%);
+  color: rgba(0, 0, 0, 0.4);
+  position: absolute;
+  left: 320px;
+  width: 429px;
+  text-align: center;
+}
 
 .recipes-index-item {
   height: 200px;

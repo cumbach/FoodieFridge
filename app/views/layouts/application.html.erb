@@ -18,14 +18,14 @@
 
 
         <ul class="header-list group">
-          <h3 class="hello-username">
+          <li class="hello-username">
             Hello
             <%= current_user.username %>
-          </h3>
+          </li>
           <!-- About goes here -->
-          <div class="navbar-btn logout-button">
+          <li class="navbar-btn logout-button">
             <%= button_to "Log out", session_url, method: :delete %>
-          </div>
+          </li>
         </ul>
       </nav>
     </header>

@@ -32637,6 +32637,21 @@
 	            'No Matching Recipes Found'
 	          )
 	        );
+	      } else {
+	        return React.createElement(
+	          'div',
+	          { className: 'sideways-hover-instructions' },
+	          React.createElement(
+	            'h2',
+	            null,
+	            'Drag and Drop Ingredients For'
+	          ),
+	          React.createElement(
+	            'h2',
+	            null,
+	            '↓ Recipes ↓'
+	          )
+	        );
 	      }
 	    }
 	    return '';

@@ -71,6 +71,11 @@ var RecipesIndex = React.createClass({
         return (<div>
                   <h1 className='no-recipes-found'>No Matching Recipes Found</h1>
                 </div>);
+      } else {
+        return (<div className='sideways-hover-instructions'>
+                  <h2>Drag and Drop Ingredients For</h2>
+                  <h2>&darr; Recipes &darr;</h2>
+                </div>);
       }
     }
     return '';
