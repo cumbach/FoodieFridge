@@ -32474,10 +32474,12 @@
 	  },
 	
 	  _onChange: function () {
+	    this.newClass = "loader";
 	    this.setState({ recipeItems: RecipeStore.all() });
 	  },
 	
 	  componentDidMount: function () {
+	    this.newClass = "recipeMap";
 	    this.recipeListener = RecipeStore.addListener(this._onChange);
 	  },
 	
@@ -32514,17 +32516,23 @@
 	  recipeMap: function () {
 	    var map = [];
 	    if (typeof this.state.recipeItems !== 'undefined') {
-	      map = this.recipeSort().map(function (recipeItem) {
+	      map = this.recipeSort().map((function (recipeItem) {
 	        if (recipeItem.imageUrlsBySize) {
 	          return React.createElement(RecipesIndexItem, {
 	            key: recipeItem.id,
-	            recipeitem: recipeItem });
+	            recipeitem: recipeItem,
+	            method: this.loaderChange });
 	        }
 	        return '';
-	      });
+	      }).bind(this));
 	    }
+	    this.newClass = 'recipeMap';
 	    return map;
 	  },
+	  // loaderChange: function() {
+	  //   console.log("loader changed");
+	  //   this.newClass = "recipeMap";
+	  // },
 	  render: function () {
 	    return React.createElement(
 	      'ul',
@@ -32578,6 +32586,10 @@
 	    }
 	    return this.props.recipeitem.imageUrlsBySize[key[key.length - 1]];
 	  },
+	  // componentWillMount: function() {
+	  //   // debugger;
+	  //   this.props.method();
+	  // },
 	  render: function () {
 	    return React.createElement(
 	      'div',

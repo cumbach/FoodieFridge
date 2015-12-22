@@ -9,10 +9,12 @@ var RecipesIndex = React.createClass({
   },
 
   _onChange: function() {
+    this.newClass = "loader";
     this.setState({recipeItems: RecipeStore.all()});
   },
 
   componentDidMount: function() {
+    this.newClass = "recipeMap";
     this.recipeListener = RecipeStore.addListener(this._onChange);
   },
 
@@ -53,13 +55,19 @@ var RecipesIndex = React.createClass({
         if (recipeItem.imageUrlsBySize) {
           return <RecipesIndexItem
                   key={recipeItem.id}
-                  recipeitem={recipeItem}/>;
+                  recipeitem={recipeItem}
+                  method={this.loaderChange}/>;
         }
         return '';
-      });
+      }.bind(this));
     }
+    this.newClass = 'recipeMap';
     return map;
   },
+  // loaderChange: function() {
+  //   console.log("loader changed");
+  //   this.newClass = "recipeMap";
+  // },
   render: function() {
     return (
       <ul>

@@ -26,6 +26,10 @@ var RecipesIndexItem = React.createClass({
     }
     return this.props.recipeitem.imageUrlsBySize[key[key.length - 1]];
   },
+  // componentWillMount: function() {
+  //   // debugger;
+  //   this.props.method();
+  // },
   render: function() {
     return (
       <div className="recipe-tile" onClick={this.goToShow}>
