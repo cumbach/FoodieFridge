@@ -350,7 +350,7 @@ h3 {
 .matching-recipes-label {
   color: black;
   font-weight: lighter;
-  margin-left: 170px;
+  text-align: center;
 }
 
 
@@ -374,8 +374,9 @@ h3 {
 }
 
 .no-recipes-found {
-  position: absolute;
-  margin-left: 165px;
+  position: relative;
+  text-align: center;
+  width: 100%;
   top: 340px;
   color: rgba(0, 0, 0, 0.4)
 }
@@ -389,7 +390,7 @@ h3 {
   text-align: auto;
   padding: 8px;
   position: absolute;
-  top: 500px;
+  top: 64%;
   color: rgba(0, 0, 0, 0.4)
 }
 
