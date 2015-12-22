@@ -7,6 +7,7 @@ var _recipeItems = {};
 var singleRecipeItem = {};
 
 var resetRecipeItems = function (recipeItems) {
+  debugger;
   _recipeItems = {};
   // recipeItems.forEach(function (recipeItem) {
   //   _recipeItems[recipeItem.id] = recipeItem;

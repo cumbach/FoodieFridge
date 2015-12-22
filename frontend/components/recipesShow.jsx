@@ -29,7 +29,10 @@ var RecipesShow = React.createClass({
   componentWillUnmount: function() {
     this.singleRecipeListener.remove();
   },
-  
+  changeBody: function (){
+    $('body').removeClass("app");
+  },
+
   render: function() {
     var recipeItem = {};
     var key = {};
@@ -39,6 +42,7 @@ var RecipesShow = React.createClass({
       recipeItem = this.state.recipeItem;
       key = Object.keys(this.state.recipeItem.images[0].imageUrlsBySize);
     }
+    this.changeBody();
     return (
       <div className="recipe-show-pane">
         <div className="col-md-8 col-md-offset-2 jumbotron recipe-show-pane">

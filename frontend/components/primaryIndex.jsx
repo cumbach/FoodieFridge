@@ -12,9 +12,9 @@ var PrimaryIndex = React.createClass({
   },
   _onChange: function() {
     this.setState({primaries: PrimaryStore.all()});
+
     // RecipeActions.resetAllRecipes();
-    // ApiUtil.fetchAllFridgeItems();
-    
+
     if (this.state.primaries.length !== 0) {
       // ApiUtil.createRecipeItem(PrimaryStore.all(), []);
       var fridgeStoreHolder = FridgeStore.all().length === 0 ? [0] : FridgeStore.all();
@@ -22,7 +22,6 @@ var PrimaryIndex = React.createClass({
     }
   },
   componentDidMount: function() {
-    console.log("Primary Idx: compDidMount");
     this.primaryListener = PrimaryStore.addListener(this._onChange);
     ApiUtil.fetchAllPrimaries();
   },

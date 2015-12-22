@@ -35,7 +35,11 @@ var App = React.createClass({
     IngredientActions.ingredientRemoved(ingredient);
     e.preventDefault();
   },
+  bodychange: function(){
+    $('body').addClass("app");
+  },
   render: function() {
+    this.bodychange();
     return (
       <div id="wrapper" className="foodiefridge-app">
         <div className="ingredients-index-pane">

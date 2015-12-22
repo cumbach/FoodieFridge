@@ -24465,7 +24465,11 @@
 	    IngredientActions.ingredientRemoved(ingredient);
 	    e.preventDefault();
 	  },
+	  bodychange: function () {
+	    $('body').addClass("app");
+	  },
 	  render: function () {
+	    this.bodychange();
 	    return React.createElement(
 	      'div',
 	      { id: 'wrapper', className: 'foodiefridge-app' },
@@ -31744,6 +31748,7 @@
 	var singleRecipeItem = {};
 	
 	var resetRecipeItems = function (recipeItems) {
+	  debugger;
 	  _recipeItems = {};
 	  // recipeItems.forEach(function (recipeItem) {
 	  //   _recipeItems[recipeItem.id] = recipeItem;
@@ -32629,8 +32634,8 @@
 	  },
 	  _onChange: function () {
 	    this.setState({ primaries: PrimaryStore.all() });
+	
 	    // RecipeActions.resetAllRecipes();
-	    // ApiUtil.fetchAllFridgeItems();
 	
 	    if (this.state.primaries.length !== 0) {
 	      // ApiUtil.createRecipeItem(PrimaryStore.all(), []);
@@ -32639,7 +32644,6 @@
 	    }
 	  },
 	  componentDidMount: function () {
-	    console.log("Primary Idx: compDidMount");
 	    this.primaryListener = PrimaryStore.addListener(this._onChange);
 	    ApiUtil.fetchAllPrimaries();
 	  },
@@ -32793,6 +32797,9 @@
 	  componentWillUnmount: function () {
 	    this.singleRecipeListener.remove();
 	  },
+	  changeBody: function () {
+	    $('body').removeClass("app");
+	  },
 	
 	  render: function () {
 	    var recipeItem = {};
@@ -32803,6 +32810,7 @@
 	      recipeItem = this.state.recipeItem;
 	      key = Object.keys(this.state.recipeItem.images[0].imageUrlsBySize);
 	    }
+	    this.changeBody();
 	    return React.createElement(
 	      'div',
 	      { className: 'recipe-show-pane' },
