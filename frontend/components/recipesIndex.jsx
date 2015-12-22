@@ -1,7 +1,9 @@
 var React = require('react');
+var ReactDOM = require('react-dom');
 var RecipeStore = require('../stores/recipeStore');
 var RecipesIndexItem = require('./recipesIndexItem');
 var FridgeStore = require('../stores/fridgeStore');
+var PrimaryStore = require('../stores/primaryStore');
 
 var RecipesIndex = React.createClass({
   getInitialState: function() {
@@ -9,12 +11,12 @@ var RecipesIndex = React.createClass({
   },
 
   _onChange: function() {
-    this.newClass = "loader";
     this.setState({recipeItems: RecipeStore.all()});
   },
 
   componentDidMount: function() {
-    this.newClass = "recipeMap";
+    var node = ReactDOM.findDOMNode(this.refs.recipeIndex);
+    this.props.registerRecipesIndex(node);
     this.recipeListener = RecipeStore.addListener(this._onChange);
   },
 
@@ -64,14 +66,34 @@ var RecipesIndex = React.createClass({
     this.newClass = 'recipeMap';
     return map;
   },
-  // loaderChange: function() {
-  //   console.log("loader changed");
-  //   this.newClass = "recipeMap";
-  // },
+  infoPane: function() {
+    if (this.recipeMap().length === 0) {
+      if (PrimaryStore.all().length !== 0 || FridgeStore.all().length !== 0) {
+        return (<div>
+                  <h3 className="fridge-info">Multiple recipes are found <br/>
+                      for each item in your fridge</h3>
+                  <h1 className='no-recipes-found'>No Matching Recipes Found</h1>
+                  <h3 className="primary-info">Only recipes that contain ALL<br/>
+                      of your primary ingredients will<br/>
+                      be included in the list</h3>
+                </div>);
+      } else {
+        return (<div>
+                  <h3 className="fridge-info">Multiple recipes are found <br/>
+                      for each item in your fridge</h3>
+                  <h3 className="primary-info">Only recipes that contain ALL<br/>
+                      of your primary ingredients will<br/>
+                      be included in the list</h3>
+                </div>);
+      }
+    }
+    return '';
+  },
   render: function() {
     return (
       <ul>
-        <div>{this.recipeMap()}</div>
+        <div className="info-pane">{this.infoPane()}</div>
+        <div ref="recipeIndex" className="recipeMap">{this.recipeMap()}</div>
       </ul>
     );
   }

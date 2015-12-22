@@ -16,12 +16,11 @@ var App = React.createClass({
     if(e.target.className == "primary-index-pane") return;
   },
   dropPrimary: function(e){
+    this.toggleRecipesIndex();
     var ingredient = JSON.parse(e.dataTransfer.getData("Text"));
     ApiUtil.createPrimary(ingredient.id);
     IngredientActions.ingredientRemoved(ingredient);
-
     // ApiUtil.createRecipeItem(PrimaryStore.all(), []);
-
     e.preventDefault();
   },
   dragOverFridge: function(e) {
@@ -29,28 +28,38 @@ var App = React.createClass({
     if(e.target.className == "inner-fridge-pane") return;
   },
   dropFridge: function(e){
+    this.toggleRecipesIndex();
     var ingredient = JSON.parse(e.dataTransfer.getData("Text"));
     ApiUtil.createFridgeItem(ingredient.id);
-    ApiUtil.createRecipeItem(PrimaryStore.all(), ingredient.name);
+    ApiUtil.createRecipeItem(PrimaryStore.all(), ingredient.name, function(){
+      this.toggleRecipesIndex();
+    }.bind(this));
     IngredientActions.ingredientRemoved(ingredient);
     e.preventDefault();
   },
   bodychange: function(){
     $('body').addClass("app");
   },
+
+  registerRecipesIndex: function(node){
+    this.recipesIndex = node;
+  },
+
+  toggleRecipesIndex: function(){
+    this.recipesIndex.classList.toggle("loader");
+  },
+
   render: function() {
     this.bodychange();
     return (
       <div id="wrapper" className="foodiefridge-app">
         <div className="ingredients-index-pane">
-          <h2>Ingredients:</h2>
-          <ul>(click to add to fridge)</ul>
-          <IngredientsIndex/>
+          <IngredientsIndex toggleRecipesIndex={this.toggleRecipesIndex}/>
         </div>
         <div className="center-index-pane">
           <div className="inner-fridge-pane" onDrop={this.dropFridge} onDragOver={this.dragOverFridge}>
             <h4>Fridge:</h4>
-            <FridgeIndex/>
+            <FridgeIndex toggleRecipesIndex={this.toggleRecipesIndex}/>
           </div>
           <div className="primary-index-pane" onDrop={this.dropPrimary} onDragOver={this.dragOverPrimary}>
             <h4>Primary Ingredients</h4>
@@ -58,9 +67,8 @@ var App = React.createClass({
           </div>
         </div>
         <div className="recipes_items-index-pane">
-          <h2>Recipes:</h2>
-          <ul>(click for info)</ul>
-          <RecipesIndex/>
+          <h3 className="matching-recipes-label">Matching Recipes: (click for info)</h3>
+          <RecipesIndex registerRecipesIndex={this.registerRecipesIndex}/>
         </div>
         {this.props.children}
       </div>

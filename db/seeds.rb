@@ -169,3 +169,6 @@ Ingredient.create!([
   {name: "paprika", category: "Other"},
   {name: "venison", category: "Protein"}
 ])
+
+
+User.create!(username: "Guest", password: "password")

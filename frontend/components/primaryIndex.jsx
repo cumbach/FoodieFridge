@@ -35,7 +35,7 @@ var PrimaryIndex = React.createClass({
                   key={primary.id}
                   primary={primary}/>;
         }
-      });
+      }.bind(this));
     }
     return map;
   },

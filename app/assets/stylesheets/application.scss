@@ -155,9 +155,13 @@ h1, h2, h3, p, strong, em, div, ul {
 }
 
 .logout-button input {
-  height: 20px;
+  border-radius: 6px;
+  top: -8px;
+  left: 0px;
+  height: 30px;
   float: right;
-  margin: 17px;
+  margin: 9px;
+  position: relative;
 }
 
 .header-list {
@@ -174,12 +178,12 @@ body {
   background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url("spoonbackground.jpg");
   background-size: cover;
 }
-body.app {
-  height: 100%;
-  background: #473421;
-  // background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url("husk.png");
-  background-size: cover;
-}
+// body.app {
+//   height: 100%;
+//   background: slategray;
+//   // background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url("husk.png");
+//   background-size: cover;
+// }
 
 .home-container{
   height: 100%;
@@ -217,8 +221,7 @@ h3 {
   padding-right: 0px;
   padding-top: 6px;
   padding-bottom: 6px;
-  width: 138px;
-  font-weight: bold;
+  width: 145px;
   margin: 10px;
   border: 1px solid black;
 }
@@ -270,8 +273,8 @@ h3 {
 
 .ingredients-index-pane {
   display: block;
-  margin-left: 10px;
-  margin-right: 10px;
+  margin-left: 1px;
+  margin-right: 1px;
   height: 100%;
   width: 337px;
   overflow: auto;
@@ -287,10 +290,20 @@ h3 {
   box-sizing: border-box;
 }
 
+.search-bar {
+  position: absolute;
+  top: 77px;
+  width: 331px;
+}
+
+.matching-ingredients {
+  margin-top: 35px;
+}
+
 .center-index-pane {
   padding: 6px;
   display: block;
-  margin-right: 10px;
+  margin-right: 3px;
   height: 100%;
   width: 184px;
   float: left;
@@ -320,7 +333,7 @@ h3 {
 
 
 .recipes_items-index-pane {
-  margin-right: 10px;
+  margin-right: 3px;
   height: 100%;
   overflow: auto;
   display: block;
@@ -334,11 +347,36 @@ h3 {
   box-sizing: border-box;
 }
 
+.matching-recipes-label {
+  color: black;
+  font-weight: lighter;
+  margin-left: 170px;
+}
+
 
 .recipes-index-item {
   height: 200px;
   width: 210px;
   float: left
+}
+
+.fridge-info {
+  position: absolute;
+  top: 170px;
+  color: rgba(0, 0, 0, 0.4)
+}
+
+.no-recipes-found {
+  position: absolute;
+  margin-left: 165px;
+  top: 340px;
+  color: rgba(0, 0, 0, 0.4)
+}
+
+.primary-info {
+  position: absolute;
+  top: 500px;
+  color: rgba(0, 0, 0, 0.4)
 }
 
 .foodiefridge-app {

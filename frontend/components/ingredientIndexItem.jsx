@@ -21,8 +21,11 @@ var IngredientIndexItem = React.createClass({
   // onDrop={this.drop}
   // onDragDver={this.dragOver}
   moveToFridge: function() {
+    this.props.toggleRecipesIndex();
     ApiUtil.createFridgeItem(this.props.ingredient.id);
-    ApiUtil.createRecipeItem(PrimaryStore.all(), this.props.ingredient.name);
+    ApiUtil.createRecipeItem(PrimaryStore.all(), this.props.ingredient.name, function(){
+      this.props.toggleRecipesIndex();
+    }.bind(this));
     IngredientActions.ingredientRemoved(this.props.ingredient);
   },
   dragStart: function(e) {
