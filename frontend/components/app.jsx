@@ -58,11 +58,9 @@ var App = React.createClass({
         </div>
         <div className="center-index-pane">
           <div className="inner-fridge-pane" onDrop={this.dropFridge} onDragOver={this.dragOverFridge}>
-            <h4>Fridge:</h4>
             <FridgeIndex toggleRecipesIndex={this.toggleRecipesIndex}/>
           </div>
           <div className="primary-index-pane" onDrop={this.dropPrimary} onDragOver={this.dragOverPrimary}>
-            <h4>Primary Ingredients</h4>
             <PrimaryIndex/>
           </div>
         </div>

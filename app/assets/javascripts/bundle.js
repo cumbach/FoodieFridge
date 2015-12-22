@@ -24495,21 +24495,11 @@
 	        React.createElement(
 	          'div',
 	          { className: 'inner-fridge-pane', onDrop: this.dropFridge, onDragOver: this.dragOverFridge },
-	          React.createElement(
-	            'h4',
-	            null,
-	            'Fridge:'
-	          ),
 	          React.createElement(FridgeIndex, { toggleRecipesIndex: this.toggleRecipesIndex })
 	        ),
 	        React.createElement(
 	          'div',
 	          { className: 'primary-index-pane', onDrop: this.dropPrimary, onDragOver: this.dragOverPrimary },
-	          React.createElement(
-	            'h4',
-	            null,
-	            'Primary Ingredients'
-	          ),
 	          React.createElement(PrimaryIndex, null)
 	        )
 	      ),
@@ -32486,11 +32476,43 @@
 	    }
 	    return map;
 	  },
+	  fridgeInfo: function () {
+	    if (FridgeStore.all().length === 0) {
+	      return React.createElement(
+	        'div',
+	        { className: 'info-pane-fridge' },
+	        React.createElement(
+	          'h3',
+	          { className: 'fridge-header' },
+	          'My Fridge:'
+	        ),
+	        React.createElement(
+	          'h4',
+	          { className: 'fridge-info' },
+	          'Multiple recipes are',
+	          React.createElement('br', null),
+	          'displayed for each',
+	          React.createElement('br', null),
+	          'item in your fridge'
+	        )
+	      );
+	    }
+	    return "";
+	  },
 	  render: function () {
 	    return React.createElement(
 	      'ul',
 	      null,
-	      this.ingredientMap()
+	      React.createElement(
+	        'div',
+	        null,
+	        this.fridgeInfo()
+	      ),
+	      React.createElement(
+	        'div',
+	        null,
+	        this.ingredientMap()
+	      )
 	    );
 	  }
 	});
@@ -32601,7 +32623,6 @@
 	        return '';
 	      }).bind(this));
 	    }
-	    this.newClass = 'recipeMap';
 	    return map;
 	  },
 	  infoPane: function () {
@@ -32611,46 +32632,9 @@
 	          'div',
 	          null,
 	          React.createElement(
-	            'h3',
-	            { className: 'fridge-info' },
-	            'Multiple recipes are found ',
-	            React.createElement('br', null),
-	            'for each item in your fridge'
-	          ),
-	          React.createElement(
 	            'h1',
 	            { className: 'no-recipes-found' },
 	            'No Matching Recipes Found'
-	          ),
-	          React.createElement(
-	            'h3',
-	            { className: 'primary-info' },
-	            'Only recipes that contain ALL',
-	            React.createElement('br', null),
-	            'of your primary ingredients will',
-	            React.createElement('br', null),
-	            'be included in the list'
-	          )
-	        );
-	      } else {
-	        return React.createElement(
-	          'div',
-	          null,
-	          React.createElement(
-	            'h3',
-	            { className: 'fridge-info' },
-	            'Multiple recipes are found ',
-	            React.createElement('br', null),
-	            'for each item in your fridge'
-	          ),
-	          React.createElement(
-	            'h3',
-	            { className: 'primary-info' },
-	            'Only recipes that contain ALL',
-	            React.createElement('br', null),
-	            'of your primary ingredients will',
-	            React.createElement('br', null),
-	            'be included in the list'
 	          )
 	        );
 	      }
@@ -32808,11 +32792,48 @@
 	    }
 	    return map;
 	  },
+	  primaryInfo: function () {
+	    if (PrimaryStore.all().length === 0) {
+	      return React.createElement(
+	        'div',
+	        null,
+	        React.createElement(
+	          'h3',
+	          { className: 'primary-header' },
+	          'Primary Ingredients:'
+	        ),
+	        React.createElement(
+	          'h4',
+	          { className: 'primary-info' },
+	          'Only recipes that',
+	          React.createElement('br', null),
+	          'contain ALL of',
+	          React.createElement('br', null),
+	          'your primary',
+	          React.createElement('br', null),
+	          'ingredients will',
+	          React.createElement('br', null),
+	          'be included in the',
+	          React.createElement('br', null),
+	          'list'
+	        )
+	      );
+	    }
+	  },
 	  render: function () {
 	    return React.createElement(
 	      'ul',
 	      null,
-	      this.primaryMap()
+	      React.createElement(
+	        'div',
+	        null,
+	        this.primaryInfo()
+	      ),
+	      React.createElement(
+	        'div',
+	        null,
+	        this.primaryMap()
+	      )
 	    );
 	  }
 	});

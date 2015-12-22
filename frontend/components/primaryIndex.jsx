@@ -39,10 +39,24 @@ var PrimaryIndex = React.createClass({
     }
     return map;
   },
+  primaryInfo: function() {
+    if (PrimaryStore.all().length === 0) {
+      return (<div>
+                <h3 className='primary-header'>Primary Ingredients:</h3>
+                <h4 className="primary-info">Only recipes that<br/>
+                  contain ALL of<br/>
+                  your primary<br/>
+                  ingredients will<br/>
+                  be included in the<br/>
+                  list</h4>
+              </div>);
+    }
+  },
   render: function() {
     return(
       <ul>
-        {this.primaryMap()}
+        <div>{this.primaryInfo()}</div>
+        <div>{this.primaryMap()}</div>
       </ul>
     );
   }

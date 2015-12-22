@@ -360,7 +360,14 @@ h3 {
   float: left
 }
 
+.fridge-header {
+  color: rgba(0, 0, 0, 0.4);
+  text-align: -webkit-center;
+}
+
 .fridge-info {
+  text-align: auto;
+  padding: 4px;
   position: absolute;
   top: 170px;
   color: rgba(0, 0, 0, 0.4)
@@ -373,7 +380,14 @@ h3 {
   color: rgba(0, 0, 0, 0.4)
 }
 
+.primary-header {
+  color: rgba(0, 0, 0, 0.4);
+  text-align: -webkit-center;
+}
+
 .primary-info {
+  text-align: auto;
+  padding: 8px;
   position: absolute;
   top: 500px;
   color: rgba(0, 0, 0, 0.4)

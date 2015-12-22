@@ -63,27 +63,13 @@ var RecipesIndex = React.createClass({
         return '';
       }.bind(this));
     }
-    this.newClass = 'recipeMap';
     return map;
   },
   infoPane: function() {
     if (this.recipeMap().length === 0) {
       if (PrimaryStore.all().length !== 0 || FridgeStore.all().length !== 0) {
         return (<div>
-                  <h3 className="fridge-info">Multiple recipes are found <br/>
-                      for each item in your fridge</h3>
                   <h1 className='no-recipes-found'>No Matching Recipes Found</h1>
-                  <h3 className="primary-info">Only recipes that contain ALL<br/>
-                      of your primary ingredients will<br/>
-                      be included in the list</h3>
-                </div>);
-      } else {
-        return (<div>
-                  <h3 className="fridge-info">Multiple recipes are found <br/>
-                      for each item in your fridge</h3>
-                  <h3 className="primary-info">Only recipes that contain ALL<br/>
-                      of your primary ingredients will<br/>
-                      be included in the list</h3>
                 </div>);
       }
     }
