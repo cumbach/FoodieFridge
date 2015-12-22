@@ -23,9 +23,9 @@ h1, h2, h3, p, strong, em, div, ul {
   padding: 0;
   outline: 0;
   box-sizing: inherit;
-  font: inherit;
+  // font: inherit;
+  // font-size: 13px;
   font-family: sans-serif;
-  font-size: 13px;
   text-decoration: inherit;
   text-align: inherit;
   color: inherit;
@@ -117,7 +117,8 @@ body {
 }
 body.app {
   height: 100%;
-  background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url("granite.jpg");
+  background: #473421;
+  // background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url("husk.png");
   background-size: cover;
 }
 

@@ -32386,7 +32386,9 @@
 	
 	    // NO NEW REQUEST MADE WHEN FRIDGEITEMS ALL TAKEN OUT
 	    if (FridgeStore.all().length === 0) {
-	      RecipeActions.fetchAllRecipes([0]);
+	      if (PrimaryStore.all().length !== 0) {
+	        RecipeActions.fetchAllRecipes([0]);
+	      }
 	    }
 	  },
 	
