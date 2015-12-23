@@ -25,9 +25,16 @@ var App = React.createClass({
         primary = true;
       }
     }
+    var fridge = false;
+    for (key in FridgeStore.all()) {
+      if (FridgeStore.all()[key].id === ingredient.id) {
+        fridge = true;
+      }
+    }
+
     if (primary) {
       ApiUtil.destroyPrimary(ingredient.id);
-    } else {
+    } else if (fridge) {
       ApiUtil.destroyFridgeItem(ingredient.id);
     }
 
@@ -60,7 +67,7 @@ var App = React.createClass({
   },
   dragOverFridge: function(e) {
     e.preventDefault();
-    if(e.target.className == "inner-fridge-pane") return;
+    // if(e.target.className == "inner-fridge-pane") return;
   },
   dropFridge: function(e){
     this.toggleRecipesIndex();

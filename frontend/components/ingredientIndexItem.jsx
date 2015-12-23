@@ -8,9 +8,8 @@ var IngredientIndexItem = React.createClass({
   getInitialState: function() {
     return {dragging: false};
   },
-
-  dragEnd: function(e) {
-    this.setState({dragging: false});
+  classname: function(){
+    return "ingredients-index-item btn " + this.props.ingredient.category;
   },
   // dragOver: function(e) {
   //   e.preventDefault();
@@ -37,16 +36,26 @@ var IngredientIndexItem = React.createClass({
     this.dragged = e.currentTarget;
     this.originX = e.pageX;
     this.originY = e.pageY;
-
+    // debugger;
+    // this.dragged.classList.toggle("dragging");
+    // debugger;
     e.dataTransfer.setData("Text", e.target.id);
-  },
-  classname: function(){
-    return "ingredients-index-item btn " + this.props.ingredient.category;
   },
   drag: function(e) {
     this.deltaX = e.pageX - this.originX;
     this.deltaY = e.pageY - this.originY;
+
     this.dragged.style.display = "none";
+    this.dragged.style.cursor = "-webkit-grabbing";
+    console.log(this.dragged.style.cursor);
+  },
+  dragEnd: function(e) {
+    this.setState({dragging: false});
+    this.deltaX = undefined;
+    this.deltaY = undefined;
+    console.log("drag end");
+
+    this.dragged.style.display = "inline-block";
   },
   render: function() {
     var category = this.props.ingredient.category;
@@ -55,24 +64,22 @@ var IngredientIndexItem = React.createClass({
       styles = {
         position: 'absolute',
         color: 'green',
-        cursor: '-webkit-grab',
-        left: this.deltaX,
-        top: this.deltaY
+        cursor: '-webkit-grabbing'
+
       };
     }
     return (
-      <div className={this.classname()}
+      <button className={this.classname()}
            onClick={this.moveToFridge}
            draggable="true"
            onDragStart={this.dragStart}
            onDragEnd={this.dragEnd}
            onDrag={this.drag}
-           style={styles}
            id={JSON.stringify(this.props.ingredient)}>
 
         <ul className="ingredient-name">{this.props.ingredient.name}</ul>
         <ul className="ingredient-category">{this.props.ingredient.category}</ul>
-      </div>
+      </button>
     );
   }
 });

@@ -218,7 +218,9 @@ h3 {
   padding: 40px
 }
 
-
+body:active{
+  cursor: -webkit-grabbing;
+}
 .btn {
   padding-left: 0px;
   padding-right: 0px;
