@@ -32671,7 +32671,12 @@
 	          React.createElement(
 	            'h2',
 	            null,
-	            '↓ Recipes ↓'
+	            'Recipes'
+	          ),
+	          React.createElement(
+	            'h1',
+	            { className: 'arrow' },
+	            '⇪                   ⇪'
 	          )
 	        );
 	      }
