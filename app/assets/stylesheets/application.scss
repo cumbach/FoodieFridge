@@ -227,7 +227,13 @@ h3 {
   width: 145px;
   margin: 10px;
   border: 1px solid black;
+  cursor: -webkit-grab;
 }
+
+.btn:active {
+  cursor: -webkit-grabbing;
+}
+
 .Vegetables {
   background: #449d44;
 }
@@ -293,6 +299,7 @@ h3 {
   box-sizing: border-box;
 }
 
+
 .search-bar {
   position: absolute;
   top: 77px;
@@ -341,7 +348,8 @@ h3 {
   overflow: auto;
   display: block;
 
-  background: url('cutting.png') no-repeat 0 0 scroll;
+  background: url('473.jpg');
+  background-size: cover;
   background-color:#0C0C0C;
 
   border: 3px solid #A98762;

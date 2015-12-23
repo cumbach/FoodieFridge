@@ -9,10 +9,12 @@ var PrimaryStore = require('../stores/primaryStore');
 
 var IngredientsIndex = React.createClass({
   getInitialState: function() {
-    return {inputVal: "", ingredients: []};
+    return {shuffled: false, inputVal: "", ingredients: []};
   },
   _onChange: function() {
     this.setState({ingredients: IngredientStore.all()});
+    this.setState({shuffled: true});
+
   },
   componentDidMount: function() {
     this.ingredientListener = IngredientStore.addListener(this._onChange);
@@ -37,7 +39,6 @@ var IngredientsIndex = React.createClass({
         ingredientsArray.push(ingredients[key]);
       }
     }
-
     var options = {
       caseSensitive: false,
       includeScore: false,
@@ -69,13 +70,36 @@ var IngredientsIndex = React.createClass({
   },
   matchingIngredients: function() {
     var matchingIngredients = <ul>no matches found</ul>;
+    var result = [];
+
     if (!this.matches() && this.state.inputVal.length === 0) {
-      matchingIngredients = <ul>{this.mapper(this.shuffle(this.state.ingredients))}</ul>;
+      if (!this.state.shuffled) {
+        this.shofflez = this.shuffle(this.state.ingredients);
+        this.shuffledIng = <ul>{this.mapper(this.shofflez)}</ul>;
+      } else {
+        var nameMap = this.shofflez.map(function(object){
+          return object.name;
+        });
+        for (var i = 0; i < this.shofflez.length; i++) {
+          for (var j = 0; j < this.state.ingredients.length; j++) {
+            if (this.shofflez[i].name === this.state.ingredients[j].name) {
+              result.push(this.shofflez[i]);
+            }
+            if (nameMap.indexOf(this.state.ingredients[j].name) === -1) {
+              result.push(this.state.ingredients[j]);
+              nameMap.push(this.state.ingredients[j].name);
+            }
+          }
+        }
+        this.shofflez = result;
+        this.shuffledIng = this.mapper(this.shofflez);
+      }
+
     }
     if (this.matches()) {
-      matchingIngredients = this.mapper(this.matches());
+      this.shuffledIng = this.mapper(this.matches());
     }
-    return matchingIngredients;
+    return this.shuffledIng;
   },
   mapper: function (array) {
     var result = array.map(function(ingredient){

@@ -24537,10 +24537,11 @@
 	  displayName: 'IngredientsIndex',
 	
 	  getInitialState: function () {
-	    return { inputVal: "", ingredients: [] };
+	    return { shuffled: false, inputVal: "", ingredients: [] };
 	  },
 	  _onChange: function () {
 	    this.setState({ ingredients: IngredientStore.all() });
+	    this.setState({ shuffled: true });
 	  },
 	  componentDidMount: function () {
 	    this.ingredientListener = IngredientStore.addListener(this._onChange);
@@ -24565,7 +24566,6 @@
 	        ingredientsArray.push(ingredients[key]);
 	      }
 	    }
-	
 	    var options = {
 	      caseSensitive: false,
 	      includeScore: false,
@@ -24601,17 +24601,39 @@
 	      null,
 	      'no matches found'
 	    );
+	    var result = [];
+	
 	    if (!this.matches() && this.state.inputVal.length === 0) {
-	      matchingIngredients = React.createElement(
-	        'ul',
-	        null,
-	        this.mapper(this.shuffle(this.state.ingredients))
-	      );
+	      if (!this.state.shuffled) {
+	        this.shofflez = this.shuffle(this.state.ingredients);
+	        this.shuffledIng = React.createElement(
+	          'ul',
+	          null,
+	          this.mapper(this.shofflez)
+	        );
+	      } else {
+	        var nameMap = this.shofflez.map(function (object) {
+	          return object.name;
+	        });
+	        for (var i = 0; i < this.shofflez.length; i++) {
+	          for (var j = 0; j < this.state.ingredients.length; j++) {
+	            if (this.shofflez[i].name === this.state.ingredients[j].name) {
+	              result.push(this.shofflez[i]);
+	            }
+	            if (nameMap.indexOf(this.state.ingredients[j].name) === -1) {
+	              result.push(this.state.ingredients[j]);
+	              nameMap.push(this.state.ingredients[j].name);
+	            }
+	          }
+	        }
+	        this.shofflez = result;
+	        this.shuffledIng = this.mapper(this.shofflez);
+	      }
 	    }
 	    if (this.matches()) {
-	      matchingIngredients = this.mapper(this.matches());
+	      this.shuffledIng = this.mapper(this.matches());
 	    }
-	    return matchingIngredients;
+	    return this.shuffledIng;
 	  },
 	  mapper: function (array) {
 	    var result = array.map((function (ingredient) {

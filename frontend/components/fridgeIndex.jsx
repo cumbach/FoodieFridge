@@ -20,6 +20,7 @@ var FridgeIndex = React.createClass({
         RecipeActions.fetchAllRecipes([0]);
       }
     }
+
   },
 
   componentDidMount: function() {
