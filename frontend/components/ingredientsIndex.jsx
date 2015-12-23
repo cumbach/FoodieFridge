@@ -104,6 +104,9 @@ var IngredientsIndex = React.createClass({
   mapper: function (array) {
     var result = array.map(function(ingredient){
       return <IngredientIndexItem
+        dragStart={this.props.dragStart}
+        dragEnd={this.props.dragEnd}
+        drag={this.props.drag}
         toggleRecipesIndex={this.props.toggleRecipesIndex}
         key={ingredient.id}
         ingredient={ingredient}/>;

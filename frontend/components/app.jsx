@@ -15,10 +15,21 @@ var App = React.createClass({
     e.preventDefault();
     if(e.target.className == "ingredients-index-pane") return;
   },
+  dragStart: function(e) {
+    // e.dataTransfer.effectAllowed = 'all';
+    // e.dataTransfer.dropEffect = 'move';
+    this.dragged = e.currentTarget;
+    e.dataTransfer.setData("Text", e.target.id);
+  },
+  drag: function(e) {
+    this.dragged.style.display = "none";
+  },
+  dragEnd: function(e) {
+    this.dragged.style.display = "inline-block";
+  },
   dropIngredients: function(e){
     var ingredient = JSON.parse(e.dataTransfer.getData("Text"));
 
-    // should do one or the other based on PrimaryStore.all()
     var primary = false;
     for (key in PrimaryStore.all()) {
       if (PrimaryStore.all()[key].id === ingredient.id) {
@@ -67,7 +78,7 @@ var App = React.createClass({
   },
   dragOverFridge: function(e) {
     e.preventDefault();
-    // if(e.target.className == "inner-fridge-pane") return;
+    if(e.target.className == "inner-fridge-pane") return;
   },
   dropFridge: function(e){
     this.toggleRecipesIndex();
@@ -92,25 +103,22 @@ var App = React.createClass({
 
     e.preventDefault();
   },
-  componentDidMount: function(){
-    $('body').addClass("app");
-  },
-
   registerRecipesIndex: function(node){
     this.recipesIndex = node;
   },
-
   toggleRecipesIndex: function(){
     this.recipesIndex.classList.toggle("loader");
   },
-
   render: function() {
     return (
       <div id="wrapper" className="foodiefridge-app">
         <div className="ingredients-index-pane"
              onDrop={this.dropIngredients}
              onDragOver={this.dragOverIngredients}>
-           <IngredientsIndex toggleRecipesIndex={this.toggleRecipesIndex}/>
+           <IngredientsIndex dragStart={this.dragStart}
+                             dragEnd={this.dragEnd}
+                             drag={this.drag}
+                             toggleRecipesIndex={this.toggleRecipesIndex}/>
         </div>
 
         <div className="center-index-pane">

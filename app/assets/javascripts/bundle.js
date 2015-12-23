@@ -24446,19 +24446,37 @@
 	    e.preventDefault();
 	    if (e.target.className == "ingredients-index-pane") return;
 	  },
+	  dragStart: function (e) {
+	    // e.dataTransfer.effectAllowed = 'all';
+	    // e.dataTransfer.dropEffect = 'move';
+	    this.dragged = e.currentTarget;
+	    e.dataTransfer.setData("Text", e.target.id);
+	  },
+	  drag: function (e) {
+	    this.dragged.style.display = "none";
+	  },
+	  dragEnd: function (e) {
+	    this.dragged.style.display = "inline-block";
+	  },
 	  dropIngredients: function (e) {
 	    var ingredient = JSON.parse(e.dataTransfer.getData("Text"));
 	
-	    // should do one or the other based on PrimaryStore.all()
 	    var primary = false;
 	    for (key in PrimaryStore.all()) {
 	      if (PrimaryStore.all()[key].id === ingredient.id) {
 	        primary = true;
 	      }
 	    }
+	    var fridge = false;
+	    for (key in FridgeStore.all()) {
+	      if (FridgeStore.all()[key].id === ingredient.id) {
+	        fridge = true;
+	      }
+	    }
+	
 	    if (primary) {
 	      ApiUtil.destroyPrimary(ingredient.id);
-	    } else {
+	    } else if (fridge) {
 	      ApiUtil.destroyFridgeItem(ingredient.id);
 	    }
 	
@@ -24516,18 +24534,12 @@
 	
 	    e.preventDefault();
 	  },
-	  componentDidMount: function () {
-	    $('body').addClass("app");
-	  },
-	
 	  registerRecipesIndex: function (node) {
 	    this.recipesIndex = node;
 	  },
-	
 	  toggleRecipesIndex: function () {
 	    this.recipesIndex.classList.toggle("loader");
 	  },
-	
 	  render: function () {
 	    return React.createElement(
 	      'div',
@@ -24537,7 +24549,10 @@
 	        { className: 'ingredients-index-pane',
 	          onDrop: this.dropIngredients,
 	          onDragOver: this.dragOverIngredients },
-	        React.createElement(IngredientsIndex, { toggleRecipesIndex: this.toggleRecipesIndex })
+	        React.createElement(IngredientsIndex, { dragStart: this.dragStart,
+	          dragEnd: this.dragEnd,
+	          drag: this.drag,
+	          toggleRecipesIndex: this.toggleRecipesIndex })
 	      ),
 	      React.createElement(
 	        'div',
@@ -24692,6 +24707,9 @@
 	  mapper: function (array) {
 	    var result = array.map((function (ingredient) {
 	      return React.createElement(IngredientIndexItem, {
+	        dragStart: this.props.dragStart,
+	        dragEnd: this.props.dragEnd,
+	        drag: this.props.drag,
 	        toggleRecipesIndex: this.props.toggleRecipesIndex,
 	        key: ingredient.id,
 	        ingredient: ingredient });
@@ -31812,24 +31830,9 @@
 	var IngredientIndexItem = React.createClass({
 	  displayName: 'IngredientIndexItem',
 	
-	  getInitialState: function () {
-	    return { dragging: false };
+	  classname: function () {
+	    return "ingredients-index-item btn " + this.props.ingredient.category;
 	  },
-	
-	  dragEnd: function (e) {
-	    this.setState({ dragging: false });
-	  },
-	  // dragOver: function(e) {
-	  //   e.preventDefault();
-	  //   if(e.target.className == "outer-div") return;
-	  // },
-	  // drop: function(e){
-	  //   var ingredient = e.dataTransfer.getData("Text");
-	  //   e.target.appendChild(document.getElementById(ingredient));
-	  //   e.preventDefault();
-	  // },
-	  // onDrop={this.drop}
-	  // onDragDver={this.dragOver}
 	  moveToFridge: function (e) {
 	    this.props.toggleRecipesIndex();
 	    ApiUtil.createFridgeItem(this.props.ingredient.id);
@@ -31838,44 +31841,16 @@
 	    }).bind(this));
 	    IngredientActions.ingredientRemoved(this.props.ingredient);
 	  },
-	  dragStart: function (e) {
-	    e.dataTransfer.effectAllowed = 'move';
-	    this.setState({ dragging: true });
-	    this.dragged = e.currentTarget;
-	    this.originX = e.pageX;
-	    this.originY = e.pageY;
-	
-	    e.dataTransfer.setData("Text", e.target.id);
-	  },
-	  classname: function () {
-	    return "ingredients-index-item btn " + this.props.ingredient.category;
-	  },
-	  drag: function (e) {
-	    this.deltaX = e.pageX - this.originX;
-	    this.deltaY = e.pageY - this.originY;
-	    this.dragged.style.display = "none";
-	  },
 	  render: function () {
 	    var category = this.props.ingredient.category;
-	    var styles;
-	    if (this.state.dragging) {
-	      styles = {
-	        position: 'absolute',
-	        color: 'green',
-	        cursor: '-webkit-grab',
-	        left: this.deltaX,
-	        top: this.deltaY
-	      };
-	    }
 	    return React.createElement(
-	      'div',
+	      'button',
 	      { className: this.classname(),
 	        onClick: this.moveToFridge,
 	        draggable: 'true',
-	        onDragStart: this.dragStart,
-	        onDragEnd: this.dragEnd,
-	        onDrag: this.drag,
-	        style: styles,
+	        onDragStart: this.props.dragStart,
+	        onDragEnd: this.props.dragEnd,
+	        onDrag: this.props.drag,
 	        id: JSON.stringify(this.props.ingredient) },
 	      React.createElement(
 	        'ul',
