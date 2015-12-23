@@ -4,13 +4,36 @@ var FridgeIndex = require('./fridgeIndex');
 var RecipesIndex = require('./recipesIndex');
 var PrimaryIndex = require('./primaryIndex');
 var PrimaryStore = require('../stores/primaryStore');
-
+var FridgeStore = require('../stores/fridgeStore');
 
 var ApiUtil = require('../util/apiUtil');
 var IngredientActions = require('../actions/ingredientActions');
 
 
 var App = React.createClass({
+  dragOverIngredients: function(e) {
+    e.preventDefault();
+    if(e.target.className == "ingredients-index-pane") return;
+  },
+  dropIngredients: function(e){
+    var ingredient = JSON.parse(e.dataTransfer.getData("Text"));
+
+    // should do one or the other based on PrimaryStore.all()
+    var primary = false;
+    for (key in PrimaryStore.all()) {
+      if (PrimaryStore.all()[key].id === ingredient.id) {
+        primary = true;
+      }
+    }
+    if (primary) {
+      ApiUtil.destroyPrimary(ingredient.id);
+    } else {
+      ApiUtil.destroyFridgeItem(ingredient.id);
+    }
+
+    ApiUtil.fetchAllIngredients();
+    e.preventDefault();
+  },
   dragOverPrimary: function(e) {
     e.preventDefault();
     if(e.target.className == "primary-index-pane") return;
@@ -19,9 +42,20 @@ var App = React.createClass({
     this.toggleRecipesIndex();
     var ingredient = JSON.parse(e.dataTransfer.getData("Text"));
     ApiUtil.createPrimary(ingredient.id);
-    IngredientActions.ingredientRemoved(ingredient);
-    ApiUtil.destroyFridgeItem(ingredient.id);
-    // ApiUtil.createRecipeItem(PrimaryStore.all(), []);
+
+    // should do one or the other based on PrimaryStore.all()
+    var fridge = false;
+    for (key in FridgeStore.all()) {
+      if (FridgeStore.all()[key].id === ingredient.id) {
+        fridge = true;
+      }
+    }
+    if (fridge) {
+      ApiUtil.destroyFridgeItem(ingredient.id);
+    } else {
+      IngredientActions.ingredientRemoved(ingredient);
+    }
+
     e.preventDefault();
   },
   dragOverFridge: function(e) {
@@ -35,11 +69,23 @@ var App = React.createClass({
     ApiUtil.createRecipeItem(PrimaryStore.all(), ingredient.name, function(){
       this.toggleRecipesIndex();
     }.bind(this));
-    IngredientActions.ingredientRemoved(ingredient);
-    ApiUtil.destroyPrimary(ingredient.id);
+
+    // should do one or the other based on PrimaryStore.all()
+    var primary = false;
+    for (key in PrimaryStore.all()) {
+      if (PrimaryStore.all()[key].id === ingredient.id) {
+        primary = true;
+      }
+    }
+    if (primary) {
+      ApiUtil.destroyPrimary(ingredient.id);
+    } else {
+      IngredientActions.ingredientRemoved(ingredient);
+    }
+
     e.preventDefault();
   },
-  bodychange: function(){
+  componentDidMount: function(){
     $('body').addClass("app");
   },
 
@@ -52,20 +98,27 @@ var App = React.createClass({
   },
 
   render: function() {
-    this.bodychange();
     return (
       <div id="wrapper" className="foodiefridge-app">
-        <div className="ingredients-index-pane">
-          <IngredientsIndex toggleRecipesIndex={this.toggleRecipesIndex}/>
+        <div className="ingredients-index-pane"
+             onDrop={this.dropIngredients}
+             onDragOver={this.dragOverIngredients}>
+           <IngredientsIndex toggleRecipesIndex={this.toggleRecipesIndex}/>
         </div>
+
         <div className="center-index-pane">
-          <div className="inner-fridge-pane" onDrop={this.dropFridge} onDragOver={this.dragOverFridge}>
+          <div className="inner-fridge-pane"
+               onDrop={this.dropFridge}
+               onDragOver={this.dragOverFridge}>
             <FridgeIndex toggleRecipesIndex={this.toggleRecipesIndex}/>
           </div>
-          <div className="primary-index-pane" onDrop={this.dropPrimary} onDragOver={this.dragOverPrimary}>
+          <div className="primary-index-pane"
+               onDrop={this.dropPrimary}
+               onDragOver={this.dragOverPrimary}>
             <PrimaryIndex/>
           </div>
         </div>
+
         <div className="recipes_items-index-pane">
           <h3 className="matching-recipes-label">Matching Recipes: (click for info)</h3>
           <RecipesIndex registerRecipesIndex={this.registerRecipesIndex}/>

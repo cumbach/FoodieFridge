@@ -24434,6 +24434,7 @@
 	var RecipesIndex = __webpack_require__(249);
 	var PrimaryIndex = __webpack_require__(251);
 	var PrimaryStore = __webpack_require__(225);
+	var FridgeStore = __webpack_require__(245);
 	
 	var ApiUtil = __webpack_require__(218);
 	var IngredientActions = __webpack_require__(212);
@@ -24441,6 +24442,29 @@
 	var App = React.createClass({
 	  displayName: 'App',
 	
+	  dragOverIngredients: function (e) {
+	    e.preventDefault();
+	    if (e.target.className == "ingredients-index-pane") return;
+	  },
+	  dropIngredients: function (e) {
+	    var ingredient = JSON.parse(e.dataTransfer.getData("Text"));
+	
+	    // should do one or the other based on PrimaryStore.all()
+	    var primary = false;
+	    for (key in PrimaryStore.all()) {
+	      if (PrimaryStore.all()[key].id === ingredient.id) {
+	        primary = true;
+	      }
+	    }
+	    if (primary) {
+	      ApiUtil.destroyPrimary(ingredient.id);
+	    } else {
+	      ApiUtil.destroyFridgeItem(ingredient.id);
+	    }
+	
+	    ApiUtil.fetchAllIngredients();
+	    e.preventDefault();
+	  },
 	  dragOverPrimary: function (e) {
 	    e.preventDefault();
 	    if (e.target.className == "primary-index-pane") return;
@@ -24449,9 +24473,20 @@
 	    this.toggleRecipesIndex();
 	    var ingredient = JSON.parse(e.dataTransfer.getData("Text"));
 	    ApiUtil.createPrimary(ingredient.id);
-	    IngredientActions.ingredientRemoved(ingredient);
-	    ApiUtil.destroyFridgeItem(ingredient.id);
-	    // ApiUtil.createRecipeItem(PrimaryStore.all(), []);
+	
+	    // should do one or the other based on PrimaryStore.all()
+	    var fridge = false;
+	    for (key in FridgeStore.all()) {
+	      if (FridgeStore.all()[key].id === ingredient.id) {
+	        fridge = true;
+	      }
+	    }
+	    if (fridge) {
+	      ApiUtil.destroyFridgeItem(ingredient.id);
+	    } else {
+	      IngredientActions.ingredientRemoved(ingredient);
+	    }
+	
 	    e.preventDefault();
 	  },
 	  dragOverFridge: function (e) {
@@ -24465,11 +24500,23 @@
 	    ApiUtil.createRecipeItem(PrimaryStore.all(), ingredient.name, (function () {
 	      this.toggleRecipesIndex();
 	    }).bind(this));
-	    IngredientActions.ingredientRemoved(ingredient);
-	    ApiUtil.destroyPrimary(ingredient.id);
+	
+	    // should do one or the other based on PrimaryStore.all()
+	    var primary = false;
+	    for (key in PrimaryStore.all()) {
+	      if (PrimaryStore.all()[key].id === ingredient.id) {
+	        primary = true;
+	      }
+	    }
+	    if (primary) {
+	      ApiUtil.destroyPrimary(ingredient.id);
+	    } else {
+	      IngredientActions.ingredientRemoved(ingredient);
+	    }
+	
 	    e.preventDefault();
 	  },
-	  bodychange: function () {
+	  componentDidMount: function () {
 	    $('body').addClass("app");
 	  },
 	
@@ -24482,13 +24529,14 @@
 	  },
 	
 	  render: function () {
-	    this.bodychange();
 	    return React.createElement(
 	      'div',
 	      { id: 'wrapper', className: 'foodiefridge-app' },
 	      React.createElement(
 	        'div',
-	        { className: 'ingredients-index-pane' },
+	        { className: 'ingredients-index-pane',
+	          onDrop: this.dropIngredients,
+	          onDragOver: this.dragOverIngredients },
 	        React.createElement(IngredientsIndex, { toggleRecipesIndex: this.toggleRecipesIndex })
 	      ),
 	      React.createElement(
@@ -24496,12 +24544,16 @@
 	        { className: 'center-index-pane' },
 	        React.createElement(
 	          'div',
-	          { className: 'inner-fridge-pane', onDrop: this.dropFridge, onDragOver: this.dragOverFridge },
+	          { className: 'inner-fridge-pane',
+	            onDrop: this.dropFridge,
+	            onDragOver: this.dragOverFridge },
 	          React.createElement(FridgeIndex, { toggleRecipesIndex: this.toggleRecipesIndex })
 	        ),
 	        React.createElement(
 	          'div',
-	          { className: 'primary-index-pane', onDrop: this.dropPrimary, onDragOver: this.dragOverPrimary },
+	          { className: 'primary-index-pane',
+	            onDrop: this.dropPrimary,
+	            onDragOver: this.dragOverPrimary },
 	          React.createElement(PrimaryIndex, null)
 	        )
 	      ),
