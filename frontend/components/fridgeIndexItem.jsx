@@ -13,10 +13,21 @@ var FridgeIndexItem = React.createClass({
   classname: function () {
     return 'btn fridge-index-item ' + this.props.fridgeitem.category;
   },
-
+  dragStart: function(e) {
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData("Text", e.target.id);
+  },
+  // dragEnd: function(e) {
+  //   debugger;
+  // },
   render: function() {
     return (
-      <div className={this.classname()} onClick={this.deleteFromFridge}>
+      <div className={this.classname()}
+           onClick={this.deleteFromFridge}
+           draggable="true"
+           onDragStart={this.dragStart}
+           onDragEnd={this.dragEnd}
+           id={JSON.stringify(this.props.fridgeitem)}>
         {this.props.fridgeitem.name}
       </div>
     );

@@ -24450,6 +24450,7 @@
 	    var ingredient = JSON.parse(e.dataTransfer.getData("Text"));
 	    ApiUtil.createPrimary(ingredient.id);
 	    IngredientActions.ingredientRemoved(ingredient);
+	    ApiUtil.destroyFridgeItem(ingredient.id);
 	    // ApiUtil.createRecipeItem(PrimaryStore.all(), []);
 	    e.preventDefault();
 	  },
@@ -24465,6 +24466,7 @@
 	      this.toggleRecipesIndex();
 	    }).bind(this));
 	    IngredientActions.ingredientRemoved(ingredient);
+	    ApiUtil.destroyPrimary(ingredient.id);
 	    e.preventDefault();
 	  },
 	  bodychange: function () {
@@ -32562,11 +32564,22 @@
 	  classname: function () {
 	    return 'btn fridge-index-item ' + this.props.fridgeitem.category;
 	  },
-	
+	  dragStart: function (e) {
+	    e.dataTransfer.effectAllowed = 'move';
+	    e.dataTransfer.setData("Text", e.target.id);
+	  },
+	  // dragEnd: function(e) {
+	  //   debugger;
+	  // },
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      { className: this.classname(), onClick: this.deleteFromFridge },
+	      { className: this.classname(),
+	        onClick: this.deleteFromFridge,
+	        draggable: 'true',
+	        onDragStart: this.dragStart,
+	        onDragEnd: this.dragEnd,
+	        id: JSON.stringify(this.props.fridgeitem) },
 	      this.props.fridgeitem.name
 	    );
 	  }
@@ -32903,11 +32916,19 @@
 	  classname: function () {
 	    return 'btn primary ' + this.props.primary.category;
 	  },
-	
+	  dragStart: function (e) {
+	    e.dataTransfer.effectAllowed = 'move';
+	    e.dataTransfer.setData("Text", e.target.id);
+	  },
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      { className: this.classname(), onClick: this.deleteFromPrimary },
+	      { className: this.classname(),
+	        onClick: this.deleteFromPrimary,
+	        draggable: 'true',
+	        onDragStart: this.dragStart,
+	        onDragEnd: this.dragEnd,
+	        id: JSON.stringify(this.props.primary) },
 	      this.props.primary.name
 	    );
 	  }

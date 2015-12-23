@@ -13,10 +13,18 @@ var Primary = React.createClass({
   classname: function () {
     return 'btn primary ' + this.props.primary.category;
   },
-
+  dragStart: function(e) {
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData("Text", e.target.id);
+  },
   render: function() {
     return (
-      <div className={this.classname()} onClick={this.deleteFromPrimary}>
+      <div className={this.classname()}
+           onClick={this.deleteFromPrimary}
+           draggable="true"
+           onDragStart={this.dragStart}
+           onDragEnd={this.dragEnd}
+           id={JSON.stringify(this.props.primary)}>
         {this.props.primary.name}
       </div>
     );

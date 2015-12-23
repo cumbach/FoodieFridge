@@ -20,6 +20,7 @@ var App = React.createClass({
     var ingredient = JSON.parse(e.dataTransfer.getData("Text"));
     ApiUtil.createPrimary(ingredient.id);
     IngredientActions.ingredientRemoved(ingredient);
+    ApiUtil.destroyFridgeItem(ingredient.id);
     // ApiUtil.createRecipeItem(PrimaryStore.all(), []);
     e.preventDefault();
   },
@@ -35,6 +36,7 @@ var App = React.createClass({
       this.toggleRecipesIndex();
     }.bind(this));
     IngredientActions.ingredientRemoved(ingredient);
+    ApiUtil.destroyPrimary(ingredient.id);
     e.preventDefault();
   },
   bodychange: function(){
