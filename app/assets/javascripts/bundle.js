@@ -24659,20 +24659,20 @@
 	
 	    if (!this.matches() && this.state.inputVal.length === 0) {
 	      if (!this.state.shuffled) {
-	        this.shofflez = this.shuffle(this.state.ingredients);
+	        this.finalShuffle = this.shuffle(this.state.ingredients);
 	        this.shuffledIng = React.createElement(
 	          'ul',
 	          null,
-	          this.mapper(this.shofflez)
+	          this.mapper(this.finalShuffle)
 	        );
 	      } else {
-	        var nameMap = this.shofflez.map(function (object) {
+	        var nameMap = this.finalShuffle.map(function (object) {
 	          return object.name;
 	        });
-	        for (var i = 0; i < this.shofflez.length; i++) {
+	        for (var i = 0; i < this.finalShuffle.length; i++) {
 	          for (var j = 0; j < this.state.ingredients.length; j++) {
-	            if (this.shofflez[i].name === this.state.ingredients[j].name) {
-	              result.push(this.shofflez[i]);
+	            if (this.finalShuffle[i].name === this.state.ingredients[j].name) {
+	              result.push(this.finalShuffle[i]);
 	            }
 	            if (nameMap.indexOf(this.state.ingredients[j].name) === -1) {
 	              result.push(this.state.ingredients[j]);
@@ -24680,8 +24680,8 @@
 	            }
 	          }
 	        }
-	        this.shofflez = result;
-	        this.shuffledIng = this.mapper(this.shofflez);
+	        this.finalShuffle = result;
+	        this.shuffledIng = this.mapper(this.finalShuffle);
 	      }
 	    }
 	    if (this.matches()) {
@@ -31812,10 +31812,13 @@
 	var IngredientIndexItem = React.createClass({
 	  displayName: 'IngredientIndexItem',
 	
-	  // dragEnd: function(e) {
-	  //   console.log("ended")
-	  //   this.moveToFridge();
-	  // },
+	  getInitialState: function () {
+	    return { dragging: false };
+	  },
+	
+	  dragEnd: function (e) {
+	    this.setState({ dragging: false });
+	  },
 	  // dragOver: function(e) {
 	  //   e.preventDefault();
 	  //   if(e.target.className == "outer-div") return;
@@ -31827,7 +31830,7 @@
 	  // },
 	  // onDrop={this.drop}
 	  // onDragDver={this.dragOver}
-	  moveToFridge: function () {
+	  moveToFridge: function (e) {
 	    this.props.toggleRecipesIndex();
 	    ApiUtil.createFridgeItem(this.props.ingredient.id);
 	    ApiUtil.createRecipeItem(PrimaryStore.all(), this.props.ingredient.name, (function () {
@@ -31837,13 +31840,33 @@
 	  },
 	  dragStart: function (e) {
 	    e.dataTransfer.effectAllowed = 'move';
+	    this.setState({ dragging: true });
+	    this.dragged = e.currentTarget;
+	    this.originX = e.pageX;
+	    this.originY = e.pageY;
+	
 	    e.dataTransfer.setData("Text", e.target.id);
 	  },
 	  classname: function () {
 	    return "ingredients-index-item btn " + this.props.ingredient.category;
 	  },
+	  drag: function (e) {
+	    this.deltaX = e.pageX - this.originX;
+	    this.deltaY = e.pageY - this.originY;
+	    this.dragged.style.display = "none";
+	  },
 	  render: function () {
 	    var category = this.props.ingredient.category;
+	    var styles;
+	    if (this.state.dragging) {
+	      styles = {
+	        position: 'absolute',
+	        color: 'green',
+	        cursor: '-webkit-grab',
+	        left: this.deltaX,
+	        top: this.deltaY
+	      };
+	    }
 	    return React.createElement(
 	      'div',
 	      { className: this.classname(),
@@ -31851,6 +31874,8 @@
 	        draggable: 'true',
 	        onDragStart: this.dragStart,
 	        onDragEnd: this.dragEnd,
+	        onDrag: this.drag,
+	        style: styles,
 	        id: JSON.stringify(this.props.ingredient) },
 	      React.createElement(
 	        'ul',
@@ -32750,7 +32775,7 @@
 	  },
 	  render: function () {
 	    return React.createElement(
-	      'ul',
+	      'div',
 	      null,
 	      React.createElement(
 	        'div',
@@ -32907,7 +32932,7 @@
 	        React.createElement(
 	          'h3',
 	          { className: 'primary-header' },
-	          'Primary Ingredients:'
+	          'Main Ingredients:'
 	        ),
 	        React.createElement(
 	          'h4',
@@ -32916,9 +32941,9 @@
 	          React.createElement('br', null),
 	          'contain ALL of',
 	          React.createElement('br', null),
-	          'your primary',
+	          'your Main',
 	          React.createElement('br', null),
-	          'ingredients will',
+	          'Ingredients will',
 	          React.createElement('br', null),
 	          'be included in the',
 	          React.createElement('br', null),

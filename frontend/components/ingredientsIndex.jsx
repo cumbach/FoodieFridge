@@ -74,16 +74,16 @@ var IngredientsIndex = React.createClass({
 
     if (!this.matches() && this.state.inputVal.length === 0) {
       if (!this.state.shuffled) {
-        this.shofflez = this.shuffle(this.state.ingredients);
-        this.shuffledIng = <ul>{this.mapper(this.shofflez)}</ul>;
+        this.finalShuffle = this.shuffle(this.state.ingredients);
+        this.shuffledIng = <ul>{this.mapper(this.finalShuffle)}</ul>;
       } else {
-        var nameMap = this.shofflez.map(function(object){
+        var nameMap = this.finalShuffle.map(function(object){
           return object.name;
         });
-        for (var i = 0; i < this.shofflez.length; i++) {
+        for (var i = 0; i < this.finalShuffle.length; i++) {
           for (var j = 0; j < this.state.ingredients.length; j++) {
-            if (this.shofflez[i].name === this.state.ingredients[j].name) {
-              result.push(this.shofflez[i]);
+            if (this.finalShuffle[i].name === this.state.ingredients[j].name) {
+              result.push(this.finalShuffle[i]);
             }
             if (nameMap.indexOf(this.state.ingredients[j].name) === -1) {
               result.push(this.state.ingredients[j]);
@@ -91,8 +91,8 @@ var IngredientsIndex = React.createClass({
             }
           }
         }
-        this.shofflez = result;
-        this.shuffledIng = this.mapper(this.shofflez);
+        this.finalShuffle = result;
+        this.shuffledIng = this.mapper(this.finalShuffle);
       }
 
     }

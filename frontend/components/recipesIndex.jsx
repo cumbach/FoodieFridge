@@ -83,10 +83,10 @@ var RecipesIndex = React.createClass({
   },
   render: function() {
     return (
-      <ul>
+      <div>
         <div className="info-pane">{this.infoPane()}</div>
         <div ref="recipeIndex" className="recipeMap">{this.recipeMap()}</div>
-      </ul>
+      </div>
     );
   }
 });

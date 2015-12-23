@@ -1,13 +1,13 @@
 <form class="input-group user-auth" action=<%= users_url %> method="post">
   <img class="user-auth-logo" src="/assets/FoodieFridge-logo.png" />
-  <h1>Sign Up</h1>
+  <h2>Sign Up</h2>
 
   <% if flash[:errors] %>
-    <p class="errors">
+    <div class="alert alert-danger text-center" role="alert">
       <% flash[:errors].each do |error| %>
         <%= error %> <br>
       <% end %>
-    </p>
+    </div>
   <% end %>
 
   <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
@@ -25,9 +25,9 @@
   </p>
 </form>
 
-<form class="input-group demo-form" action=<%= session_url %> method="post">
+<form class="input-group demo-form" action=<%= users_url %> method="post">
   <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-  <input type="hidden" name=user[username] value="Guest">
+  <input type="hidden" name=user[username] value="<%= "Guest" + rand(1..100000).to_s %>">
   <input type="hidden" name=user[password] value="password">
   <input class="btn demo-btn" type="submit" value="Sign in with demo account">
 </form>
