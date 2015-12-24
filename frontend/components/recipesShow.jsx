@@ -41,7 +41,6 @@ var RecipesShow = React.createClass({
       recipeItem = this.state.recipeItem;
       key = Object.keys(this.state.recipeItem.images[0].imageUrlsBySize);
     }
-    console.log(recipeItem);
     this.changeBody();
     return (
       <div className="recipe-show-pane">

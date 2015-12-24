@@ -8,6 +8,9 @@ var RecipeSearch = React.createClass({
   getInitialState: function() {
     return {inputVal: '', recipeSearchList: [], searchRecipesClasses: "search-recipes hidden-group" };
   },
+  componentDidMount: function() {
+
+  },
   handleChange: function(e) {
     this.setState({ inputVal: e.target.value });
   },
@@ -25,23 +28,34 @@ var RecipeSearch = React.createClass({
   },
   recipesPress: function() {
     this.setState({searchRecipesClasses: "search-recipes"})
-    this.ingredients = $('.btn');
-    this.ingredients.css("display", "none");
+    $('.btn').css("display", "none");
     RecipeActions.resetAllRecipes();
+    $('.recipesButton').css("background-color", "rgba(68,157,68,0.7)");
+    $('.ingredientsButton').css("background-color", "buttonface");
 
+    $('.recipe-search-pane').css("height", "15%");
+    $('.recipes_items-index-pane').css("height", "85%");
 
   },
   ingredientsPress: function() {
+    RecipeActions.resetAllRecipes();
     ApiUtil.fetchAllFridgeItems();
     this.setState({searchRecipesClasses: "search-recipes hidden-group"})
-    this.ingredients.css("display", "inline-block");
+
+    $('.btn').css("display", "inline-block");
+
+    $('.ingredientsButton').css("background-color", "rgba(68,157,68,0.7)");
+    $('.recipesButton').css("background-color", "buttonface");
+
+    $('.recipe-search-pane').css("height", "7%");
+    $('.recipes_items-index-pane').css("height", "93%");
   },
   render: function() {
     return (
       <div>
         <div className="search-button-group">
-          <button onClick={this.ingredientsPress}>Search by Ingredients</button>
-          <button onClick={this.recipesPress}>Search by Recipes</button>
+          <button className="ingredientsButton" onClick={this.ingredientsPress}>Search by Ingredients</button>
+          <button className="recipesButton" onClick={this.recipesPress}>Search by Recipes</button>
         </div>
 
         <div className={this.state.searchRecipesClasses}>

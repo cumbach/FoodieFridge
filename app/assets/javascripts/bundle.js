@@ -25206,6 +25206,8 @@
 	  },
 	  createRecipeSearch: function (searchString) {
 	    var data = { q: searchString };
+	    console.log("api request:");
+	    console.log(searchString);
 	    $.ajax({
 	      url: 'http://api.yummly.com/v1/api/recipes?_app_id=f4ac9032&_app_key=ec28d82137e2708128a2f7f69400989f&requirePictures=true',
 	      data: data,
@@ -33058,7 +33060,6 @@
 	      recipeItem = this.state.recipeItem;
 	      key = Object.keys(this.state.recipeItem.images[0].imageUrlsBySize);
 	    }
-	    console.log(recipeItem);
 	    this.changeBody();
 	    return React.createElement(
 	      'div',
@@ -33207,6 +33208,7 @@
 	  getInitialState: function () {
 	    return { inputVal: '', recipeSearchList: [], searchRecipesClasses: "search-recipes hidden-group" };
 	  },
+	  componentDidMount: function () {},
 	  handleChange: function (e) {
 	    this.setState({ inputVal: e.target.value });
 	  },
@@ -33224,14 +33226,26 @@
 	  },
 	  recipesPress: function () {
 	    this.setState({ searchRecipesClasses: "search-recipes" });
-	    this.ingredients = $('.btn');
-	    this.ingredients.css("display", "none");
+	    $('.btn').css("display", "none");
 	    RecipeActions.resetAllRecipes();
+	    $('.recipesButton').css("background-color", "rgba(68,157,68,0.7)");
+	    $('.ingredientsButton').css("background-color", "buttonface");
+	
+	    $('.recipe-search-pane').css("height", "15%");
+	    $('.recipes_items-index-pane').css("height", "85%");
 	  },
 	  ingredientsPress: function () {
+	    RecipeActions.resetAllRecipes();
 	    ApiUtil.fetchAllFridgeItems();
 	    this.setState({ searchRecipesClasses: "search-recipes hidden-group" });
-	    this.ingredients.css("display", "inline-block");
+	
+	    $('.btn').css("display", "inline-block");
+	
+	    $('.ingredientsButton').css("background-color", "rgba(68,157,68,0.7)");
+	    $('.recipesButton').css("background-color", "buttonface");
+	
+	    $('.recipe-search-pane').css("height", "7%");
+	    $('.recipes_items-index-pane').css("height", "93%");
 	  },
 	  render: function () {
 	    return React.createElement(
@@ -33242,12 +33256,12 @@
 	        { className: 'search-button-group' },
 	        React.createElement(
 	          'button',
-	          { onClick: this.ingredientsPress },
+	          { className: 'ingredientsButton', onClick: this.ingredientsPress },
 	          'Search by Ingredients'
 	        ),
 	        React.createElement(
 	          'button',
-	          { onClick: this.recipesPress },
+	          { className: 'recipesButton', onClick: this.recipesPress },
 	          'Search by Recipes'
 	        )
 	      ),

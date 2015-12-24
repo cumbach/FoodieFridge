@@ -241,10 +241,11 @@ h3 {
 }
 
 .Vegetables {
-  background: #449d44;
+  background: rgba(68,157,68,0.9);
 }
 .Grains {
-  background: #ec971f;
+  // background: #ec971f;
+  background: rgba(236,151,31,0.7);
 }
 .Protein {
   background: #d9534f;
@@ -253,7 +254,8 @@ h3 {
   background: #428bca;
 }
 .Dairy {
-  background: #97DDF2;
+  // background: #97DDF2;
+  background: rgba(151,221,242,0.7);
 }
 .Other {
   background: #673a7b;
@@ -365,17 +367,38 @@ h3 {
   border-radius: 6px;
   max-width: 100%;
   box-sizing: border-box;
+
+  .recipe-search-pane {
+    padding: 3px;
+    height: 7%;
+    width: 100%;
+  }
+
+  .recipes_items-index-pane {
+    overflow: auto;
+    height: 93%;
+  }
 }
-
-
-
 
 
 .hidden-group {
   display: none;
 }
 
+.recipesButton {
+  width: 50%;
+}
 
+.ingredientsButton {
+  float: left;
+  width: 50%;
+  background-color: rgba(68,157,68,0.7);
+}
+
+.recipe-search-bar {
+  position: relative;
+  top: 3px;
+}
 
 
 
@@ -391,6 +414,7 @@ h3 {
   transform: rotate(90deg) translateX(41%) translateY(-50%);
   color: rgba(0, 0, 0, 0.4);
   position: absolute;
+  top: 108px;
   left: 269px;
   width: 491px;
   text-align: center;
