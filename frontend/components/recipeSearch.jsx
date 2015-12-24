@@ -17,7 +17,6 @@ var RecipeSearch = React.createClass({
   searchOnEnter: function(e) {
     if (e) {
       if (e.key === "Enter") {
-        // RecipeActions.resetAllRecipes();
         ApiUtil.createRecipeSearch(this.state.inputVal);
         this.state.recipeSearchList.push(this.state.inputVal);
         this.clearSearch();
@@ -26,14 +25,16 @@ var RecipeSearch = React.createClass({
   },
   recipesPress: function() {
     this.setState({searchRecipesClasses: "search-recipes"})
-    // var node = ReactDOM.findDOMNode(this.refs.recipeIndex);
-    var ingredients = $('.btn');
-    // debugger;
-    ingredients.css("display", "none");
+    this.ingredients = $('.btn');
+    this.ingredients.css("display", "none");
+    RecipeActions.resetAllRecipes();
+
 
   },
   ingredientsPress: function() {
+    ApiUtil.fetchAllFridgeItems();
     this.setState({searchRecipesClasses: "search-recipes hidden-group"})
+    this.ingredients.css("display", "inline-block");
   },
   render: function() {
     return (
