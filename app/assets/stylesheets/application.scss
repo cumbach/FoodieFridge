@@ -495,17 +495,27 @@ a {
   box-sizing: border-box;
 }
 
+.actual-photo {
+  height: 100%;
+  width: 100%;
+}
+
 .ingredient-pane {
   float: left;
   width: 40%;
   display: block;
   padding: 25px;
+  text-align: left;
 }
 
 .recipe-and-photo {
   width: 40%;
   display: inline-block;
   padding: 25px;
+}
+
+::-webkit-scrollbar.back {
+  display:grid;
 }
 
 .recipe-tile{
@@ -557,7 +567,7 @@ a {
     -webkit-transform: rotateY(180deg);
     transform: rotateY(180deg);
     background-color: #eee;
-    overflow-y: auto;
+    overflow-y: scroll;
     h5{
       font-weight: bold;
     }

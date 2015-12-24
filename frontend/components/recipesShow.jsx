@@ -14,7 +14,7 @@ var RecipesShow = React.createClass({
     var map = [];
     if (typeof this.state.recipeItem !== 'undefined') {
       map = this.state.recipeItem.ingredientLines.map(function(ingredient) {
-        return <ul key={ingredient}>{ingredient + ' '}</ul>;
+        return <li className="ingredient-list" key={ingredient}>{ingredient + ' '}</li>;
       });
     }
     return map;
@@ -62,7 +62,7 @@ var RecipesShow = React.createClass({
             <div className="recipe-and-photo">
               <h3>Read full recipe at <a href={recipeItem.source.sourceRecipeUrl}>{recipeItem.source.sourceDisplayName}</a></h3>
               <div id='recipe-show-photo' className="recipe-show recipe-photo">
-                <img src={recipeItem.images[0].imageUrlsBySize[key[key.length - 1]]}/>
+                <img className='actual-photo' src={recipeItem.images[0].imageUrlsBySize[key[key.length - 1]]}/>
               </div>
             </div>
 

@@ -33030,8 +33030,8 @@
 	    if (typeof this.state.recipeItem !== 'undefined') {
 	      map = this.state.recipeItem.ingredientLines.map(function (ingredient) {
 	        return React.createElement(
-	          'ul',
-	          { key: ingredient },
+	          'li',
+	          { className: 'ingredient-list', key: ingredient },
 	          ingredient + ' '
 	        );
 	      });
@@ -33137,7 +33137,7 @@
 	            React.createElement(
 	              'div',
 	              { id: 'recipe-show-photo', className: 'recipe-show recipe-photo' },
-	              React.createElement('img', { src: recipeItem.images[0].imageUrlsBySize[key[key.length - 1]] })
+	              React.createElement('img', { className: 'actual-photo', src: recipeItem.images[0].imageUrlsBySize[key[key.length - 1]] })
 	            )
 	          )
 	        ),
