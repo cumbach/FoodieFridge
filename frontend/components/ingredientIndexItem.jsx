@@ -13,7 +13,7 @@ var IngredientIndexItem = React.createClass({
     this.props.toggleRecipesIndex();
     ApiUtil.createFridgeItem(this.props.ingredient.id);
     ApiUtil.createRecipeItem(PrimaryStore.all(), this.props.ingredient.name, function(){
-      this.props.toggleRecipesIndex();
+      // this.props.toggleRecipesIndex();
     }.bind(this));
     IngredientActions.ingredientRemoved(this.props.ingredient);
   },

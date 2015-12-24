@@ -5,6 +5,7 @@ var RecipesIndex = require('./recipesIndex');
 var PrimaryIndex = require('./primaryIndex');
 var PrimaryStore = require('../stores/primaryStore');
 var FridgeStore = require('../stores/fridgeStore');
+var RecipeSearch = require('./recipeSearch');
 
 var ApiUtil = require('../util/apiUtil');
 var IngredientActions = require('../actions/ingredientActions');
@@ -134,9 +135,13 @@ var App = React.createClass({
           </div>
         </div>
 
-        <div className="recipes_items-index-pane">
-          <h3 className="matching-recipes-label">Matching Recipes: (click for info)</h3>
-          <RecipesIndex registerRecipesIndex={this.registerRecipesIndex}/>
+        <div className="right-side-pane">
+          <div className="recipe-search-pane">
+            <RecipeSearch/>
+          </div>
+          <div className="recipes_items-index-pane">
+            <RecipesIndex registerRecipesIndex={this.registerRecipesIndex}/>
+          </div>
         </div>
         {this.props.children}
       </div>
@@ -144,4 +149,5 @@ var App = React.createClass({
   }
 });
 
+// {<h3 className="matching-recipes-label">Matching Recipes: (click for info)</h3>}
 module.exports = App;

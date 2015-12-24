@@ -32,7 +32,6 @@ var RecipesShow = React.createClass({
   changeBody: function (){
     $('body').removeClass("app");
   },
-
   render: function() {
     var recipeItem = {};
     var key = {};
@@ -42,6 +41,7 @@ var RecipesShow = React.createClass({
       recipeItem = this.state.recipeItem;
       key = Object.keys(this.state.recipeItem.images[0].imageUrlsBySize);
     }
+    console.log(recipeItem);
     this.changeBody();
     return (
       <div className="recipe-show-pane">
@@ -50,7 +50,7 @@ var RecipesShow = React.createClass({
 
           <div className="recipe-show recipe-header">
             <h2>{recipeItem.name}</h2>
-            <h5>Recipe from: <a href={recipeItem.source.sourceSiteUrl}>{recipeItem.source.sourceDisplayName}</a></h5>
+            <h5>Recipe from: <a href={"http://www." + recipeItem.source.sourceSiteUrl}>{recipeItem.source.sourceDisplayName}</a></h5>
             <h4>Total Prep Time: {recipeItem.totalTime}</h4> <br/>
           </div>
 

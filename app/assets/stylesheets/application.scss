@@ -154,6 +154,10 @@ h1, h2, h3, p, strong, em, div, ul {
 
 }
 
+.demo-form {
+  font-size: 26px
+}
+
 .logout-button input {
   border-radius: 6px;
   top: -8px;
@@ -347,7 +351,7 @@ h3 {
 }
 
 
-.recipes_items-index-pane {
+.right-side-pane {
   margin-right: 3px;
   height: 100%;
   overflow: auto;
@@ -362,6 +366,21 @@ h3 {
   max-width: 100%;
   box-sizing: border-box;
 }
+
+
+
+
+
+.hidden-group {
+  display: none;
+}
+
+
+
+
+
+
+
 
 .matching-recipes-label {
   color: rgba(0, 0, 0, 0.7);

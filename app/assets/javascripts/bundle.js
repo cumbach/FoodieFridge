@@ -24435,6 +24435,7 @@
 	var PrimaryIndex = __webpack_require__(251);
 	var PrimaryStore = __webpack_require__(225);
 	var FridgeStore = __webpack_require__(245);
+	var RecipeSearch = __webpack_require__(255);
 	
 	var ApiUtil = __webpack_require__(218);
 	var IngredientActions = __webpack_require__(212);
@@ -24574,19 +24575,24 @@
 	      ),
 	      React.createElement(
 	        'div',
-	        { className: 'recipes_items-index-pane' },
+	        { className: 'right-side-pane' },
 	        React.createElement(
-	          'h3',
-	          { className: 'matching-recipes-label' },
-	          'Matching Recipes: (click for info)'
+	          'div',
+	          { className: 'recipe-search-pane' },
+	          React.createElement(RecipeSearch, null)
 	        ),
-	        React.createElement(RecipesIndex, { registerRecipesIndex: this.registerRecipesIndex })
+	        React.createElement(
+	          'div',
+	          { className: 'recipes_items-index-pane' },
+	          React.createElement(RecipesIndex, { registerRecipesIndex: this.registerRecipesIndex })
+	        )
 	      ),
 	      this.props.children
 	    );
 	  }
 	});
 	
+	// {<h3 className="matching-recipes-label">Matching Recipes: (click for info)</h3>}
 	module.exports = App;
 
 /***/ },
@@ -25195,6 +25201,17 @@
 	      data: data,
 	      success: function (singleRecipeItem) {
 	        RecipeActions.addedSingleRecipe(singleRecipeItem);
+	      }
+	    });
+	  },
+	  createRecipeSearch: function (searchString) {
+	    var data = { q: searchString };
+	    $.ajax({
+	      url: 'http://api.yummly.com/v1/api/recipes?_app_id=f4ac9032&_app_key=ec28d82137e2708128a2f7f69400989f&requirePictures=true',
+	      data: data,
+	      success: function (recipeItemArray) {
+	        RecipeActions.addedRecipeItem(searchString, recipeItemArray['matches']);
+	        $('.loader').removeClass("loader");
 	      }
 	    });
 	  }
@@ -31837,7 +31854,7 @@
 	    this.props.toggleRecipesIndex();
 	    ApiUtil.createFridgeItem(this.props.ingredient.id);
 	    ApiUtil.createRecipeItem(PrimaryStore.all(), this.props.ingredient.name, (function () {
-	      this.props.toggleRecipesIndex();
+	      // this.props.toggleRecipesIndex();
 	    }).bind(this));
 	    IngredientActions.ingredientRemoved(this.props.ingredient);
 	  },
@@ -32873,7 +32890,6 @@
 	  },
 	  _onChange: function () {
 	    this.setState({ primaries: PrimaryStore.all() });
-	
 	    // FIND RECIPES FOR PRIMARIES SOMEHOW?
 	    if (this.state.primaries.length !== 0 || FridgeStore.all().length !== 0) {
 	      var fridgeStoreHolder = FridgeStore.all().length === 0 ? [0] : FridgeStore.all();
@@ -33033,7 +33049,6 @@
 	  changeBody: function () {
 	    $('body').removeClass("app");
 	  },
-	
 	  render: function () {
 	    var recipeItem = {};
 	    var key = {};
@@ -33043,6 +33058,7 @@
 	      recipeItem = this.state.recipeItem;
 	      key = Object.keys(this.state.recipeItem.images[0].imageUrlsBySize);
 	    }
+	    console.log(recipeItem);
 	    this.changeBody();
 	    return React.createElement(
 	      'div',
@@ -33074,7 +33090,7 @@
 	            'Recipe from: ',
 	            React.createElement(
 	              'a',
-	              { href: recipeItem.source.sourceSiteUrl },
+	              { href: "http://www." + recipeItem.source.sourceSiteUrl },
 	              recipeItem.source.sourceDisplayName
 	            )
 	          ),
@@ -33174,6 +33190,82 @@
 	});
 	
 	module.exports = Home;
+
+/***/ },
+/* 255 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(147);
+	var IngredientStore = __webpack_require__(242);
+	var ApiUtil = __webpack_require__(218);
+	var IngredientsIndex = __webpack_require__(211);
+	var RecipeActions = __webpack_require__(223);
+	
+	var RecipeSearch = React.createClass({
+	  displayName: 'RecipeSearch',
+	
+	  getInitialState: function () {
+	    return { inputVal: '', recipeSearchList: [], searchRecipesClasses: "search-recipes hidden-group" };
+	  },
+	  handleChange: function (e) {
+	    this.setState({ inputVal: e.target.value });
+	  },
+	  clearSearch: function () {
+	    this.setState({ inputVal: "" });
+	  },
+	  searchOnEnter: function (e) {
+	    if (e) {
+	      if (e.key === "Enter") {
+	        // RecipeActions.resetAllRecipes();
+	        ApiUtil.createRecipeSearch(this.state.inputVal);
+	        this.state.recipeSearchList.push(this.state.inputVal);
+	        this.clearSearch();
+	      }
+	    }
+	  },
+	  recipesPress: function () {
+	    this.setState({ searchRecipesClasses: "search-recipes" });
+	    // var node = ReactDOM.findDOMNode(this.refs.recipeIndex);
+	    var ingredients = $('.btn');
+	    // debugger;
+	    ingredients.css("display", "none");
+	  },
+	  ingredientsPress: function () {
+	    this.setState({ searchRecipesClasses: "search-recipes hidden-group" });
+	  },
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'div',
+	        { className: 'search-button-group' },
+	        React.createElement(
+	          'button',
+	          { onClick: this.ingredientsPress },
+	          'Search by Ingredients'
+	        ),
+	        React.createElement(
+	          'button',
+	          { onClick: this.recipesPress },
+	          'Search by Recipes'
+	        )
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: this.state.searchRecipesClasses },
+	        React.createElement('input', { type: 'text',
+	          className: 'form-control recipe-search-bar',
+	          onChange: this.handleChange,
+	          onKeyPress: this.searchOnEnter,
+	          placeholder: 'Search for Specific Recipes',
+	          value: this.state.inputVal })
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = RecipeSearch;
 
 /***/ }
 /******/ ]);

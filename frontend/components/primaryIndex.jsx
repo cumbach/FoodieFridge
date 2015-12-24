@@ -12,7 +12,6 @@ var PrimaryIndex = React.createClass({
   },
   _onChange: function() {
     this.setState({primaries: PrimaryStore.all()});
-
     // FIND RECIPES FOR PRIMARIES SOMEHOW?
     if (this.state.primaries.length !== 0 || FridgeStore.all().length !== 0) {
       var fridgeStoreHolder = FridgeStore.all().length === 0 ? [0] : FridgeStore.all();
