@@ -20,6 +20,7 @@ var FridgeIndexItem = React.createClass({
   // dragEnd: function(e) {
   //   debugger;
   // },
+
   render: function() {
     return (
       <div className={this.classname()}

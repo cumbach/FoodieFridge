@@ -14,3 +14,4 @@
 !secrets.yml
 
 bundle.js
+node_modules

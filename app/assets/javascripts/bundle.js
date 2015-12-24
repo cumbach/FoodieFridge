@@ -24516,7 +24516,7 @@
 	    var ingredient = JSON.parse(e.dataTransfer.getData("Text"));
 	    ApiUtil.createFridgeItem(ingredient.id);
 	    ApiUtil.createRecipeItem(PrimaryStore.all(), ingredient.name, (function () {
-	      this.toggleRecipesIndex();
+	      // this.toggleRecipesIndex();
 	    }).bind(this));
 	
 	    // should do one or the other based on PrimaryStore.all()
@@ -32623,6 +32623,7 @@
 	  // dragEnd: function(e) {
 	  //   debugger;
 	  // },
+	
 	  render: function () {
 	    return React.createElement(
 	      'div',
