@@ -88,7 +88,7 @@ module.exports = {
     var data = {allowedIngredient: search};
     console.log("api request:");
     console.log(search.join('+'));
-    // debugger;
+    
     $.ajax({
       url: 'http://api.yummly.com/v1/api/recipes?_app_id=f4ac9032&_app_key=ec28d82137e2708128a2f7f69400989f&requirePictures=true',
       data: data,
