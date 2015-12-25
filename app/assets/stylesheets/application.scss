@@ -130,10 +130,6 @@ h1, h2, h3, p, strong, em, div, ul {
   padding: 5px;
 }
 
-::-webkit-scrollbar {
-    display: none;
-}
-
 .log-title {
   // text-align: -webkit-center;
   padding: 10px;
@@ -514,10 +510,6 @@ a {
   padding: 25px;
 }
 
-::-webkit-scrollbar.back {
-  display:grid;
-}
-
 .recipe-tile{
   margin: 9px;
   display: -webkit-inline-box;
@@ -596,4 +588,24 @@ a {
   transform: rotateY(180deg);
   -webkit-transform: rotateY(180deg);
   box-shadow: -10px 10px 10px #010;
+}
+
+
+.back::-webkit-scrollbar {
+  display: grid;
+}
+.ingredients-index-pane::-webkit-scrollbar {
+  display: none;
+}
+.primary-index-pane::-webkit-scrollbar{
+  display: none;
+}
+.inner-fridge-pane::-webkit-scrollbar{
+  display: none;
+}
+.recipes_items-index-pane::-webkit-scrollbar {
+  display: none;
+}
+.recipeMap::-webit-scrollbar{
+  display: none;
 }
