@@ -236,26 +236,27 @@ h3 {
   cursor: -webkit-grabbing;
 }
 
-// .Vegetables {
-//   color: rgba(68,157,68,0.9);
-// }
-// .Grains {
-//   // color: #ec971f;
-//   color: rgba(236,151,31,0.7);
-// }
-// .Protein {
-//   color: #d9534f;
-// }
-// .Fruit {
-//   color: #428bca;
-// }
-// .Dairy {
-//   // color: #97DDF2;
-//   color: rgba(151,221,242,0.7);
-// }
-// .Other {
-//   color: #673a7b;
-// }
+.Vegetables {
+  color: rgba(68,157,68,0.9);
+}
+.Grains {
+  // color: #ec971f;
+  color: rgba(236,151,31,0.7);
+}
+.Protein {
+  color: #d9534f;
+}
+.Fruit {
+  color: #428bca;
+}
+.Dairy {
+  // color: #97DDF2;
+  color: rgba(151,221,242,1.0);
+}
+.Other {
+  color: #FEA9F3;
+  // color: #673a7b;
+}
 
 
 
@@ -306,7 +307,7 @@ h3 {
 
 .btn.ingredients-index-item {
   background: transparent;
-  color: white;
+  // color: white;
   border: 1px solid white;
 }
 
@@ -416,20 +417,22 @@ h3 {
 }
 
 .sideways-hover-instructions {
-  transform: rotate(90deg) translateX(41%) translateY(-50%);
-  color: rgba(0, 0, 0, 0.4);
+  display: none;
+  // transform:rotate(180deg);
+  text-align: -webkit-center;
   position: absolute;
-  top: 108px;
-  left: 269px;
-  width: 491px;
-  text-align: center;
-
-  .arrow {
-    transform: rotate(180deg);
-    position: relative;
-    bottom: 18px;
-  }
+  top: 46%;
+  width: 164px;
+  text-shadow: blue;
+  color: rgba(0, 0, 0, 0.4);
+  border: 2px solid rgba(0, 0, 0, 0.4);
 }
+.sideways-hover-instructions.unhide-instructions{
+  display: inline-block;
+  position: relative;
+  top: 10%;
+}
+
 
 .recipes-index-item {
   height: 200px;
@@ -446,7 +449,7 @@ h3 {
   text-align: center;
   padding: 4px;
   position: absolute;
-  top: 170px;
+  top: 30%;
   color: rgba(0, 0, 0, 0.4)
 }
 
@@ -467,10 +470,14 @@ h3 {
   text-align: center;
   padding: 8px;
   position: absolute;
-  top: 72%;
+  top: 75%;
   color: rgba(0, 0, 0, 0.4);
   margin-bottom: 0px;
   margin-left: 8px;
+}
+
+.full {
+  height: 100%;
 }
 
 .primary-info h4 {

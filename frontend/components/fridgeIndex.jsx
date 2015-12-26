@@ -46,22 +46,24 @@ var FridgeIndex = React.createClass({
   },
   fridgeInfo: function() {
     if (FridgeStore.all().length === 0) {
-      return (<div className='info-pane-fridge'>
+      return (<div className='info-pane-fridge full'>
                 <h3 className='fridge-header'>My Fridge:</h3>
                 <h4 className="fridge-info">Multiple recipes are<br/>
                     displayed for each<br/>
                     item in your fridge</h4>
-              </div>)
-
+                  <h4 className='sideways-hover-instructions'>
+                   &#65514; Drag and Drop Ingredients For Recipes &#65516;
+                </h4>
+              </div>);
     }
     return "";
   },
   render: function() {
     return(
-      <ul>
-        <div>{this.fridgeInfo()}</div>
+      <div className='full'>
+        <div className='full'>{this.fridgeInfo()}</div>
         <div>{this.ingredientMap()}</div>
-      </ul>
+      </div>
     );
   }
 });

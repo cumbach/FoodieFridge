@@ -1,0 +1,11 @@
+/* line 4, /Users/ChristopherUmbach/FoodieFridge/app/assets/stylesheets/api/ingredients.scss */
+.ingredient-name {
+  font-size: 17px;
+  overflow: hidden;
+}
+
+/* line 8, /Users/ChristopherUmbach/FoodieFridge/app/assets/stylesheets/api/ingredients.scss */
+.ingredient-category {
+  float: right;
+  margin-right: 3px;
+}

@@ -1,0 +1,58 @@
+/* line 5, /Users/ChristopherUmbach/FoodieFridge/app/assets/stylesheets/users.scss */
+.user-auth-logo {
+  display: block;
+  width: 400px;
+  margin: auto;
+}
+
+/* line 11, /Users/ChristopherUmbach/FoodieFridge/app/assets/stylesheets/users.scss */
+.user-auth {
+  border-radius: 10px;
+  background: white;
+  width: 350px;
+  margin: auto;
+  padding: 20px 40px;
+  color: black;
+}
+/* line 18, /Users/ChristopherUmbach/FoodieFridge/app/assets/stylesheets/users.scss */
+.user-auth p {
+  text-align: center;
+}
+/* line 21, /Users/ChristopherUmbach/FoodieFridge/app/assets/stylesheets/users.scss */
+.user-auth .errors {
+  text-align: left;
+}
+/* line 25, /Users/ChristopherUmbach/FoodieFridge/app/assets/stylesheets/users.scss */
+.user-auth .divider {
+  text-align: center;
+  padding: 0px 10px;
+}
+/* line 29, /Users/ChristopherUmbach/FoodieFridge/app/assets/stylesheets/users.scss */
+.user-auth .divider hr {
+  border-top: 1px solid black;
+  margin: 10px auto;
+  width: 43%;
+}
+/* line 34, /Users/ChristopherUmbach/FoodieFridge/app/assets/stylesheets/users.scss */
+.user-auth .left {
+  float: left;
+}
+/* line 37, /Users/ChristopherUmbach/FoodieFridge/app/assets/stylesheets/users.scss */
+.user-auth .right {
+  float: right;
+}
+
+/* line 42, /Users/ChristopherUmbach/FoodieFridge/app/assets/stylesheets/users.scss */
+.demo-form {
+  top: 25px;
+  margin: 0 auto;
+}
+
+/* line 47, /Users/ChristopherUmbach/FoodieFridge/app/assets/stylesheets/users.scss */
+.demo-btn.btn {
+  color: white;
+  background: #449d44;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+}

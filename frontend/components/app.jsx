@@ -110,10 +110,18 @@ var App = React.createClass({
   toggleRecipesIndex: function(){
     this.recipesIndex.classList.toggle("loader");
   },
+  toggleDirectionsOn: function(){
+    $('.sideways-hover-instructions').css("display", "inline-block");
+  },
+  toggleDirectionsOff: function(){
+    $('.sideways-hover-instructions').css("display", "none");
+  },
   render: function() {
     return (
       <div id="wrapper" className="foodiefridge-app">
         <div className="ingredients-index-pane"
+             onMouseEnter={this.toggleDirectionsOn}
+             onMouseLeave={this.toggleDirectionsOff}
              onDrop={this.dropIngredients}
              onDragOver={this.dragOverIngredients}>
            <IngredientsIndex dragStart={this.dragStart}

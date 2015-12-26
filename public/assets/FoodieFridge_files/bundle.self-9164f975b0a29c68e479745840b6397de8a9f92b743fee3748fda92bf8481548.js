@@ -1,4 +1,5 @@
-/******/ (function(modules) { // webpackBootstrap
+/******/
+ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -24554,8 +24555,6 @@
 	      React.createElement(
 	        'div',
 	        { className: 'ingredients-index-pane',
-	          onMouseEnter: this.toggleDirectionsOn,
-	          onMouseLeave: this.toggleDirectionsOff,
 	          onDrop: this.dropIngredients,
 	          onDragOver: this.dragOverIngredients },
 	        React.createElement(IngredientsIndex, { dragStart: this.dragStart,
@@ -24565,7 +24564,7 @@
 	      ),
 	      React.createElement(
 	        'div',
-	        { className: 'center-index-pane' },
+	        { className: 'center-index-pane', onMouseEnter: this.toggleDirectionsOn, onMouseLeave: this.toggleDirectionsOff },
 	        React.createElement(
 	          'div',
 	          { className: 'inner-fridge-pane',
@@ -32583,7 +32582,7 @@
 	    if (FridgeStore.all().length === 0) {
 	      return React.createElement(
 	        'div',
-	        { className: 'info-pane-fridge full' },
+	        { className: 'info-pane-fridge' },
 	        React.createElement(
 	          'h3',
 	          { className: 'fridge-header' },
@@ -32599,9 +32598,13 @@
 	          'item in your fridge'
 	        ),
 	        React.createElement(
-	          'h4',
+	          'div',
 	          { className: 'sideways-hover-instructions' },
-	          '￪ Drag and Drop Ingredients For Recipes ￬'
+	          React.createElement(
+	            'h4',
+	            null,
+	            'Drag and Drop Ingredients For Recipes'
+	          )
 	        )
 	      );
 	    }
@@ -32609,11 +32612,11 @@
 	  },
 	  render: function () {
 	    return React.createElement(
-	      'div',
-	      { className: 'full' },
+	      'ul',
+	      null,
 	      React.createElement(
 	        'div',
-	        { className: 'full' },
+	        null,
 	        this.fridgeInfo()
 	      ),
 	      React.createElement(
