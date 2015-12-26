@@ -236,26 +236,26 @@ h3 {
   cursor: -webkit-grabbing;
 }
 
-.Vegetables {
-  background: rgba(68,157,68,0.9);
-}
-.Grains {
-  // background: #ec971f;
-  background: rgba(236,151,31,0.7);
-}
-.Protein {
-  background: #d9534f;
-}
-.Fruit {
-  background: #428bca;
-}
-.Dairy {
-  // background: #97DDF2;
-  background: rgba(151,221,242,0.7);
-}
-.Other {
-  background: #673a7b;
-}
+// .Vegetables {
+//   color: rgba(68,157,68,0.9);
+// }
+// .Grains {
+//   // color: #ec971f;
+//   color: rgba(236,151,31,0.7);
+// }
+// .Protein {
+//   color: #d9534f;
+// }
+// .Fruit {
+//   color: #428bca;
+// }
+// .Dairy {
+//   // color: #97DDF2;
+//   color: rgba(151,221,242,0.7);
+// }
+// .Other {
+//   color: #673a7b;
+// }
 
 
 
@@ -293,7 +293,7 @@ h3 {
   overflow: auto;
   float: left;
   // background: white;
-  background: url("473.jpg");
+  background: url("chalkboard.jpg");
   background-repeat: no-repeat;
   background-size: cover;
 
@@ -302,6 +302,12 @@ h3 {
   border-radius: 6px;
   max-width: 100%;
   box-sizing: border-box;
+}
+
+.btn.ingredients-index-item {
+  background: transparent;
+  color: white;
+  border: 1px solid white;
 }
 
 
@@ -323,15 +329,17 @@ h3 {
   width: 184px;
   float: left;
 
-  background: white;
+  background: gray;
 
-  border: 2px solid black;
+  border: 2px solid rgba(0,0,0,0.2);
   border-radius: 6px;
   max-width: 100%;
   box-sizing: border-box;
 
   .inner-fridge-pane {
-    border: 2px solid black;
+    border: 2px solid rgba(0,0,0,0.4);
+    border-bottom: 4px solid rgba(0,0,0,0.4);
+    background: white;
     border-radius: 6px;
     padding-top: 6px;
     height: 60%;
@@ -341,7 +349,8 @@ h3 {
   .primary-index-pane {
     height: 40%;
     padding-top: 6px;
-    border: 2px solid black;
+    background: white;
+    border: 2px solid rgba(0,0,0,0.4);
     border-radius: 6px;
     overflow: auto;
 

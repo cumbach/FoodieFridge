@@ -52,8 +52,8 @@
 	var IndexRoute = ReactRouter.IndexRoute;
 	
 	var App = __webpack_require__(210);
-	var RecipesShow = __webpack_require__(253);
-	var Home = __webpack_require__(254);
+	var RecipesShow = __webpack_require__(254);
+	var Home = __webpack_require__(255);
 	
 	var routes = React.createElement(
 	  Route,
@@ -24435,7 +24435,7 @@
 	var PrimaryIndex = __webpack_require__(251);
 	var PrimaryStore = __webpack_require__(225);
 	var FridgeStore = __webpack_require__(245);
-	var RecipeSearch = __webpack_require__(255);
+	var RecipeSearch = __webpack_require__(253);
 	
 	var ApiUtil = __webpack_require__(218);
 	var IngredientActions = __webpack_require__(212);
@@ -33012,6 +33012,95 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(147);
+	var IngredientStore = __webpack_require__(242);
+	var ApiUtil = __webpack_require__(218);
+	var IngredientsIndex = __webpack_require__(211);
+	var RecipeActions = __webpack_require__(223);
+	
+	var RecipeSearch = React.createClass({
+	  displayName: 'RecipeSearch',
+	
+	  getInitialState: function () {
+	    return { inputVal: '', recipeSearchList: [], searchRecipesClasses: "search-recipes hidden-group" };
+	  },
+	  componentDidMount: function () {},
+	  handleChange: function (e) {
+	    this.setState({ inputVal: e.target.value });
+	  },
+	  clearSearch: function () {
+	    this.setState({ inputVal: "" });
+	  },
+	  searchOnEnter: function (e) {
+	    if (e) {
+	      if (e.key === "Enter") {
+	        ApiUtil.createRecipeSearch(this.state.inputVal);
+	        this.state.recipeSearchList.push(this.state.inputVal);
+	        this.clearSearch();
+	      }
+	    }
+	  },
+	  recipesPress: function () {
+	    this.setState({ searchRecipesClasses: "search-recipes" });
+	    $('.btn').css("display", "none");
+	    RecipeActions.resetAllRecipes();
+	    $('.recipesButton').css("background-color", "rgba(68,157,68,0.7)");
+	    $('.ingredientsButton').css("background-color", "buttonface");
+	
+	    $('.recipe-search-pane').css("height", "15%");
+	    $('.recipes_items-index-pane').css("height", "85%");
+	  },
+	  ingredientsPress: function () {
+	    RecipeActions.resetAllRecipes();
+	    ApiUtil.fetchAllFridgeItems();
+	    this.setState({ searchRecipesClasses: "search-recipes hidden-group" });
+	
+	    $('.btn').css("display", "inline-block");
+	
+	    $('.ingredientsButton').css("background-color", "rgba(68,157,68,0.7)");
+	    $('.recipesButton').css("background-color", "buttonface");
+	
+	    $('.recipe-search-pane').css("height", "7%");
+	    $('.recipes_items-index-pane').css("height", "93%");
+	  },
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'div',
+	        { className: 'search-button-group' },
+	        React.createElement(
+	          'button',
+	          { className: 'ingredientsButton', onClick: this.ingredientsPress },
+	          'Search by Ingredients'
+	        ),
+	        React.createElement(
+	          'button',
+	          { className: 'recipesButton', onClick: this.recipesPress },
+	          'Search by Recipes'
+	        )
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: this.state.searchRecipesClasses },
+	        React.createElement('input', { type: 'text',
+	          className: 'form-control recipe-search-bar',
+	          onChange: this.handleChange,
+	          onKeyPress: this.searchOnEnter,
+	          placeholder: 'Search for Specific Recipes',
+	          value: this.state.inputVal })
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = RecipeSearch;
+
+/***/ },
+/* 254 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(147);
 	var ReactRouter = __webpack_require__(159);
 	var ApiUtil = __webpack_require__(218);
 	var IngredientActions = __webpack_require__(212);
@@ -33170,7 +33259,7 @@
 	module.exports = RecipesShow;
 
 /***/ },
-/* 254 */
+/* 255 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(147);
@@ -33191,95 +33280,6 @@
 	});
 	
 	module.exports = Home;
-
-/***/ },
-/* 255 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(147);
-	var IngredientStore = __webpack_require__(242);
-	var ApiUtil = __webpack_require__(218);
-	var IngredientsIndex = __webpack_require__(211);
-	var RecipeActions = __webpack_require__(223);
-	
-	var RecipeSearch = React.createClass({
-	  displayName: 'RecipeSearch',
-	
-	  getInitialState: function () {
-	    return { inputVal: '', recipeSearchList: [], searchRecipesClasses: "search-recipes hidden-group" };
-	  },
-	  componentDidMount: function () {},
-	  handleChange: function (e) {
-	    this.setState({ inputVal: e.target.value });
-	  },
-	  clearSearch: function () {
-	    this.setState({ inputVal: "" });
-	  },
-	  searchOnEnter: function (e) {
-	    if (e) {
-	      if (e.key === "Enter") {
-	        ApiUtil.createRecipeSearch(this.state.inputVal);
-	        this.state.recipeSearchList.push(this.state.inputVal);
-	        this.clearSearch();
-	      }
-	    }
-	  },
-	  recipesPress: function () {
-	    this.setState({ searchRecipesClasses: "search-recipes" });
-	    $('.btn').css("display", "none");
-	    RecipeActions.resetAllRecipes();
-	    $('.recipesButton').css("background-color", "rgba(68,157,68,0.7)");
-	    $('.ingredientsButton').css("background-color", "buttonface");
-	
-	    $('.recipe-search-pane').css("height", "15%");
-	    $('.recipes_items-index-pane').css("height", "85%");
-	  },
-	  ingredientsPress: function () {
-	    RecipeActions.resetAllRecipes();
-	    ApiUtil.fetchAllFridgeItems();
-	    this.setState({ searchRecipesClasses: "search-recipes hidden-group" });
-	
-	    $('.btn').css("display", "inline-block");
-	
-	    $('.ingredientsButton').css("background-color", "rgba(68,157,68,0.7)");
-	    $('.recipesButton').css("background-color", "buttonface");
-	
-	    $('.recipe-search-pane').css("height", "7%");
-	    $('.recipes_items-index-pane').css("height", "93%");
-	  },
-	  render: function () {
-	    return React.createElement(
-	      'div',
-	      null,
-	      React.createElement(
-	        'div',
-	        { className: 'search-button-group' },
-	        React.createElement(
-	          'button',
-	          { className: 'ingredientsButton', onClick: this.ingredientsPress },
-	          'Search by Ingredients'
-	        ),
-	        React.createElement(
-	          'button',
-	          { className: 'recipesButton', onClick: this.recipesPress },
-	          'Search by Recipes'
-	        )
-	      ),
-	      React.createElement(
-	        'div',
-	        { className: this.state.searchRecipesClasses },
-	        React.createElement('input', { type: 'text',
-	          className: 'form-control recipe-search-bar',
-	          onChange: this.handleChange,
-	          onKeyPress: this.searchOnEnter,
-	          placeholder: 'Search for Specific Recipes',
-	          value: this.state.inputVal })
-	      )
-	    );
-	  }
-	});
-	
-	module.exports = RecipeSearch;
 
 /***/ }
 /******/ ]);
