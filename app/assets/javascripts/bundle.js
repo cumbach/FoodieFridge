@@ -32926,22 +32926,23 @@
 	        React.createElement(
 	          'h3',
 	          { className: 'primary-header' },
-	          'Main Ingredients:'
+	          'Required Ingredients:'
 	        ),
 	        React.createElement(
-	          'h4',
+	          'div',
 	          { className: 'primary-info' },
-	          'Only recipes that',
-	          React.createElement('br', null),
-	          'contain ALL of',
-	          React.createElement('br', null),
-	          'your Main',
-	          React.createElement('br', null),
-	          'Ingredients will',
-	          React.createElement('br', null),
-	          'be included in the',
-	          React.createElement('br', null),
-	          'list'
+	          React.createElement(
+	            'h4',
+	            null,
+	            'What would you',
+	            React.createElement('br', null),
+	            'like to cook with'
+	          ),
+	          React.createElement(
+	            'div',
+	            { className: 'today' },
+	            'today?'
+	          )
 	        )
 	      );
 	    }

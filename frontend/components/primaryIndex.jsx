@@ -41,13 +41,12 @@ var PrimaryIndex = React.createClass({
   primaryInfo: function() {
     if (PrimaryStore.all().length === 0) {
       return (<div>
-                <h3 className='primary-header'>Main Ingredients:</h3>
-                <h4 className="primary-info">Only recipes that<br/>
-                  contain ALL of<br/>
-                  your Main<br/>
-                  Ingredients will<br/>
-                  be included in the<br/>
-                  list</h4>
+                <h3 className='primary-header'>Required Ingredients:</h3>
+                <div className="primary-info">
+                  <h4>What would you<br/>
+                  like to cook with</h4>
+                  <div className="today">today?</div>
+                </div>
               </div>);
     }
   },
