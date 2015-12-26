@@ -4458,10 +4458,7 @@ select[multiple].input-lg,
   outline-offset: -2px;
 }
 /* line 32, /Users/ChristopherUmbach/.rbenv/versions/2.1.2/lib/ruby/gems/2.1.0/gems/bootstrap-sass-3.3.6/assets/stylesheets/bootstrap/_buttons.scss */
-.btn:hover, .btn:focus, .btn.focus {
-  color: #333;
-  text-decoration: none;
-}
+
 /* line 39, /Users/ChristopherUmbach/.rbenv/versions/2.1.2/lib/ruby/gems/2.1.0/gems/bootstrap-sass-3.3.6/assets/stylesheets/bootstrap/_buttons.scss */
 .btn:active, .btn.active {
   outline: 0;

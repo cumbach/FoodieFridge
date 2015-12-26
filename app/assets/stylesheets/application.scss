@@ -230,11 +230,17 @@ h3 {
   cursor: -webkit-grab;
 }
 
-
+.btn:hover {
+  color: white;
+  text-decoration: none;
+  text-shadow: #000 0px 0px 1px, #000 0px 0px 10px, #000 0px 0px 10px, #000 0px 0px 10px, #000 0px 0px 10px, #000 0px 0px 10px;
+}
 
 .btn:active {
   cursor: -webkit-grabbing;
 }
+
+
 
 .Vegetables {
   color: rgba(68,157,68,0.9);
