@@ -420,9 +420,11 @@ h3 {
   display: none;
   // transform:rotate(180deg);
   text-align: -webkit-center;
+  transform: rotate(90deg);
   position: absolute;
   top: 46%;
-  width: 164px;
+  left: 463px;
+  width: 202px;
   text-shadow: blue;
   color: rgba(0, 0, 0, 0.4);
   border: 2px solid rgba(0, 0, 0, 0.4);
