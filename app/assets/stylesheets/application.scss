@@ -417,14 +417,15 @@ h3 {
 }
 
 .sideways-hover-instructions {
-  display: none;
+  display: block;
   // transform:rotate(180deg);
+  font-size: 22px;
   text-align: -webkit-center;
   transform: rotate(90deg);
   position: absolute;
-  top: 46%;
-  left: 463px;
-  width: 202px;
+  top: 53%;
+  left: 414px;
+  width: 290px;
   text-shadow: blue;
   color: rgba(0, 0, 0, 0.4);
   border: 2px solid rgba(0, 0, 0, 0.4);
@@ -435,6 +436,16 @@ h3 {
   top: 10%;
 }
 
+.left-arrow {
+  transform: rotate(90deg);
+  float: left;
+
+}
+
+.right-arrow{
+  transform: rotate(-90deg);
+  float: right;
+}
 
 .recipes-index-item {
   height: 200px;

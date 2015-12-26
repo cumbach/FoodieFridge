@@ -51,9 +51,10 @@ var FridgeIndex = React.createClass({
                 <h4 className="fridge-info">Multiple recipes are<br/>
                     displayed for each<br/>
                     item in your fridge</h4>
-                  <h4 className='sideways-hover-instructions'>
-                   &#65514; Drag and Drop Ingredients For Recipes &#65516;
-                </h4>
+                  <div className='sideways-hover-instructions'>
+                    Drag and Drop<br/>
+                  <div className="left-arrow">&#8627;</div>Ingredients For Recipes<div className="right-arrow">&#8629;</div>
+                  </div>
               </div>);
     }
     return "";
@@ -61,8 +62,8 @@ var FridgeIndex = React.createClass({
   render: function() {
     return(
       <div className='full'>
-        <div className='full'>{this.fridgeInfo()}</div>
-        <div>{this.ingredientMap()}</div>
+        <div>{this.fridgeInfo()}</div>
+        <div className='full'>{this.ingredientMap()}</div>
       </div>
     );
   }

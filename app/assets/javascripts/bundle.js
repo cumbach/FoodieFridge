@@ -32599,9 +32599,21 @@
 	          'item in your fridge'
 	        ),
 	        React.createElement(
-	          'h4',
+	          'div',
 	          { className: 'sideways-hover-instructions' },
-	          '￪ Drag and Drop Ingredients For Recipes ￬'
+	          'Drag and Drop',
+	          React.createElement('br', null),
+	          React.createElement(
+	            'div',
+	            { className: 'left-arrow' },
+	            '↳'
+	          ),
+	          'Ingredients For Recipes',
+	          React.createElement(
+	            'div',
+	            { className: 'right-arrow' },
+	            '↵'
+	          )
 	        )
 	      );
 	    }
@@ -32613,12 +32625,12 @@
 	      { className: 'full' },
 	      React.createElement(
 	        'div',
-	        { className: 'full' },
+	        null,
 	        this.fridgeInfo()
 	      ),
 	      React.createElement(
 	        'div',
-	        null,
+	        { className: 'full' },
 	        this.ingredientMap()
 	      )
 	    );
