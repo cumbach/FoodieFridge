@@ -16,32 +16,31 @@
         <a href="/"><img class="fridge-logo" src="assets/FoodieFridge-logo.png"/></a>
 
 
-        <%= link_to "Open modal", "#my-modal", :class => "btn", "data-toggle" => "modal" %>
-        <div class="modal hide fade" id="my-modal" title="My modal">
-          <div class="modal-header">
-            <button aria-hidden="true" class="close" data-dismiss="modal" type="button">×</button>
-            <h3 id="myModalLabel">Modal header</h3>
-          </div>
-          <div class="modal-body">
-            Modal Body
-          </div>
-          <div class="modal-footer">
-            <button aria-hidden="true" class="btn" data-dismiss="modal">Close</button>
-          </div>
-        </div>
-
-
-
-
         <ul class="header-list group">
-          <li class="hello-username">
+          <div class="hello-username item header-words">
             Hello
             <%= current_user.username %>
-          </li>
+          </div>
 
-          <li class="navbar-btn logout-button">
+          <%= link_to "About", "#my-modal", :class => "item about header-words", "data-toggle" => "modal" %>
+          <div class="modal fade" id="my-modal" title="My modal">
+            <div class="modal-header" style="background:orange">
+              <button aria-hidden="true" class="close" data-dismiss="modal" type="button">×</button>
+              <h3 id="myModalLabel">Modal header</h3>
+            </div>
+            <div class="modal-body" style="background:green">
+              Modal Body
+            </div>
+            <div class="modal-footer" style="background:yellow">
+              <button aria-hidden="true" class="btn" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+
+
+          <div class="item logout-button">
             <%= button_to "Log out", session_url, method: :delete %>
-          </li>
+          </div>
+
         </ul>
       </nav>
     </header>
