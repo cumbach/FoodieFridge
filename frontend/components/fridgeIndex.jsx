@@ -47,10 +47,10 @@ var FridgeIndex = React.createClass({
   fridgeInfo: function() {
     if (FridgeStore.all().length === 0) {
       return (<div className='info-pane-fridge full'>
-                <h3 className='fridge-header'>My Fridge:</h3>
-                <h4 className="fridge-info">Multiple recipes are<br/>
+                <h3 className='fridge-header'>All My Ingredients</h3>
+                {/*<h4 className="fridge-info">Multiple recipes are<br/>
                     displayed for each<br/>
-                    item in your fridge</h4>
+                    item in your fridge</h4>*/}
                 <div className='sideways-hover-instructions'>
                   Drag and Drop<br/>
                   <div className="left-arrow">&#8627;</div>Ingredients For Recipes<div className="right-arrow">&#8629;</div>

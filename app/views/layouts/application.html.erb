@@ -24,14 +24,24 @@
 
           <%= link_to "About", "#my-modal", :class => "item about header-words", "data-toggle" => "modal" %>
           <div class="modal fade" id="my-modal" title="My modal">
-            <div class="modal-header" style="background:orange">
+
+            <div class="modal-header">
               <button aria-hidden="true" class="close" data-dismiss="modal" type="button">×</button>
-              <h3 id="myModalLabel">Modal header</h3>
+              <img class="fridge-logo about-fridge" src="assets/FoodieFridge-logo.png"/>
             </div>
-            <div class="modal-body" style="background:green">
-              Modal Body
+
+            <div class="modal-body">
+              Users can search through millions of recipes gathered from every corner of the
+              internet. Recipes can be found and filtered by placing ingredients into "All My Ingredients" or "Required Ingredients".<br/><br/>
+              <strong><h3>How it works:</h3></strong>
+              Drag and drop recipe tiles into the "All My Ingredients" or "Required Ingredients" boxes to search for recipes.</br>
+              <strong>All My Ingredients:</strong> FoodieFridge will return up to 10 recipes for EACH item in this category.<br/>
+              <strong>Required Ingredients:</strong> Every recipe search result will contain ALL ingredients in this category.</br></br>
+              FoodieFridge was created by Chris Umbach using Ruby on Rails and React.js. You can view the source code on <a href="https://github.com/cumbach/FoodieFridge">Github</a>.<br/>
+              <a href="http://www.chrisumbach.com/">Click Here</a> to view Chris's other projects or to get in touch.
             </div>
-            <div class="modal-footer" style="background:yellow">
+
+            <div class="modal-footer">
               <button aria-hidden="true" class="btn" data-dismiss="modal">Close</button>
             </div>
           </div>

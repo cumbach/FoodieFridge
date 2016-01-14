@@ -43,9 +43,9 @@ var PrimaryIndex = React.createClass({
       return (<div>
                 <h3 className='primary-header'>Required Ingredients:</h3>
                 <div className="primary-info">
-                  <h4>What would you<br/>
-                  like to cook with</h4>
-                  <div className="today">today?</div>
+                  {/*<h4>What would you<br/>
+                    like to cook with</h4>
+                  <div className="today">today?</div>*/}
                 </div>
               </div>);
     }

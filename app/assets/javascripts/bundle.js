@@ -32591,16 +32591,7 @@
 	        React.createElement(
 	          'h3',
 	          { className: 'fridge-header' },
-	          'My Fridge:'
-	        ),
-	        React.createElement(
-	          'h4',
-	          { className: 'fridge-info' },
-	          'Multiple recipes are',
-	          React.createElement('br', null),
-	          'displayed for each',
-	          React.createElement('br', null),
-	          'item in your fridge'
+	          'All My Ingredients'
 	        ),
 	        React.createElement(
 	          'div',
@@ -32937,22 +32928,7 @@
 	          { className: 'primary-header' },
 	          'Required Ingredients:'
 	        ),
-	        React.createElement(
-	          'div',
-	          { className: 'primary-info' },
-	          React.createElement(
-	            'h4',
-	            null,
-	            'What would you',
-	            React.createElement('br', null),
-	            'like to cook with'
-	          ),
-	          React.createElement(
-	            'div',
-	            { className: 'today' },
-	            'today?'
-	          )
-	        )
+	        React.createElement('div', { className: 'primary-info' })
 	      );
 	    }
 	  },
