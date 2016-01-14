@@ -4457,7 +4457,6 @@ select[multiple].input-lg,
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
-/* line 32, /Users/ChristopherUmbach/.rbenv/versions/2.1.2/lib/ruby/gems/2.1.0/gems/bootstrap-sass-3.3.6/assets/stylesheets/bootstrap/_buttons.scss */
 
 /* line 39, /Users/ChristopherUmbach/.rbenv/versions/2.1.2/lib/ruby/gems/2.1.0/gems/bootstrap-sass-3.3.6/assets/stylesheets/bootstrap/_buttons.scss */
 .btn:active, .btn.active {
@@ -4482,31 +4481,31 @@ a.btn.disabled, fieldset[disabled] a.btn {
 
 /* line 68, /Users/ChristopherUmbach/.rbenv/versions/2.1.2/lib/ruby/gems/2.1.0/gems/bootstrap-sass-3.3.6/assets/stylesheets/bootstrap/_buttons.scss */
 .btn-default {
-  color: #333;
+  /*color: #333;*/
   background-color: #fff;
   border-color: #ccc;
 }
 /* line 11, /Users/ChristopherUmbach/.rbenv/versions/2.1.2/lib/ruby/gems/2.1.0/gems/bootstrap-sass-3.3.6/assets/stylesheets/bootstrap/mixins/_buttons.scss */
 .btn-default:focus, .btn-default.focus {
-  color: #333;
+  /*color: #333;*/
   background-color: #e6e6e6;
   border-color: #8c8c8c;
 }
 /* line 17, /Users/ChristopherUmbach/.rbenv/versions/2.1.2/lib/ruby/gems/2.1.0/gems/bootstrap-sass-3.3.6/assets/stylesheets/bootstrap/mixins/_buttons.scss */
 .btn-default:hover {
-  color: #333;
+  /*color: #333;*/
   background-color: #e6e6e6;
   border-color: #adadad;
 }
 /* line 22, /Users/ChristopherUmbach/.rbenv/versions/2.1.2/lib/ruby/gems/2.1.0/gems/bootstrap-sass-3.3.6/assets/stylesheets/bootstrap/mixins/_buttons.scss */
 .btn-default:active, .btn-default.active, .open > .btn-default.dropdown-toggle {
-  color: #333;
+  /*color: #333;*/
   background-color: #e6e6e6;
   border-color: #adadad;
 }
 /* line 29, /Users/ChristopherUmbach/.rbenv/versions/2.1.2/lib/ruby/gems/2.1.0/gems/bootstrap-sass-3.3.6/assets/stylesheets/bootstrap/mixins/_buttons.scss */
 .btn-default:active:hover, .btn-default:active:focus, .btn-default:active.focus, .btn-default.active:hover, .btn-default.active:focus, .btn-default.active.focus, .open > .btn-default.dropdown-toggle:hover, .open > .btn-default.dropdown-toggle:focus, .open > .btn-default.dropdown-toggle.focus {
-  color: #333;
+  /*color: #333;*/
   background-color: #d4d4d4;
   border-color: #8c8c8c;
 }
@@ -4851,7 +4850,7 @@ tbody.collapse.in {
   display: table-row-group;
 }
 
-/* line 30, /Users/ChristopherUmbach/.rbenv/versions/2.1.2/lib/ruby/gems/2.1.0/gems/bootstrap-sass-3.3.6/assets/stylesheets/bootstrap/_component-animations.scss */
+ /*line 30, /Users/ChristopherUmbach/.rbenv/versions/2.1.2/lib/ruby/gems/2.1.0/gems/bootstrap-sass-3.3.6/assets/stylesheets/bootstrap/_component-animations.scss */
 .collapsing {
   position: relative;
   height: 0;

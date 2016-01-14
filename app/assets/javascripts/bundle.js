@@ -24436,6 +24436,7 @@
 	var PrimaryStore = __webpack_require__(225);
 	var FridgeStore = __webpack_require__(245);
 	var RecipeSearch = __webpack_require__(253);
+	var RecipeStore = __webpack_require__(244);
 	
 	var ApiUtil = __webpack_require__(218);
 	var IngredientActions = __webpack_require__(212);
@@ -24489,6 +24490,7 @@
 	    if (e.target.className == "primary-index-pane") return;
 	  },
 	  dropPrimary: function (e) {
+	    this.toggleDirectionsOff();
 	    this.toggleRecipesIndex();
 	    var ingredient = JSON.parse(e.dataTransfer.getData("Text"));
 	    ApiUtil.createPrimary(ingredient.id);
@@ -24542,7 +24544,9 @@
 	    this.recipesIndex.classList.toggle("loader");
 	  },
 	  toggleDirectionsOn: function () {
-	    $('.sideways-hover-instructions').css("display", "inline-block");
+	    if (RecipeStore.all().length === 0) {
+	      $('.sideways-hover-instructions').css("display", "inline-block");
+	    }
 	  },
 	  toggleDirectionsOff: function () {
 	    $('.sideways-hover-instructions').css("display", "none");
@@ -24578,7 +24582,7 @@
 	          { className: 'primary-index-pane',
 	            onDrop: this.dropPrimary,
 	            onDragOver: this.dragOverPrimary },
-	          React.createElement(PrimaryIndex, null)
+	          React.createElement(PrimaryIndex, { toggleDirectionsOff: this.toggleDirectionsOff })
 	        )
 	      ),
 	      React.createElement(

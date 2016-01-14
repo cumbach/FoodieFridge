@@ -226,14 +226,19 @@ h3 {
   padding-bottom: 6px;
   width: 145px;
   margin: 10px;
-  border: 1px solid black;
+  border: 2px solid rgba(0, 0, 0, 0.4);
   cursor: -webkit-grab;
 }
 
 .btn:hover {
   color: white;
   text-decoration: none;
-  text-shadow: #000 0px 0px 1px, #000 0px 0px 10px, #000 0px 0px 10px, #000 0px 0px 10px, #000 0px 0px 10px, #000 0px 0px 10px;
+  // text-shadow: #000 0px 0px 1px, #000 0px 0px 10px, #000 0px 0px 10px, #000 0px 0px 10px, #000 0px 0px 10px, #000 0px 0px 10px;
+  background: rgba(73,157,68,0.7);
+}
+
+.btn.ingredients-index-item:hover {
+  background: rgba(73,157,68,0.7);
 }
 
 .btn:active {
@@ -314,7 +319,7 @@ h3 {
 .btn.ingredients-index-item {
   background: transparent;
   // color: white;
-  border: 1px solid white;
+  // border: 1px solid white;
 }
 
 
@@ -436,11 +441,11 @@ h3 {
   color: rgba(0, 0, 0, 0.4);
   border: 2px solid rgba(0, 0, 0, 0.4);
 }
-.sideways-hover-instructions.unhide-instructions{
-  display: inline-block;
-  position: relative;
-  top: 10%;
-}
+// .sideways-hover-instructions.unhide-instructions{
+//   display: inline-block;
+//   position: relative;
+//   top: 10%;
+// }
 
 .left-arrow {
   transform: rotate(90deg);

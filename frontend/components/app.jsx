@@ -6,6 +6,7 @@ var PrimaryIndex = require('./primaryIndex');
 var PrimaryStore = require('../stores/primaryStore');
 var FridgeStore = require('../stores/fridgeStore');
 var RecipeSearch = require('./recipeSearch');
+var RecipeStore = require('../stores/recipeStore');
 
 var ApiUtil = require('../util/apiUtil');
 var IngredientActions = require('../actions/ingredientActions');
@@ -58,6 +59,7 @@ var App = React.createClass({
     if(e.target.className == "primary-index-pane") return;
   },
   dropPrimary: function(e){
+    this.toggleDirectionsOff();
     this.toggleRecipesIndex();
     var ingredient = JSON.parse(e.dataTransfer.getData("Text"));
     ApiUtil.createPrimary(ingredient.id);
@@ -111,7 +113,9 @@ var App = React.createClass({
     this.recipesIndex.classList.toggle("loader");
   },
   toggleDirectionsOn: function(){
-    $('.sideways-hover-instructions').css("display", "inline-block");
+    if (RecipeStore.all().length === 0) {
+      $('.sideways-hover-instructions').css("display", "inline-block");
+    }
   },
   toggleDirectionsOff: function(){
     $('.sideways-hover-instructions').css("display", "none");
@@ -139,7 +143,7 @@ var App = React.createClass({
           <div className="primary-index-pane"
                onDrop={this.dropPrimary}
                onDragOver={this.dragOverPrimary}>
-            <PrimaryIndex/>
+            <PrimaryIndex toggleDirectionsOff={this.toggleDirectionsOff}/>
           </div>
         </div>
 
