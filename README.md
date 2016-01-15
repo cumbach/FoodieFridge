@@ -1,104 +1,75 @@
 # FoodieFridge
-
-[Heroku link][heroku] 
-
-[heroku]: http://foodiefridge.herokuapp.com/
-
-## Minimum Viable Product
-
-FoodieFridge is a web application inspired by Dindin.io built using Ruby on Rails
-and React.js. FoodieFridge allows users to:
+[www.FoodieFridge.space][link]
+[link]: http://www.foodiefridge.space/
 
 
-<!-- This is a Markdown checklist. Use it to keep track of your progress! -->
+FoodieFridge is a web application built using Ruby on Rails and React.js. It uses
+intuitive HTML5 drag-n-drop functionality to allow users to build recipes based
+on available ingredients. It also has an option to allow users to filter recipes
+so that they include only certain ingredients.
 
-- [ ] Create an account
-- [ ] Log in / Log out
-- [ ] Search for ingredients
-- [ ] Add and remove ingredients from their virtual fridge
-- [ ] View recipes that use items contained in their fridge
+## Features
 
-## Design Docs
-* [View Wireframes][view]
-* [DB schema][schema]
+### Signing up/in
+Users can either create an account or sign in with a demo account. FoodieFridge
+implements a custom authentication process using BCrypt to store the password as
+a secret hash. Ingredients that have been moved to the "All My Ingredients" or
+"Required Ingredients" categories are saved so that the next time a user signs in,
+they can reuse ingredients that have already been moved.
 
-[view]: ./docs/views.md
-[schema]: ./docs/schema.md
+### Moving Ingredients
+Ingredients can be dragged and dropped into either of the two categories. Alternatively,
+users can click on an ingredient to have it instantly appear in "All My Ingredients".
+When using the search-bar to search for ingredients, users can press Enter to select an
+ingredient if there is only a single result.
 
-## Implementation Timeline
+### All My Ingredients
+FoodieFridge will provide up to 10 recipes for each ingredient in this category.
+This category represents any and all ingredients that a user has available
+to them. If "Required Ingredients" are specified, each additional ingredient added to
+this category will return only recipes that contain all "Required Ingredients", as well
+as that ingredient.
 
-### Phase 1: User Authentication, Ingredients + FridgeItems: Model and JSON API (1.5 days)
-
-In Phase 1, I will begin by implementing user signup and authentication (using
-BCrypt). There will be a basic landing page after signup that will contain the
-container for the application's root React component. Before building out the
-front end, I will begin by setting up a full JSON API for Ingredients and seed
-the database with some ingredient data. I will also set up a full JSON API for FridgeItems.
-
-[Details][phase-one]
-
-### Phase 2: Flux Architecture, Ingredients CRUD (1.5 days)
-
-Phase 2 is focused on setting up Flux, the React Router, and the React view
-structure for the main application. After the basic Flux architecture has been
-set up, an Ingredient store will be implemented and a set of actions to update the store
-will be created (only read, no changes to ingredients DB). Once this is done, I will create
-`Index` and `IndexItem` React views for the Ingredients.
-
-Lastly, while constructing the views I will start using basic bootstrap for styling.
-
-[Details][phase-two]
-
-### Phase 3:  FridgeItem CRUD(2 days)
-
-Phase 3 adds organization to the Fridge and Ingredients.
-
-Ingredients have many FridgeItems.
-FridgeItems belongs to User and Ingredient.
-
-Once I have my Ingredients React components working correctly, I will set up a Fridge store and FridgeItem CRUD functionality. The Fridge will have `Index` and `IndexItem` React views. FridgeItems can be created, read, edited and destroyed in the browser.
-
-When a user clicks on an IngredientIndexItem:
--It saves that Ingredient to the FridgeItems database.
--It removes that Ingredient from the Ingredients store.
-
-When a user clicks on a FridgeIndexItem:
--It deletes that Ingredient from the FridgeItems database.
--It adds that Ingredient back to the Ingredients store.
-
-[Details][phase-three]
-
-### Phase 4: Set up Yummly API (2 days)
-
-Phase 4 sets up functionality with the Yummly API to retrieve recipes.
-
-I will set up a Recipes store with `Index` and `IndexItem` React views.
-
-Each time a user creates a new FridgeItem, a request will be made to the
-Yummly API for recipes that contain that ingredient.
-
-Recipe Actions will be created to add, delete, and receive recipes from the
-Recipe Store. Recipes will not be stored in the database.
-
-RecipeIndexItems will bring up a show page for the recipe when clicked on.
-
-[Details][phase-four]
-
-### Phase 5: Styling Cleanup and Seeding (2 days)
-
-Bootstrap will have been used to keep things organized up until now, but in
-Phase 5 I will add styling flourishes and make modals out of some elements (like
-the RecipeIndexItem show page).
+### Required Ingredients
+This category represents which specific ingredients a user currently wishes to use.
+All recipes will contain every ingredient in this category. It is possible, however,
+to put so many ingredients into this category that the YummlyApi doesn't return any matches.
 
 
-### Bonus Features (TBD)
-- [ ] Prettify transitions
-- [ ] A favorite recipes option/page
-- [ ] Out of stock option for managing recipes
+### Recipes
+On the main page, multiple recipes are shown based on the search conducted. These recipes
+are shown in the form of a rotating tile, animated using CSS, which demonstrate the photo
+and name of the recipe on the front, and on hover, flips over to show all the ingredients
+included in that recipe. Clicking on a recipe tile will bring the user to the recipe
+show page, where more details about ingredients, quantity, and cooking time are provided,
+along with a link to the original recipe with instructions (YummlyApi doesn't provide
+instructions).
 
+### Search by Recipe
+In addition to dragging and dropping tiles, users can search by typing in specific
+recipe names or using certain keywords (such as ingredients or diet types) to return
+up to 10 matching recipes. This is a good option if the user already knows what they
+want to make.
 
+## Design Choices
+In building this app, I was focused on creating a tool that people could actually use
+to make their life easier. Many of the choices that I made were based on my own experiences
+with trying to cook with limited ingredients, as well as conversations with others
+in my position. There are many people (especially current college students and recent
+grads) that 1) don't have the fridge space for many items 2) are cooking for one and
+don't want to buy lots of ingredients that will spoil and 3) don't know what they should buy
+to cook simple meals. I wanted to make an app that I could use myself, and that would
+help with these problems.
 
-[phase-one]: ./docs/phases/phase1.md
-[phase-two]: ./docs/phases/phase2.md
-[phase-three]: ./docs/phases/phase3.md
-[phase-four]: ./docs/phases/phase4.md
+Some design choices were inspired by Dindin.io (i.e. the use of draggable tiles).
+
+### Technologies Used
+I chose to use React.js as a front-end framework due to its speed in rendering to the DOM.
+For users that sign in, I decided that saving their moved ingredients to the database
+would be useful if they wished to keep their "virtual fridge" current and up to date,
+and only change the ingredients that they would like to use for a specific meal. The Ruby
+on Rails back-end (hosted on Heroku) interfaces with the React front-end via a JSON API.
+
+Recipe results are gathered using [Yummly's] (http://www.yummly.com/) Web API, which
+takes in certain ingredient parameters to return matching results from a database
+of over a million recipes.
