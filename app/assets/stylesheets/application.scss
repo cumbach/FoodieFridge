@@ -176,16 +176,31 @@ h1, h2, h3, p, strong, em, div, ul {
   text-align: center;
 }
 
+.modal-body {
+  display: table;
+  height: 276px;
+}
+
 .modal-footer {
+  height: 75px;
   text-align: center;
 }
 
 #my-modal {
+  // background: white;
+  // width: 75%;
+  // border-radius: 15px;
+  // position: relative;
+  // top: 10%;
+  // margin: 0 auto;
+  // display: inline-block;
   background: white;
   width: 75%;
+  min-width: 666px;
   border-radius: 15px;
-  position: relative;
+  position: absolute;
   top: 10%;
+  height: 440px;
   margin: 0 auto;
 }
 
