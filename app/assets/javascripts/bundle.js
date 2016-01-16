@@ -25194,9 +25194,7 @@
 	    }
 	    var search = primaries.concat(ingredient);
 	    var data = { allowedIngredient: search };
-	    console.log("api request:");
-	    console.log(search.join('+'));
-	
+	    console.log("api request: " + search.join('+'));
 	    $.ajax({
 	      url: 'http://api.yummly.com/v1/api/recipes?_app_id=f4ac9032&_app_key=ec28d82137e2708128a2f7f69400989f&requirePictures=true',
 	      data: data,
@@ -25218,8 +25216,7 @@
 	  },
 	  createRecipeSearch: function (searchString) {
 	    var data = { q: searchString };
-	    console.log("api request:");
-	    console.log(searchString);
+	    console.log("api request: " + searchString);
 	    $.ajax({
 	      url: 'http://api.yummly.com/v1/api/recipes?_app_id=f4ac9032&_app_key=ec28d82137e2708128a2f7f69400989f&requirePictures=true',
 	      data: data,
@@ -32591,7 +32588,7 @@
 	        React.createElement(
 	          'h3',
 	          { className: 'fridge-header' },
-	          'All My Ingredients'
+	          'All My Ingredients:'
 	        ),
 	        React.createElement(
 	          'div',
@@ -32926,7 +32923,7 @@
 	        React.createElement(
 	          'h3',
 	          { className: 'primary-header' },
-	          'Required Ingredients:'
+	          'Only Show Recipes With:'
 	        ),
 	        React.createElement('div', { className: 'primary-info' })
 	      );

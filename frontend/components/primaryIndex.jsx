@@ -41,7 +41,7 @@ var PrimaryIndex = React.createClass({
   primaryInfo: function() {
     if (PrimaryStore.all().length === 0) {
       return (<div>
-                <h3 className='primary-header'>Required Ingredients:</h3>
+                <h3 className='primary-header'>Only Show Recipes With:</h3>
                 <div className="primary-info">
                   {/*<h4>What would you<br/>
                     like to cook with</h4>
