@@ -120,7 +120,7 @@ var IngredientsIndex = React.createClass({
           className="form-control search-bar"
           onChange={this.handleChange}
           onKeyPress={this.addOnEnter}
-          placeholder="Search Ingredients"
+          placeholder="🔍Search Ingredients"
           value={this.state.inputVal}/>
           <ul className="matching-ingredients" onClick={this.clearSearch}>
             {this.matchingIngredients()}

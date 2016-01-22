@@ -24742,7 +24742,7 @@
 	        className: 'form-control search-bar',
 	        onChange: this.handleChange,
 	        onKeyPress: this.addOnEnter,
-	        placeholder: 'Search Ingredients',
+	        placeholder: '🔍Search Ingredients',
 	        value: this.state.inputVal }),
 	      React.createElement(
 	        'ul',
@@ -33154,7 +33154,7 @@
 	          { className: 'recipe-show recipe-header' },
 	          React.createElement(
 	            'h2',
-	            null,
+	            { className: 'recipe-name' },
 	            recipeItem.name
 	          ),
 	          React.createElement(

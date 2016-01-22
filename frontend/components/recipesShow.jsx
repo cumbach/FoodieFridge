@@ -48,7 +48,7 @@ var RecipesShow = React.createClass({
           <h3><Link className='back-link' to="/">Back to Recipe Search</Link></h3><br/>
 
           <div className="recipe-show recipe-header">
-            <h2>{recipeItem.name}</h2>
+            <h2 className='recipe-name'>{recipeItem.name}</h2>
             <h5>Recipe from: <a href={"http://www." + recipeItem.source.sourceSiteUrl}>{recipeItem.source.sourceDisplayName}</a></h5>
             <h4>Total Prep Time: {recipeItem.totalTime}</h4> <br/>
           </div>

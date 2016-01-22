@@ -504,6 +504,8 @@ h3 {
   float: left
 }
 
+
+
 .fridge-header {
   color: rgba(0, 0, 0, 0.4);
   text-align: -webkit-center;
@@ -580,6 +582,10 @@ a {
   max-width: 100%;
   max-height: 100%;
   box-sizing: border-box;
+}
+
+.recipe-name {
+  margin-top: 8px;
 }
 
 .actual-photo {
