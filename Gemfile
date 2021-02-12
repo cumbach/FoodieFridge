@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby "~> 2.4.4"
+ruby "~> 2.6.6"
 
 gem 'newrelic_rpm'
 gem 'bcrypt'
