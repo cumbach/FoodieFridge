@@ -1,4 +1,7 @@
 source 'https://rubygems.org'
+
+ruby "~> 2.4.4"
+
 gem 'newrelic_rpm'
 gem 'bcrypt'
 gem 'bootstrap-sass'
